@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>我的收藏</title>
+    <script src="../plugin/rem.js"></script>
+    <link rel="stylesheet" href="../css/icon/iconfont.css">
+    <link rel="stylesheet" href="../plugin/reset.css">
+    <script src="../plugin/jquery-1.12.1.min.js"></script>
+    <style>
+        .collection {
+            height: 100%;
+            background-color: #eee;
+            padding-top: .41rem;
+        }
+
+        .collection nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: .4rem;
+            line-height: .4rem;
+            text-align: center;
+            font-size: .2rem;
+            color: #65c5aa;
+            font-weight: bold;
+            background-color: #fff;
+            z-index: 3;
+            border-bottom: 1px solid #eee;
+        }
+
+        .collection nav i {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: .2rem;
+        }
+
+        .collection ul {
+            padding: 0 .1rem;
+            background-color: #fff;
+        }
+
+        .collection li {
+            margin-bottom: .2rem;
+            padding: .1rem 0;
+            position: relative;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .collection a {
+            display: inline-block;
+            height: 100%;
+            width: 100%;
+        }
+
+        .collection .img {
+            width: 1.6rem;
+            height: 1rem;
+            float: left;
+            position: relative;
+        }
+
+        .collection img {
+            width: 100%;
+            height: 100%;
+        }
+        .collection .img>i{
+    display: inline-block;
+    width: .3rem;
+    text-align: center;
+    height: .2rem;
+    line-height: .2rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: rgb(165, 112, 14);
+    color: white;
+}
+.collection .img span{
+    position: absolute;
+    bottom: .05rem;
+    right: .1rem;
+    color: white;
+}
+        .collection .text {
+            margin-left: 1.7rem;
+            height: 1rem;
+            position: relative;
+        }
+
+        .collection .bot {
+            position: absolute;
+            bottom: 0;
+            font-size: .12rem;
+            line-height: .2rem;
+        }
+        .collection .content>div.title {
+            color: #666;
+            height: .4rem;
+            line-height: .4rem;
+
+        }
+        .collection li>span{
+            position: absolute;
+            bottom: 0rem;
+            right: 0rem;
+            font-size:.14rem;
+            color:rgb(255, 94, 94);
+            z-index:1;
+            height: .4rem;
+            line-height: .4rem;
+        }
+        .collection>p{
+            text-align:center;
+            margin-top:50%;
+        }
+        .collection .loadmore{
+            height: .3rem;
+            line-height: .3rem;
+            text-align:center;
+            background-color: #65c5aa;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="collection">
+        <nav>
+            <i class="iconfont icon-fanhui" onclick="javascript:history.go(-1);"></i>
+            我的收藏
+        </nav>
+        <ul>
+                <!-- 收藏的课程 -->
+        </ul>
+        <div class="loadmore">加载更多</div>
+        <p class="none">当前没有任何收藏</p>
+    </div>
+    <script src="../plugin/template-web.js"></script>
+    <script type="text/template" id="list">
+        {{each}}
+        <li>
+                <span class="iconfont icon-shoucang">取消收藏</span>
+            <a href="{{$value.link+"?vid="+$value.vid}}">
+                <div class="img">
+                    <img src="../{{$value.img}}" alt="">
+                    {{if $value.vip}}
+                                    <i class="iconfont icon-VIP"></i>
+                                    {{/if}}
+                                    <span><i>{{$value.lessonum}}</i>集</span>
+                </div>
+                <div class="text">
+                        {{if $value.title.length>5}}
+                        <h4>{{$value.title.slice(0,5)+'...'}}</h4>
+                        {{else}}
+                        <h4>{{$value.title}}</h4>
+                        {{/if}}
+                    <div class="bot">
+                        <p class="author">{{$value.author}}</p>
+                        <span>{{$value.number}}</span>万次播放
+                    </div>
+                </div>
+            </a>
+        </li>
+        {{/each}}
+    </script>
+    <script>
+        $(function(){
+           
+                var userId = localStorage.getItem("userId");
+                // 判断用户是否登录
+                if(!localStorage.getItem("userId")){
+                location.href="../login.html"
+            }
+
+            var page = 1;
+            // 首次加载历史记录
+            $.ajax({
+                url: "json/tag.json",
+                type: "get",
+                data:{userId:userId},
+                success: function (res) {
+                    var html = template("list", res[page]);
+                    $(".collection  ul").append(html);
+                    console.log(html)
+                    if ($(".collection   li").length == 0) {
+                        $(".collection>p").removeClass("none");
+                    }
+                }
+            })
+            //  点击加载更多
+            $(".collection .loadmore").click(function () {
+                alert(1)
+                page++;
+                $.ajax({
+                    url: "json/tag.json",
+                    type: "get",
+                    success: function (res) {
+                        console.log(res[page])
+                        if (!res[page]) {
+                            $(".collection .loadmore").html("没有更多数据了");
+                            return false;
+                        }
+                        var html = template("list", res[page]);
+                        $(".collection  ul").append(html);
+                    }
+                })
+
+            })
+            $(".collection ").on("click","li>span",function(){
+                $(this).parent().remove();
+                if($(".collection li").length==0){
+                $(".collection>p").removeClass("none");
+                $(".collection .loadmore").addClass("none");
+            }
+            return false;
+            })
+          
+        })
+    </script>
+</body>
+
+</html>

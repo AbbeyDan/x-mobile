@@ -1,0 +1,197 @@
+{
+    "list": [
+        {
+            "id": 388,
+            "user_id": 1,
+            "add_time": "2018-09-06 09:04:16",
+            "text": "123",
+            "tbl_id": 794,
+            "cid": null,
+            "tbl_name": "course",
+            "leve": 1,
+            "nickname": null,
+            "img": null,
+            "user": {
+                "nickname": "那是的",
+                "img": null
+            },
+            "items": [
+                {
+                    "id": 389,
+                    "user_id": 1,
+                    "add_time": "2018-09-06 09:04:29",
+                    "text": "321",
+                    "tbl_id": 794,
+                    "cid": 388,
+                    "tbl_name": "course",
+                    "leve": 1,
+                    "nickname": null,
+                    "img": null,
+                    "user": {
+                        "nickname": "那是的",
+                        "img": null
+                    }
+                }
+            ]
+        },
+        {
+            "id": 387,
+            "user_id": 1,
+            "add_time": "2018-07-27 12:26:55",
+            "text": "1212121212",
+            "tbl_id": 790,
+            "cid": null,
+            "tbl_name": "course",
+            "leve": 1,
+            "nickname": null,
+            "img": null,
+            "user": {
+                "nickname": "那是的",
+                "img": null
+            },
+            "items": []
+        },
+        {
+            "id": 379,
+            "user_id": 1,
+            "add_time": "2018-05-21 16:18:32",
+            "text": "123",
+            "tbl_id": 794,
+            "cid": null,
+            "tbl_name": null,
+            "leve": 1,
+            "nickname": null,
+            "img": null,
+            "user": {
+                "nickname": "那是的",
+                "img": null
+            },
+            "items": []
+        },
+        {
+            "id": 378,
+            "user_id": 1,
+            "add_time": "2018-05-21 16:09:46",
+            "text": "123",
+            "tbl_id": 794,
+            "cid": null,
+            "tbl_name": null,
+            "leve": 1,
+            "nickname": null,
+            "img": null,
+            "user": {
+                "nickname": "那是的",
+                "img": null
+            },
+            "items": []
+        },
+        {
+            "id": 377,
+            "user_id": 1,
+            "add_time": "2018-05-21 16:09:19",
+            "text": "123",
+            "tbl_id": 794,
+            "cid": null,
+            "tbl_name": null,
+            "leve": 1,
+            "nickname": null,
+            "img": null,
+            "user": {
+                "nickname": "那是的",
+                "img": null
+            },
+            "items": []
+        },
+        {
+            "id": 376,
+            "user_id": 1,
+            "add_time": "2018-05-21 16:06:41",
+            "text": "sssssss",
+            "tbl_id": 794,
+            "cid": null,
+            "tbl_name": null,
+            "leve": 1,
+            "nickname": null,
+            "img": null,
+            "user": {
+                "nickname": "那是的",
+                "img": null
+            },
+            "items": []
+        },
+        {
+            "id": 375,
+            "user_id": 1,
+            "add_time": "2018-05-21 16:05:38",
+            "text": "qqqqqq",
+            "tbl_id": 794,
+            "cid": null,
+            "tbl_name": null,
+            "leve": 1,
+            "nickname": null,
+            "img": null,
+            "user": {
+                "nickname": "那是的",
+                "img": null
+            },
+            "items": []
+        },
+        {
+            "id": 374,
+            "user_id": 1,
+            "add_time": "2018-05-21 16:03:04",
+            "text": "3232323",
+            "tbl_id": 794,
+            "cid": null,
+            "tbl_name": null,
+            "leve": 1,
+            "nickname": null,
+            "img": null,
+            "user": {
+                "nickname": "那是的",
+                "img": null
+            },
+            "items": []
+        },
+        {
+            "id": 373,
+            "user_id": 1,
+            "add_time": "2018-05-21 16:01:37",
+            "text": "asd",
+            "tbl_id": 794,
+            "cid": null,
+            "tbl_name": null,
+            "leve": 1,
+            "nickname": null,
+            "img": null,
+            "user": {
+                "nickname": "那是的",
+                "img": null
+            },
+            "items": []
+        },
+        {
+            "id": 372,
+            "user_id": 1,
+            "add_time": "2018-05-21 15:58:58",
+            "text": "1",
+            "tbl_id": 794,
+            "cid": null,
+            "tbl_name": null,
+            "leve": 1,
+            "nickname": null,
+            "img": null,
+            "user": {
+                "nickname": "那是的",
+                "img": null
+            },
+            "items": []
+        }
+    ],
+    "pager": {
+        "pageNumber": 1,
+        "pageSize": 10,
+        "pageCount": 38,
+        "recordCount": 373
+    }
+}

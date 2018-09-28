@@ -1,0 +1,1917 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>个人资料</title>
+    <script src="../plugin/rem.js"></script>
+    <link rel="stylesheet" href="../css/icon/iconfont.css">
+    <link rel="stylesheet" href="../plugin/reset.css">
+    <script src="../plugin/jquery-1.12.1.min.js"></script>
+    <link rel="stylesheet" href="../plugin/mui.css">
+    <script src="../plugin/mui.min.js"></script>
+    <link rel="stylesheet" href="../plugin/mui.picker.css">
+    <link rel="stylesheet" href="../plugin/mui.poppicker.css">
+    <script src="../plugin/mui.picker.js"></script>
+    <script src="../plugin/mui.poppicker.js"></script>
+    <style>
+        .userDetail {
+            background-color: #eee;
+            padding-top: .5rem;
+        }
+
+        .userDetail nav {
+            border-bottom: 1px solid #ccc;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: .4rem;
+            line-height: .4rem;
+            text-align: center;
+            font-size: .18rem;
+            color: #65c5aa;
+            background-color: #fff;
+        }
+
+        .userDetail nav span,
+        .userDetail nav i {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .userDetail nav span {
+            right: .2rem;
+            font-size: .15rem;
+        }
+
+        .userDetail nav i {
+            left: .2rem;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 0 .2rem;
+        }
+
+        .mui-input-row {
+            height: .6rem;
+            line-height: .6rem;
+            border-bottom: 1px solid #eee;
+            position: relative;
+            color: #666;
+        }
+
+        .mui-input-row i {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 0;
+        }
+
+        .userDetail .avator img {
+            width: .5rem;
+            height: .5rem;
+            border-radius: 50%;
+            position: absolute;
+            right: .2rem;
+            top: 50%;
+            transform: translateY(-50%);
+
+        }
+
+        /* 选择行业页面 */
+
+        .trade {
+            background-color: white;
+            padding-top: .4rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            /* height: 100%; */
+        }
+
+        .trade nav {
+            border-bottom: 1px solid #ccc;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: .4rem;
+            line-height: .4rem;
+            text-align: center;
+            font-size: .18rem;
+            color: #65c5aa;
+            font-weight: bold;
+            background-color: #fff;
+        }
+
+        .trade nav i {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: .2rem;
+        }
+
+        .trade .content {
+            background-color: #fff;
+        }
+
+        .trade .left {
+            width: 1.2rem;
+            float: left;
+            overflow: scroll;
+            height: 6rem;
+        }
+
+        .trade .left li {
+            width: 100%;
+            height: .5rem;
+            line-height: .5rem;
+            text-align: center;
+            border-right: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+
+        .trade .left li.active {
+            border-right: none;
+            color: rgb(168, 146, 22);
+        }
+
+        .trade .right {
+            margin-left: 1rem;
+            text-align: center;
+            padding-top: .1rem;
+        }
+
+        .trade .right li {
+            margin-top: .2rem;
+        }
+
+        .trade .right li.active {
+            color: rgb(168, 146, 22);
+        }
+
+        .mui-input-row label {
+            padding: 0;
+            width: 25%;
+        }
+
+        .mui-input-row label~input,
+        .mui-input-row label~select,
+        .mui-input-row label~textarea {
+            width: 75%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="userDetail">
+        <nav>
+            <i class="iconfont icon-fanhui" onclick="javascript:history.go(-1);"></i>
+            个人资料
+            <span class="submit">保存</span>
+        </nav>
+        <form action="json/user.php" enctype="multipart/form-data" method="post">
+          <!-- 个人信息模板 -->
+        </form>
+        <!-- 选择行业页面 -->
+        <div class="trade none">
+            <nav>
+                <i class="iconfont icon-fanhui"></i>
+                行业
+            </nav>
+            <div class="content">
+                <ul class="left">
+                </ul>
+                <div>
+                    <ul class="right none">
+                        <li>技术</li>
+                        <li>产品</li>
+                        <li>设计</li>
+                        <li>运营</li>
+                        <li>市场</li>
+                        <li>职能/高级管理</li>
+                        <li>销售</li>
+                        <li>其他</li>
+                    </ul>
+                    <ul class="right none">
+                        <li>投资</li>
+                        <li>银行</li>
+                        <li>证券</li>
+                        <li>基金</li>
+                        <li>保险</li>
+                        <li>期货</li>
+                        <li>信托</li>
+                        <li>典当</li>
+                        <li>结算</li>
+                        <li>风控</li>
+                        <li>税务审计</li>
+                        <li>其他</li>
+                    </ul>
+                    <ul class="right none">
+                        <li>零售业</li>
+                    </ul>
+                    <ul class="right none">
+                        <li>生产运营</li>
+                        <li>质量安全</li>
+                        <li>机械设计/制造</li>
+                        <li>化工</li>
+                        <li>服装</li>
+                        <li>纺织</li>
+                        <li>皮革</li>
+                        <li>技工/普工</li>
+                        <li>其他</li>
+                    </ul>
+                    <ul class="right none">
+                        <li>设计/动画</li>
+                        <li>广告</li>
+                        <li>公关</li>
+                        <li>广告策划</li>
+                        <li>编导制作</li>
+                        <li>记者/编辑</li>
+                        <li>影视</li>
+                        <li>其他</li>
+                    </ul>
+                    <ul class="right none">
+                        <li>教育产品研发</li>
+                        <li>教育行政</li>
+                        <li>教师</li>
+                        <li>IT培训</li>
+                        <li>职业培训</li>
+                        <li>招生</li>
+                        <li>教练</li>
+                        <li>其他</li>
+                    </ul>
+                    <ul class="right none">
+                        <li>房产销售</li>
+                        <li>项目管理</li>
+                        <li>房产策划</li>
+                        <li>市场商务</li>
+                        <li>工程师</li>
+                        <li>设计师</li>
+                        <li>房地产经纪</li>
+                        <li>物业管理</li>
+                        <li>其他</li>
+                    </ul>
+                    <ul class="right none">
+                        <li>服务业</li>
+                    </ul>
+                    <ul class="right none">
+                        <li>物流</li>
+                        <li>仓储</li>
+                        <li>运输</li>
+                        <li>其他</li>
+                    </ul>
+                    <ul class="right none">
+                        <li>药店</li>
+                        <li>医疗技术</li>
+                        <li>护士/护理</li>
+                        <li>医师/医生</li>
+                        <li>健康整形</li>
+                        <li>市场销售</li>
+                        <li>其他</li>
+                    </ul>
+                    <ul class="right none">
+                        <li>政府/组织</li>
+                    </ul>
+                    <ul class="right none">
+                        <li>化工能源</li>
+                    </ul>
+                    <ul class="right none">
+                        <li>农林牧渔</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script src="../plugin/template-web.js"></script>
+    <script src="../plugin/ajax.js"></script>
+    <!-- 选择行业模板 -->
+    <script type="text/template" id="trade">         
+                    {{each list}}
+                    <li data-id="{{$value.id}}">{{$value.trade}}</li>
+                    {{/each}}     
+    </script>
+    <!-- 个人信息模板 -->
+    <script type="text/template" id="form">
+        <div class="mui-input-row avator">
+                <label>头像:</label>
+                <span>点击更换头像</span>
+                <input class="camera none" type="file" accept="image/*" name="file"  >
+                <img src="../{{list.avator}}" alt="">
+            </div>
+            <div class="mui-input-row">
+                <label>用户名：</label>
+                <input type="text" class="mui-input-clear" placeholder="请输入用户名" value="{{list.user}}" name="user">
+            </div>
+            <div class="mui-input-row">
+                <label>手机号：</label>
+                <input type="text" class="mui-input-clear" placeholder="请输入手机号" value="{{list.phone}}" name="phone">
+            </div>
+            <div class="mui-input-row">
+                <label>微信号</label>
+                <input type="text" class="mui-input-clear" placeholder="请输入微信号" value="{{list.wechat}}" name="wechat">
+            </div>
+            <div class="mui-input-row">
+                <label>行业</label>
+                <input type="text" class="mui-input-clear" placeholder="请选择" value="{{list.trade}}" name="trade">
+                <i class="iconfont icon-xiangxiajiantoushixin"></i>
+            </div>
+            <div class="mui-input-row">
+                <label>职位</label>
+                <input type="text" class="mui-input-clear" placeholder="请选择" value="{{list.post}}" name="post">
+                <i class="iconfont icon-xiangxiajiantoushixin"></i>
+            </div>
+            <div class="mui-input-row">
+                <label>公司名称</label>
+                <input type="text" class="mui-input-clear" placeholder="请输入公司名称" value="{{list.company}}" name="company">
+            </div>
+            <div class="mui-input-row">
+                <label>城市</label>
+                <input type="text" class="mui-input-clear" placeholder="请选择" value="{{list.city}}" name="city">
+                <i class="iconfont icon-xiangxiajiantoushixin"></i>
+            </div>
+    </script>
+    <script>
+        $(function () {
+            // 获取url参数
+            // function getQueryString(name) {
+            //     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            //     var r = window.location.search.substr(1).match(reg);
+            //     if (r != null)
+            //         return unescape(r[2]);
+            //     return null;
+            // }
+            function userSet() {
+                $(".avator span").on("click", function (e) {
+                    $(".camera").trigger("click");
+                });
+                // 头像预览
+
+                $(".camera").click(); //隐藏了input:file样式后，点击头像就可以本地上传
+                $(".camera").on("change", function () {
+                    var objUrl = getObjectURL(this.files[0]); //获取图片的路径，该路径不是图片在本地的路径
+                    if (objUrl) {
+                        $(".avator img").attr("src", objUrl); //将图片路径存入src中，显示出图片
+
+                    }
+                });
+
+                //建立一個可存取到該file的url
+                function getObjectURL(file) {
+                    var url = null;
+                    if (window.createObjectURL != undefined) { // basic
+                        url = window.createObjectURL(file);
+                    } else if (window.URL != undefined) { // mozilla(firefox)
+                        url = window.URL.createObjectURL(file);
+                    } else if (window.webkitURL != undefined) { // webkit or chrome
+                        url = window.webkitURL.createObjectURL(file);
+                    }
+                    return url;
+                }
+                // 选择行业
+                var obj = {};
+                $(".userDetail .mui-input-row:nth-child(5)").click(function () {
+                    $(".trade").fadeIn("slow");
+                    document.activeElement.blur();
+                    $.ajax({
+                        url: "json/trade.json",
+                        type: "get",
+                        dataType: "json",
+                        success: function (res) {
+                            var html = template("trade", res);
+                            $(".trade .left").append(html);
+                        }
+                    })
+
+                    $(".trade ").on("click", " .left li", function () {
+                        $(this).addClass("active").siblings().removeClass("active");
+                        $(".trade  .right").eq($(this).index()).removeClass("none").siblings().addClass("none");
+                        obj.trade = $(this).html();
+                    })
+                    $(".trade .right li").click(function () {
+                        $(this).addClass("active").siblings().removeClass("active");
+                        obj.child = $(this).html();
+                    })
+                    // 选择完行业点击返回按钮时
+                    $(".trade nav i").click(function () {
+                        $(".trade").fadeOut();
+                        console.log(obj)
+                        if (obj.trade && obj.child) {
+                            $(".userDetail .mui-input-row:nth-child(5) input").val(obj.trade + " " + obj.child);
+                        }
+                    })
+                })
+
+                // 选择职位
+                var picker = new mui.PopPicker();
+                picker.setData([{ value: '0', text: '创始人/合伙人/董事长' }, { value: '1', text: '投资人' }, { value: '2', text: '总裁/CEO' }, { value: '3', text: '高层管理' },
+                { value: '4', text: '中层管理' }, { value: '5', text: '基层管理' }, { value: '6', text: '普通员工' }, { value: '7', text: '其他' }]);
+                $(".userDetail .mui-input-row:nth-child(6)").click(function () {
+                    document.activeElement.blur();
+                    picker.show(function (getSelectedItems) {
+                        $(".userDetail .mui-input-row:nth-child(6) input").val(getSelectedItems[0].text)
+                    })
+                })
+                // 选择城市
+                var cityPicker = new mui.PopPicker({
+                    layer: 2
+                });
+                var data = [
+                    {
+                        "text": "北京",
+                        "children": [
+                            { "text": "东城区" },
+                            { "text": "西城区" },
+                            { "text": "崇文区" },
+                            { "text": "宣武区" },
+                            { "text": "朝阳区" },
+                            { "text": "丰台区" },
+                            { "text": "石景山区" },
+                            { "text": "海淀区" },
+                            { "text": "门头沟区" },
+                            { "text": "房山区" },
+                            { "text": "通州区" },
+                            { "text": "顺义区" },
+                            { "text": "昌平区" },
+                            { "text": "大兴区" },
+                            { "text": "平谷区" },
+                            { "text": "怀柔区" },
+                            { "text": "密云县" },
+                            { "text": "延庆县" }
+                        ]
+                    },
+                    {
+                        "text": "天津",
+                        "children": [
+                            { "text": "和平区" },
+                            { "text": "河东区" },
+                            { "text": "河西区" },
+                            { "text": "南开区" },
+                            { "text": "河北区" },
+                            { "text": "红桥区" },
+                            { "text": "塘沽区" },
+                            { "text": "汉沽区" },
+                            { "text": "大港区" },
+                            { "text": "东丽区" },
+                            { "text": "西青区" },
+                            { "text": "津南区" },
+                            { "text": "北辰区" },
+                            { "text": "武清区" },
+                            { "text": "宝坻区" },
+                            { "text": "宁河县" },
+                            { "text": "静海县" },
+                            { "text": "蓟 县" }
+                        ]
+                    },
+                    {
+                        "text": "河北",
+                        "children": [
+                            {
+                                "text": "石家庄"
+                            },
+                            {
+                                "text": "唐山"
+                            },
+                            {
+                                "text": "秦皇岛"
+                            },
+                            {
+                                "text": "邯郸"
+                            },
+                            {
+                                "text": "邢台"
+                            },
+                            {
+                                "text": "保定"
+                            },
+                            {
+                                "text": "张家口"
+                            },
+                            {
+                                "text": "承德"
+                            },
+                            {
+                                "text": "沧州"
+                            },
+                            {
+                                "text": "廊坊"
+                            },
+                            {
+                                "text": "衡水"
+                            }
+                        ]
+                    },
+                    {
+                        "text": "山西",
+                        "children": [
+                            {
+                                "text": "太原"
+                            },
+                            {
+                                "text": "大同"
+                            },
+                            {
+                                "text": "阳泉"
+                            },
+                            {
+                                "text": "长治"
+                            },
+                            {
+                                "text": "晋城"
+                            },
+                            {
+                                "text": "朔州"
+                            },
+                            {
+                                "text": "忻州"
+                            },
+                            {
+                                "text": "吕梁"
+                            },
+                            {
+                                "text": "晋中"
+                            },
+                            {
+                                "text": "临汾"
+                            },
+                            {
+                                "text": "运城"
+                            }
+                        ]
+                    },
+                    {
+                        "text": "内蒙古",
+                        "children": [
+                            {
+                                "text": "呼和浩特"
+                            },
+                            {
+                                "text": "包头"
+                            },
+                            {
+                                "text": "乌海"
+                            },
+                            {
+                                "text": "赤峰"
+                            },
+                            {
+                                "text": "呼伦贝尔"
+                            },
+                            {
+                                "text": "兴安盟"
+                            },
+                            {
+                                "text": "通辽"
+                            },
+                            {
+                                "text": "锡林郭勒盟"
+                            },
+                            {
+                                "text": "乌兰察布盟"
+                            },
+                            {
+                                "text": "伊克昭盟"
+                            },
+                            {
+                                "text": "巴彦淖尔盟"
+                            },
+                            {
+                                "text": "阿拉善盟"
+                            }
+                        ]
+                    },
+                    {
+                        "text": "辽宁",
+                        "children": [
+                            {
+                                "text": "沈阳"
+                            },
+                            {
+                                "text": "大连"
+                            },
+                            {
+                                "text": "鞍山"
+                            },
+                            {
+                                "text": "抚顺"
+                            },
+                            {
+                                "text": "本溪"
+                            },
+                            {
+                                "text": "丹东"
+                            },
+                            {
+                                "text": "锦州"
+                            },
+                            {
+                                "text": "营口"
+                            },
+                            {
+                                "text": "阜新"
+                            },
+                            {
+                                "text": "辽阳"
+                            },
+                            {
+                                "text": "盘锦"
+                            },
+                            {
+                                "text": "铁岭"
+                            },
+                            {
+                                "text": "朝阳"
+                            },
+                            {
+                                "text": "葫芦岛"
+                            },
+                            {
+                                "text": "其他"
+                            }
+                        ]
+                    },
+                    {
+                        "text": "吉林",
+                        "children": [
+                            {
+                                "text": "长春"
+                            },
+                            {
+                                "text": "吉林"
+                            },
+                            {
+                                "text": "四平"
+                            },
+                            {
+                                "text": "辽源"
+                            },
+                            {
+                                "text": "通化"
+                            },
+                            {
+                                "text": "白山"
+                            },
+                            {
+                                "text": "松原"
+                            },
+                            {
+                                "text": "白城"
+                            },
+                            {
+                                "text": "延边朝鲜族自治州"
+                            },
+                            {
+                                "text": "其他"
+                            }
+                        ]
+                    },
+                    {
+                        "text": "黑龙江",
+                        "children": [
+                            {
+                                "text": "哈尔滨"
+                            },
+                            {
+                                "text": "齐齐哈尔"
+                            },
+                            {
+                                "text": "鹤岗"
+                            },
+                            {
+                                "text": "双鸭山"
+                            },
+                            {
+                                "text": "鸡西"
+                            },
+                            {
+                                "text": "大庆"
+                            },
+                            {
+                                "text": "伊春"
+                            },
+                            {
+                                "text": "牡丹江"
+                            },
+                            {
+                                "text": "佳木斯"
+                            },
+                            {
+                                "text": "七台河"
+                            },
+                            {
+                                "text": "黑河"
+                            },
+                            {
+                                "text": "绥化"
+                            },
+                            {
+                                "text": "大兴安岭地区"
+                            },
+                            {
+                                "text": "其他"
+                            }
+                        ]
+                    },
+                    {
+                        "text": "上海",
+                        "children": [
+                            { "text": "黄浦区" },
+                            { "text": "卢湾区" },
+                            { "text": "徐汇区" },
+                            { "text": "长宁区" },
+                            { "text": "静安区" },
+                            { "text": "普陀区" },
+                            { "text": "闸北区" },
+                            { "text": "虹口区" },
+                            { "text": "杨浦区" },
+                            { "text": "宝山区" },
+                            { "text": "闵行区" },
+                            { "text": "嘉定区" },
+                            { "text": "松江区" },
+                            { "text": "金山区" },
+                            { "text": "青浦区" },
+                            { "text": "南汇区" },
+                            { "text": "奉贤区" },
+                            { "text": "浦东新区" },
+                            { "text": "崇明县" },
+                            { "text": "其他" }
+                        ]
+                    },
+                    {
+                        "text": "江苏",
+                        "children": [
+                            {
+                                "text": "南京"
+                            },
+                            {
+                                "text": "苏州"
+                            },
+                            {
+                                "text": "无锡"
+                            },
+                            {
+                                "text": "常州"
+                            },
+                            {
+                                "text": "镇江"
+                            },
+                            {
+                                "text": "南通"
+                            },
+                            {
+                                "text": "泰州"
+                            },
+                            {
+                                "text": "扬州"
+                            },
+                            {
+                                "text": "盐城"
+                            },
+                            {
+                                "text": "连云港"
+                            },
+                            {
+                                "text": "徐州"
+                            },
+                            {
+                                "text": "淮安"
+                            },
+                            {
+                                "text": "宿迁"
+                            },
+                            {
+                                "text": "其他"
+                            }
+                        ]
+                    },
+                    {
+                        "text": "浙江",
+                        "children": [
+                            {
+                                "text": "杭州"
+                            },
+                            {
+                                "text": "宁波"
+                            },
+                            {
+                                "text": "温州"
+                            },
+                            {
+                                "text": "嘉兴"
+                            },
+                            {
+                                "text": "湖州"
+                            },
+                            {
+                                "text": "绍兴"
+                            },
+                            {
+                                "text": "金华"
+                            },
+                            {
+                                "text": "衢州"
+                            },
+                            {
+                                "text": "舟山"
+                            },
+                            {
+                                "text": "台州"
+                            },
+                            {
+                                "text": "丽水"
+                            },
+                            {
+                                "text": "其他"
+                            }
+                        ]
+                    },
+                    {
+                        "text": "安徽",
+                        "children": [
+                            {
+                                "text": "合肥"
+                            },
+                            {
+                                "text": "芜湖"
+                            },
+                            {
+                                "text": "蚌埠"
+                            },
+                            {
+                                "text": "淮南"
+                            },
+                            {
+                                "text": "马鞍山"
+                            },
+                            {
+                                "text": "淮北"
+                            },
+                            {
+                                "text": "铜陵"
+                            },
+                            {
+                                "text": "安庆"
+                            },
+                            {
+                                "text": "黄山"
+                            },
+                            {
+                                "text": "滁州"
+                            },
+                            {
+                                "text": "阜阳"
+                            },
+                            {
+                                "text": "宿州"
+                            },
+                            {
+                                "text": "巢湖"
+                            },
+                            {
+                                "text": "六安"
+                            },
+                            {
+                                "text": "亳州"
+                            },
+                            {
+                                "text": "池州"
+                            },
+                            {
+                                "text": "宣城"
+                            },
+                            {
+                                "text": "其他"
+                            }
+                        ]
+                    },
+                    {
+                        "text": "福建",
+                        "children": [
+                            {
+                                "text": "福州"
+                            },
+                            {
+                                "text": "厦门"
+                            },
+                            {
+                                "text": "莆田"
+                            },
+                            {
+                                "text": "三明"
+                            },
+                            {
+                                "text": "泉州"
+                            },
+                            {
+                                "text": "漳州"
+                            },
+                            {
+                                "text": "南平"
+                            },
+                            {
+                                "text": "龙岩"
+                            },
+                            {
+                                "text": "宁德"
+                            },
+                            {
+                                "text": "其他"
+                            }
+                        ]
+                    },
+                    {
+                        "text": "江西",
+                        "children": [
+                            {
+                                "text": "南昌"
+                            },
+                            {
+                                "text": "景德镇"
+                            },
+                            {
+                                "text": "萍乡"
+                            },
+                            {
+                                "text": "九江"
+                            },
+                            {
+                                "text": "新余"
+                            },
+                            {
+                                "text": "鹰潭"
+                            },
+                            {
+                                "text": "赣州"
+                            },
+                            {
+                                "text": "吉安"
+                            },
+                            {
+                                "text": "宜春"
+                            },
+                            {
+                                "text": "抚州"
+                            },
+                            {
+                                "text": "上饶"
+                            },
+                            {
+                                "text": "其他"
+                            }
+                        ]
+                    },
+                    {
+                        "text": "山东",
+                        "children": [
+                            {
+                                "text": "济南"
+                            },
+                            {
+                                "text": "青岛"
+                            },
+                            {
+                                "text": "淄博"
+                            },
+                            {
+                                "text": "枣庄"
+                            },
+                            {
+                                "text": "东营"
+                            },
+                            {
+                                "text": "烟台"
+                            },
+                            {
+                                "text": "潍坊"
+                            },
+                            {
+                                "text": "济宁"
+                            },
+                            {
+                                "text": "泰安"
+                            },
+                            {
+                                "text": "威海"
+                            },
+                            {
+                                "text": "日照"
+                            },
+                            {
+                                "text": "莱芜"
+                            },
+                            {
+                                "text": "临沂"
+                            },
+                            {
+                                "text": "德州"
+                            },
+                            {
+                                "text": "聊城"
+                            },
+                            {
+                                "text": "滨州"
+                            },
+                            {
+                                "text": "菏泽"
+                            },
+                            {
+                                "text": "其他"
+                            }
+                        ]
+                    },
+                    {
+                        "text": "河南",
+                        "children": [
+                            {
+                                "text": "郑州"
+                            },
+                            {
+                                "text": "开封"
+                            },
+                            {
+                                "text": "洛阳"
+                            },
+                            {
+                                "text": "平顶山"
+                            },
+                            {
+                                "text": "安阳"
+                            },
+                            {
+                                "text": "鹤壁"
+                            },
+                            {
+                                "text": "新乡"
+                            },
+                            {
+                                "text": "焦作"
+                            },
+                            {
+                                "text": "濮阳"
+                            },
+                            {
+                                "text": "许昌"
+                            },
+                            {
+                                "text": "漯河"
+                            },
+                            {
+                                "text": "三门峡"
+                            },
+                            {
+                                "text": "南阳"
+                            },
+                            {
+                                "text": "商丘"
+                            },
+                            {
+                                "text": "信阳"
+                            },
+                            {
+                                "text": "周口"
+                            },
+                            {
+                                "text": "驻马店"
+                            },
+                            {
+                                "text": "焦作"
+                            },
+                            {
+                                "text": "其他"
+                            }
+                        ]
+                    },
+                    {
+                        "text": "湖北",
+                        "children": [
+                            {
+                                "text": "武汉"
+                            },
+                            {
+                                "text": "黄石"
+                            },
+                            {
+                                "text": "十堰"
+                            },
+                            {
+                                "text": "荆州"
+                            },
+                            {
+                                "text": "宜昌"
+                            },
+                            {
+                                "text": "襄樊"
+                            },
+                            {
+                                "text": "鄂州"
+                            },
+                            {
+                                "text": "荆门"
+                            },
+                            {
+                                "text": "孝感"
+                            },
+                            {
+                                "text": "黄冈"
+                            },
+                            {
+                                "text": "咸宁"
+                            },
+                            {
+                                "text": "随州"
+                            },
+                            {
+                                "text": "恩施土家族苗族自治州"
+                            },
+                            {
+                                "text": "仙桃"
+                            },
+                            {
+                                "text": "天门"
+                            },
+                            {
+                                "text": "潜江"
+                            },
+                            {
+                                "text": "神农架林区"
+                            },
+                            {
+                                "text": "其他"
+                            }
+                        ]
+                    },
+                    {
+                        "text": "湖南",
+                        "children": [
+                            {
+                                "text": "长沙"
+                            },
+                            {
+                                "text": "株洲"
+                            },
+                            {
+                                "text": "湘潭"
+                            },
+                            {
+                                "text": "衡阳"
+                            },
+                            {
+                                "text": "邵阳"
+                            },
+                            {
+                                "text": "岳阳"
+                            },
+                            {
+                                "text": "常德"
+                            },
+                            {
+                                "text": "张家界"
+                            },
+                            {
+                                "text": "益阳"
+                            },
+                            {
+                                "text": "郴州"
+                            },
+                            {
+                                "text": "永州"
+                            },
+                            {
+                                "text": "怀化"
+                            },
+                            {
+                                "text": "娄底"
+                            },
+                            {
+                                "text": "湘西土家族苗族自治州"
+                            },
+                            {
+                                "text": "其他"
+                            }
+                        ]
+                    },
+                    {
+                        "text": "广东",
+                        "children": [
+                            {
+                                "text": "广州"
+                            },
+                            {
+                                "text": "深圳"
+                            },
+                            {
+                                "text": "东莞"
+                            },
+                            {
+                                "text": "中山",
+                                "children": [
+                                    { "value": "中山" }
+                                ]
+                            },
+                            {
+                                "text": "潮州"
+                            },
+                            {
+                                "text": "揭阳"
+                            },
+                            {
+                                "text": "云浮"
+                            },
+                            {
+                                "text": "珠海"
+                            },
+                            {
+                                "text": "汕头"
+                            },
+                            {
+                                "text": "韶关"
+                            },
+                            {
+                                "text": "佛山"
+                            },
+                            {
+                                "text": "江门"
+                            },
+                            {
+                                "text": "湛江"
+                            },
+                            {
+                                "text": "茂名"
+                            },
+                            {
+                                "text": "肇庆"
+                            },
+                            {
+                                "text": "惠州"
+                            },
+                            {
+                                "text": "梅州"
+                            },
+                            {
+                                "text": "汕尾"
+                            },
+                            {
+                                "text": "河源"
+                            },
+                            {
+                                "text": "阳江"
+                            },
+                            {
+                                "text": "清远"
+                            }
+                        ]
+                    },
+                    {
+                        "text": "广西",
+                        "children": [
+                            {
+                                "text": "南宁"
+                            },
+                            {
+                                "text": "柳州"
+                            },
+                            {
+                                "text": "桂林"
+                            },
+                            {
+                                "text": "梧州"
+                            },
+                            {
+                                "text": "北海"
+                            },
+                            {
+                                "text": "防城港"
+                            },
+                            {
+                                "text": "钦州"
+                            },
+                            {
+                                "text": "贵港"
+                            },
+                            {
+                                "text": "玉林"
+                            },
+                            {
+                                "text": "百色"
+                            },
+                            {
+                                "text": "贺州"
+                            },
+                            {
+                                "text": "河池"
+                            },
+                            {
+                                "text": "来宾"
+                            },
+                            {
+                                "text": "崇左"
+                            },
+                            {
+                                "text": "其他"
+                            }
+                        ]
+                    },
+                    {
+                        "text": "海南",
+                        "children": [
+                            {
+                                "text": "海口"
+                            },
+                            {
+                                "text": "三亚"
+                            },
+                            {
+                                "text": "五指山"
+                            },
+                            {
+                                "text": "琼海"
+                            },
+                            {
+                                "text": "儋州"
+                            },
+                            {
+                                "text": "文昌"
+                            },
+                            {
+                                "text": "万宁"
+                            },
+                            {
+                                "text": "东方"
+                            },
+                            {
+                                "text": "澄迈县"
+                            },
+                            {
+                                "text": "定安县"
+                            },
+                            {
+                                "text": "屯昌县"
+                            },
+                            {
+                                "text": "临高县"
+                            },
+                            {
+                                "text": "白沙黎族自治县"
+                            },
+                            {
+                                "text": "昌江黎族自治县"
+                            },
+                            {
+                                "text": "乐东黎族自治县"
+                            },
+                            {
+                                "text": "陵水黎族自治县"
+                            },
+                            {
+                                "text": "保亭黎族苗族自治县"
+                            },
+                            {
+                                "text": "琼中黎族苗族自治县"
+                            },
+                            {
+                                "text": "其他"
+                            }
+                        ]
+                    },
+                    {
+                        "text": "重庆",
+                        "children": [
+                            { "text": "渝中区" },
+                            { "text": "大渡口区" },
+                            { "text": "江北区" },
+                            { "text": "南岸区" },
+                            { "text": "北碚区" },
+                            { "text": "渝北区" },
+                            { "text": "巴南区" },
+                            { "text": "长寿区" },
+                            { "text": "双桥区" },
+                            { "text": "沙坪坝区" },
+                            { "text": "万盛区" },
+                            { "text": "万州区" },
+                            { "text": "涪陵区" },
+                            { "text": "黔江区" },
+                            { "text": "永川区" },
+                            { "text": "合川区" },
+                            { "text": "江津区" },
+                            { "text": "九龙坡区" },
+                            { "text": "南川区" },
+                            { "text": "綦江县" },
+                            { "text": "潼南县" },
+                            { "text": "荣昌县" },
+                            { "text": "璧山县" },
+                            { "text": "大足县" },
+                            { "text": "铜梁县" },
+                            { "text": "梁平县" },
+                            { "text": "开县" },
+                            { "text": "忠县" },
+                            { "text": "城口县" },
+                            { "text": "垫江县" },
+                            { "text": "武隆县" },
+                            { "text": "丰都县" },
+                            { "text": "奉节县" },
+                            { "text": "云阳县" },
+                            { "text": "巫溪县" },
+                            { "text": "巫山县" },
+                            { "text": "石柱土家族自治县" },
+                            { "text": "秀山土家族苗族自治县" },
+                            { "text": "酉阳土家族苗族自治县" },
+                            { "text": "彭水苗族土家族自治县" },
+                            { "text": "其他" }
+                        ]
+                    },
+                    {
+                        "text": "四川",
+                        "children": [
+                            {
+                                "text": "成都"
+                            },
+                            {
+                                "text": "自贡"
+                            },
+                            {
+                                "text": "攀枝花"
+                            },
+                            {
+                                "text": "泸州"
+                            },
+                            {
+                                "text": "德阳"
+                            },
+                            {
+                                "text": "绵阳"
+                            },
+                            {
+                                "text": "广元"
+                            },
+                            {
+                                "text": "遂宁"
+                            },
+                            {
+                                "text": "内江"
+                            },
+                            {
+                                "text": "乐山"
+                            },
+                            {
+                                "text": "南充"
+                            },
+                            {
+                                "text": "眉山"
+                            },
+                            {
+                                "text": "宜宾"
+                            },
+                            {
+                                "text": "广安"
+                            },
+                            {
+                                "text": "达州"
+                            },
+                            {
+                                "text": "雅安"
+                            },
+                            {
+                                "text": "巴中"
+                            },
+                            {
+                                "text": "资阳"
+                            },
+                            {
+                                "text": "阿坝藏族羌族自治州"
+                            },
+                            {
+                                "text": "甘孜藏族自治州"
+                            },
+                            {
+                                "text": "凉山彝族自治州"
+                            },
+                            {
+                                "text": "其他"
+                            }
+                        ]
+                    },
+                    {
+                        "text": "贵州",
+                        "children": [
+                            {
+                                "text": "贵阳"
+                            },
+                            {
+                                "text": "六盘水"
+                            },
+                            {
+                                "text": "遵义"
+                            },
+                            {
+                                "text": "安顺"
+                            },
+                            {
+                                "text": "铜仁地区"
+                            },
+                            {
+                                "text": "毕节地区"
+                            },
+                            {
+                                "text": "黔西南布依族苗族自治州"
+                            },
+                            {
+                                "text": "黔东南苗族侗族自治州"
+                            },
+                            {
+                                "text": "黔南布依族苗族自治州"
+                            },
+                            {
+                                "text": "其他"
+                            }
+                        ]
+                    },
+                    {
+                        "text": "云南",
+                        "children": [
+                            {
+                                "text": "昆明"
+                            },
+                            {
+                                "text": "曲靖"
+                            },
+                            {
+                                "text": "玉溪"
+                            },
+                            {
+                                "text": "保山"
+                            },
+                            {
+                                "text": "昭通"
+                            },
+                            {
+                                "text": "丽江"
+                            },
+                            {
+                                "text": "普洱"
+                            },
+                            {
+                                "text": "临沧"
+                            },
+                            {
+                                "text": "德宏傣族景颇族自治州"
+                            },
+                            {
+                                "text": "怒江傈僳族自治州"
+                            },
+                            {
+                                "text": "迪庆藏族自治州"
+                            },
+                            {
+                                "text": "大理白族自治州"
+                            },
+                            {
+                                "text": "楚雄彝族自治州"
+                            },
+                            {
+                                "text": "红河哈尼族彝族自治州"
+                            },
+                            {
+                                "text": "文山壮族苗族自治州"
+                            },
+                            {
+                                "text": "西双版纳傣族自治州"
+                            },
+                            {
+                                "text": "其他"
+                            }
+                        ]
+                    },
+                    {
+                        "text": "西藏",
+                        "children": [
+                            {
+                                "text": "拉萨"
+                            },
+                            {
+                                "text": "那曲地区"
+                            },
+                            {
+                                "text": "昌都地区"
+                            },
+                            {
+                                "text": "林芝地区"
+                            },
+                            {
+                                "text": "山南地区"
+                            },
+                            {
+                                "text": "日喀则地区"
+                            },
+                            {
+                                "text": "阿里地区"
+                            },
+                            {
+                                "text": "其他"
+                            }
+                        ]
+                    },
+                    {
+                        "text": "陕西",
+                        "children": [
+                            {
+                                "text": "西安"
+                            },
+                            {
+                                "text": "铜川"
+                            },
+                            {
+                                "text": "宝鸡"
+                            },
+                            {
+                                "text": "咸阳"
+                            },
+                            {
+                                "text": "渭南"
+                            },
+                            {
+                                "text": "延安"
+                            },
+                            {
+                                "text": "汉中"
+                            },
+                            {
+                                "text": "榆林"
+                            },
+                            {
+                                "text": "安康"
+                            },
+                            {
+                                "text": "商洛"
+                            },
+                            {
+                                "text": "其他"
+                            }
+                        ]
+                    },
+                    {
+                        "text": "甘肃",
+                        "children": [
+                            {
+                                "text": "兰州"
+                            },
+                            {
+                                "text": "嘉峪关"
+                            },
+                            {
+                                "text": "金昌"
+                            },
+                            {
+                                "text": "白银"
+                            },
+                            {
+                                "text": "天水"
+                            },
+                            {
+                                "text": "武威"
+                            },
+                            {
+                                "text": "酒泉"
+                            },
+                            {
+                                "text": "张掖"
+                            },
+                            {
+                                "text": "庆阳"
+                            },
+                            {
+                                "text": "平凉"
+                            },
+                            {
+                                "text": "定西"
+                            },
+                            {
+                                "text": "陇南"
+                            },
+                            {
+                                "text": "临夏回族自治州"
+                            },
+                            {
+                                "text": "甘南藏族自治州"
+                            },
+                            {
+                                "text": "其他"
+                            }
+                        ]
+                    },
+                    {
+                        "text": "青海",
+                        "children": [
+                            {
+                                "text": "西宁"
+                            },
+                            {
+                                "text": "海东地区"
+                            },
+                            {
+                                "text": "海北藏族自治州"
+                            },
+                            {
+                                "text": "海南藏族自治州"
+                            },
+                            {
+                                "text": "黄南藏族自治州"
+                            },
+                            {
+                                "text": "果洛藏族自治州"
+                            },
+                            {
+                                "text": "玉树藏族自治州"
+                            },
+                            {
+                                "text": "海西蒙古族藏族自治州"
+                            },
+                            {
+                                "text": "其他"
+                            }
+                        ]
+                    },
+                    {
+                        "text": "宁夏",
+                        "children": [
+                            {
+                                "text": "银川"
+                            },
+                            {
+                                "text": "石嘴山"
+                            },
+                            {
+                                "text": "吴忠"
+                            },
+                            {
+                                "text": "固原"
+                            },
+                            {
+                                "text": "中卫"
+                            },
+                            {
+                                "text": "其他"
+                            }
+                        ]
+                    },
+                    {
+                        "text": "新疆",
+                        "children": [
+                            {
+                                "text": "乌鲁木齐"
+                            },
+                            {
+                                "text": "克拉玛依"
+                            },
+                            {
+                                "text": "吐鲁番地区"
+                            },
+                            {
+                                "text": "哈密地区"
+                            },
+                            {
+                                "text": "和田地区"
+                            },
+                            {
+                                "text": "阿克苏地区"
+                            },
+                            {
+                                "text": "喀什地区"
+                            },
+                            {
+                                "text": "克孜勒苏柯尔克孜自治州"
+                            },
+                            {
+                                "text": "巴音郭楞蒙古自治州"
+                            },
+                            {
+                                "text": "昌吉回族自治州"
+                            },
+                            {
+                                "text": "博尔塔拉蒙古自治州"
+                            },
+                            {
+                                "text": "石河子"
+                            },
+                            {
+                                "text": "阿拉尔"
+                            },
+                            {
+                                "text": "图木舒克"
+                            },
+                            {
+                                "text": "五家渠"
+                            },
+                            {
+                                "text": "伊犁哈萨克自治州"
+                            },
+                            {
+                                "text": "其他"
+                            }
+                        ]
+                    },
+                    {
+                        "text": "台湾",
+                        "children": [
+                            { "text": "台北市" },
+                            { "text": "高雄市" },
+                            { "text": "台北县" },
+                            { "text": "桃园县" },
+                            { "text": "新竹县" },
+                            { "text": "苗栗县" },
+                            { "text": "台中县" },
+                            { "text": "彰化县" },
+                            { "text": "南投县" },
+                            { "text": "云林县" },
+                            { "text": "嘉义县" },
+                            { "text": "台南县" },
+                            { "text": "高雄县" },
+                            { "text": "屏东县" },
+                            { "text": "宜兰县" },
+                            { "text": "花莲县" },
+                            { "text": "台东县" },
+                            { "text": "澎湖县" },
+                            { "text": "基隆市" },
+                            { "text": "新竹市" },
+                            { "text": "台中市" },
+                            { "text": "嘉义市" },
+                            { "text": "台南市" },
+                            { "text": "其他" }
+                        ]
+                    },
+                    {
+                        "text": "澳门",
+                        "children": [
+                            { "text": "花地玛堂区" },
+                            { "text": "圣安多尼堂区" },
+                            { "text": "大堂区" },
+                            { "text": "望德堂区" },
+                            { "text": "风顺堂区" },
+                            { "text": "嘉模堂区" },
+                            { "text": "圣方济各堂区" },
+                            { "text": "路凼" },
+                            { "text": "其他" }
+                        ]
+                    },
+                    {
+                        "text": "香港",
+                        "children": [
+                            { "text": "中西区" },
+                            { "text": "湾仔区" },
+                            { "text": "东区" },
+                            { "text": "南区" },
+                            { "text": "深水埗区" },
+                            { "text": "油尖旺区" },
+                            { "text": "九龙城区" },
+                            { "text": "黄大仙区" },
+                            { "text": "观塘区" },
+                            { "text": "北区" },
+                            { "text": "大埔区" },
+                            { "text": "沙田区" },
+                            { "text": "西贡区" },
+                            { "text": "元朗区" },
+                            { "text": "屯门区" },
+                            { "text": "荃湾区" },
+                            { "text": "葵青区" },
+                            { "text": "离岛区" },
+                            { "text": "其他" }
+                        ]
+                    }
+                ]
+                cityPicker.setData(data)
+                $(".userDetail .mui-input-row:nth-child(8)").click(function () {
+                    // 禁止键盘弹出
+                    document.activeElement.blur();
+                    cityPicker.show(function (getSelectedItems) {
+                        $(".userDetail .mui-input-row:nth-child(8) input").val(getSelectedItems[0].text + " " + getSelectedItems[1].text)
+                    })
+                })
+                // 保存用户信息
+                $(".submit").click(function(){
+                    $("form").submit();
+                })
+            }
+
+            var userId = localStorage.getItem("userId");
+            // 请求用户信息
+            $.ajax({
+                url:"json/userInfo.json",
+                type:"get",
+                data:$("form").serialize(),
+                success:function(res){
+                    console.log(res)
+                    var html = template("form",res);
+                    $("form").html(html)
+                    console.log(html)
+                    userSet();
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>

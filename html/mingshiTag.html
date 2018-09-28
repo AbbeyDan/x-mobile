@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>选择讲师</title>
+    <script src="../plugin/rem.js"></script>
+    <link rel="stylesheet" href="../css/icon/iconfont.css">
+    <link rel="stylesheet" href="../plugin/reset.css">
+    <!-- <link rel="stylesheet" href="http://res.wx.qq.com/open/libs/weui/0.4.0/weui.min.css"> -->
+    <script src="../plugin/jquery-1.12.1.min.js"></script>
+    <style>
+        .mingshiTag {
+            background-color: #eee;
+            padding-top: 1.3rem;
+        }
+
+        .mingshiTag nav {
+            border-bottom: 1px solid #ccc;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: .4rem;
+            line-height: .4rem;
+            text-align: center;
+            font-size: .18rem;
+            color: white;
+            background-color: #65c5aa;
+        }
+
+        .mingshiTag nav i {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: .2rem;
+        }
+        .mingshiTag .choose {
+            padding: 0 .2rem;
+            height: 0.4rem;
+            line-height: .4rem;
+            border-bottom: 1px solid #ccc;
+            font-weight: bold;
+            background-color: #fff;
+            position: fixed;
+            top: .4rem;
+            width: 100%;
+        }
+
+        .mingshiTag .choose li {
+            float: left;
+            margin-right: .1rem;
+        }
+
+        .mingshiTag .choose li.active {
+            color: rgb(7, 189, 221);
+        }
+
+        .mingshiTag .sort {
+            border-bottom: 1px solid #ccc;
+            font-weight: bold;
+            background-color: #fff;
+            position: fixed;
+            top: .8rem;
+            width: 100%;
+        }
+
+        .mingshiTag .sort div {
+            width: 50%;
+            height: .5rem;
+            line-height: .5rem;
+            float: left;
+            text-align: center;
+        }
+
+        .mingshiTag .sort div.active {
+            color: rgb(247, 103, 8);
+        }
+
+        .mingshiTag .sort span {
+            /* display: inline-block; */
+            height: 0.2rem;
+            border-left: 1px solid #ccc;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -0.1rem;
+        }
+
+        .mingshiTag .content {
+            background-color: #fff;
+
+        }
+
+        .mingshiTag .content .play {
+            margin-top: .2rem;
+            padding: 0 .2rem;
+        }
+
+        .mingshiTag .content .play li {
+            height: .6rem;
+            line-height: .6rem;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .mingshiTag .content .letter p {
+            background-color: #eee;
+            padding: 0 .1rem;
+        }
+
+        .mingshiTag .content .letter ul{
+            padding: 0 .2rem;
+        }
+
+        .mingshiTag .content .letter li {
+            height: .6rem;
+            height: .6rem;
+            line-height: .6rem;
+            border-bottom: 1px solid #ccc;
+
+        }
+
+        .mingshiTag .letterSort {
+            position: fixed;
+            right: 0;
+            top: 1.5rem;
+            line-height: 0;
+        }
+
+        .mingshiTag .letterSort a {
+            display: block;
+            height: .2rem;
+            font-size: .12rem;
+            width: .2rem;
+            height: .2rem;
+            text-align: center;
+            line-height: .2rem;
+            border-radius: 50%;
+        }
+
+        .mingshiTag .letterSort a.active {
+            color: white;
+            background-color: red;
+        }
+
+        input {
+            appearance: none;
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            background-image: url('../img/1111_03.png');
+            background-size: 0.2rem 0.2rem;
+            width: 0.2rem;
+            height: 0.2rem;
+            cursor: pointer;
+            background-repeat: no-repeat;
+            background-position: 0 0;
+            outline: none;
+        }
+
+        input:checked {
+            background-image: url('../img/checked.png');
+            background-size: cover;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="mingshiTag">
+        <nav>
+            <i class="iconfont icon-fanhui" onclick="javascript:history.go(-1);"></i>
+            选择讲师
+        </nav>
+        <!-- 分类 -->
+        <div class="choose">
+            <span class="fl">讲师 ：</span>
+            <ul>
+                <li onclick="history.go(-1)">全部</li>
+                <li class="remen" data-flag="remen">热门</li>
+                <li class="guonei" data-flag="guonei">国内</li>
+                <li class="guowai" data-flag="guowai">国外</li>
+            </ul>
+        </div>
+        <!-- 排序 -->
+        <div class="sort clearfix">
+            <div class="left active" data-flag="play">按播放次数排序</div>
+            <span></span>
+            <div class="right" data-flag="letter">按字母排序</div>
+        </div>
+        <div class="content">
+            <!-- 按播放排序 -->
+            <ul class="play">
+              <!-- 播放排序 -->
+
+            </ul>
+                <!-- <div class="choice none">
+                    <div class="left">取消</div>
+                    <div class="right">确认</div>
+                </div> -->
+            <!-- 按字母排序 -->
+            <div class="letter none">
+                    <!-- 字母排序 -->
+                <div class="letterSort">
+                    <a class="active" href="javascript:;" name="A">A</a>
+                    <a href="javascript:;" name="B">B</a>
+                    <a href="javascript:;" name="C">C</a>
+                    <a href="javascript:;" name="D">D</a>
+                    <a href="javascript:;" name="E">E</a>
+                    <a>F</a>
+                    <a>G</a>
+                    <a>H</a>
+                    <a>I</a>
+                    <a>J</a>
+                    <a>K</a>
+                    <a>l</a>
+                    <a>M</a>
+                    <a>N</a>
+                    <a>O</a>
+                    <a>P</a>
+                    <a>Q</a>
+                    <a>R</a>
+                    <a>S</a>
+                    <a>T</a>
+                    <a>U</a>
+                    <a>V</a>
+                    <a>W</a>
+                    <a>X</a>
+                    <a>Y</a>
+                    <a>Z</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../plugin/template-web.js"></script>
+        <!-- 讲师播放次数排序模板 -->
+        <script type="text/template" id="play">
+            {{each list}}
+            <li>
+                    <input type="radio" data-flag="{{$value.id}}"> 
+                    {{$value.author}}
+                   
+            </li>
+            {{/each}}
+        </script>
+        <!-- 讲师按字母排序模板 -->
+        <script type="text/template" id="letter">
+               <%for( i = 0; i < list.length; i++) {%>
+            <div>
+                    <p id="<%=list[i].id%>"><%=list[i].id%></p>
+                    <ul>
+                            <%for( j = 0; j < list[i].authors.length; j++) {%>
+                        <li>
+                            <input type="radio" data-flag="<%=list[i].authors[j].id%>">
+                            <span><%=list[i].authors[j].author%></span>
+                        </li>
+                        <%}%>
+    
+                    </ul>
+                </div>
+                <%}%>
+        </script>
+    <script>
+        $(function () {
+            function getQueryString(name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+                var r = window.location.search.substr(1).match(reg);
+                if (r != null)
+                    return unescape(r[2]);
+                return null;
+            }
+            var mbid = getQueryString("mingshiTag");
+            // 首次加载根据上一个页面的选择默认选中
+            $(".mingshiTag .choose li." + mbid).addClass("active")
+            // 根据前一个页面用户选择条件请求数据
+            $.ajax({
+                url: "json/play.json",
+                type: "get",
+                data:mbid,
+                success: function (res) {
+                    var html = template("play", res);
+                    $(".play").html(html);
+                }
+            })
+            // 分类选中样式
+            $(".choose").on("click", "li", function () {
+                $(this).addClass("active").siblings().removeClass("active");
+                history.replaceState({}, "", 'mingshiTag.html?mingshiTag=' + $(this).data("flag"));
+                var that=$(this)
+                // 根据用户切换热门，国内外讲师获取新数据
+                $.ajax({
+                url: "json/"+$(".sort>div.active").data("flag")+".json",
+                type: "get",
+                data:$(this).data("flag"), //用户选择的条件
+                success: function (res) {
+                    console.log("用户选择了"+that.data("flag"),$(".sort>div.active").data("flag"))
+                    var html = template($(".sort>div.active").data("flag"), res);
+                    $("."+$(".sort>div.active").data("flag")).prepend(html);
+                }
+            })
+            })
+            // 排序选中样式
+            $(".mingshiTag .sort div").click(function () {
+                $(this).addClass("active").siblings().removeClass("active");
+                var flag = $(this).data("flag");
+                $(".mingshiTag .content ." + flag).removeClass("none").siblings().addClass("none")
+                var that=$(this)
+                $.ajax({
+                url: "json/"+$(".sort>div.active").data("flag")+".json",
+                type: "get",
+                data:$(this).data("flag"), //用户选择的条件
+                success: function (res) {
+                    console.log("用户选择了"+that.data("flag"),$(".choose li.active").data("flag"))
+                    var html = template($(".sort>div.active").data("flag"), res);
+                    $("."+$(".sort>div.active").data("flag")).prepend(html);
+                }
+            })
+               
+            })
+            // 字母排序
+            $(".mingshiTag .letterSort a").click(function () {
+                $(this).addClass("active").siblings().removeClass("active");
+                $('html,body').animate({ scrollTop: $("#" + this.name).offset().top - 130 }, 500);
+
+            })
+            // 用户选择讲师。跳转到讲师详情页面
+            $(".mingshiTag").on("change","input",function () {
+                alert(1)
+                window.location.href = "mingshiDetail.html?teacherId="+$(this).data("flag")
+            })
+        })
+
+    </script>
+</body>
+
+</html>

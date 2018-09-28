@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>申请发票</title>
+    <script src="../plugin/rem.js"></script>
+    <link rel="stylesheet" href="../plugin/mui.css">
+    <script src="../plugin/mui.min.js"></script>
+    <link rel="stylesheet" href="../css/icon/iconfont.css">
+    <link rel="stylesheet" href="../plugin/reset.css">
+    <script src="../plugin/jquery-1.12.1.min.js"></script>
+
+    <style>
+        .applyInvoice {
+            background-color: #eee;
+            padding-top: .4rem;
+            padding-bottom: 1rem;
+        }
+
+        .applyInvoice nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: .4rem;
+            line-height: .4rem;
+            text-align: center;
+            font-size: .2rem;
+            color: #666;
+            font-weight: bold;
+            background-color: #fff;
+            z-index: 1;
+        }
+
+        .applyInvoice nav i {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: .2rem;
+        }
+
+        .applyInvoice .content>div {
+            margin-top: .1rem;
+        }
+
+        .applyInvoice .month {
+            margin-left: .1rem;
+            font-size: .12rem;
+            color: #666;
+        }
+
+        .applyInvoice .content ul {
+            background-color: #fff;
+            margin-top: .1rem;
+        }
+
+        .applyInvoice .content li {
+            height: 1rem;
+            padding-left: .1rem;
+            border-bottom: 1px solid #eee;
+            position: relative;
+        }
+
+        input {
+            appearance: none;
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            background-image: url('../img/1111_03.png');
+            background-size: 0.2rem 0.2rem;
+            width: 0.2rem;
+            height: 0.2rem;
+            cursor: pointer;
+            background-repeat: no-repeat;
+            background-position: 0 0;
+            outline: none;
+
+        }
+
+        .applyInvoice .content input {
+            position: absolute;
+            top: 50%;
+            left: .2rem;
+
+        }
+
+        input:checked {
+            background-image: url('../img/checked.png');
+            background-size: cover;
+        }
+
+        .applyInvoice .content {
+            /* margin-bottom: 1rem; */
+        }
+
+        .applyInvoice .content .text {
+            width: 70%;
+            position: absolute;
+            top: 50%;
+            left: .8rem;
+            line-height: .4rem;
+            transform: translateY(-50%);
+            color: #666;
+        }
+
+        .applyInvoice .money {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            color: #e25c58;
+            font-size: .16rem;
+            font-weight: bold;
+        }
+
+        .applyInvoice .foot {
+            padding: .1rem .2rem;
+            height: 1rem;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #fff;
+        }
+
+        .applyInvoice .foot>div {
+            height: .5rem;
+            line-height: .5rem;
+        }
+
+        .applyInvoice .foot input {
+            vertical-align: middle;
+        }
+
+        .applyInvoice .next {
+            display: inline-block;
+            width: 1.2rem;
+            height: .5rem;
+            background-color: #65c5aa;
+            color: white;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="applyInvoice">
+        <nav>
+            <i class="iconfont icon-fanhui" onclick="history.go(-1)"></i>
+            申请发票
+        </nav>
+        <div class="content">
+            <!-- 发票列表 -->
+        </div>
+        <div class="foot">
+            <span class="num">0</span>个课程 , 共
+            <span class="sum">0</span>元
+            <div style="position:relative">
+                <input type="checkbox" class="check">全选
+                <span class="next fr">下一步</span>
+            </div>
+        </div>
+    </div>
+    <script src="../plugin/template-web.js"></script>
+    <script src="../plugin/ajax.js"></script>
+    <script type="text/template" id="invoice">
+        <%for(i=0;i<list.length;i++){%>
+        <div>
+                <span class="month">{{list[i].month}}</span>
+                <ul>
+                        <%for(j=0;j<list[i].data.length;j++){%>
+                    <li>
+                        <input type="checkbox" name="lesson" data-id={{list[i].data[j].lessonId}}>
+                        <div class="text">
+                            <p>{{list[i].data[j].time}}</p>
+                            <h6>{{list[i].data[j].type}}</h6>
+                            <span>{{list[i].data[j].name}}</span>
+                            <span class="money">
+                                <span class="price">{{list[i].data[j].price}}</span>
+                                <span>元</span>
+                            </span>
+                        </div>
+
+                    </li>
+                    <%}%>
+                </ul>
+            </div>
+            <%}%>
+    </script>
+    <script src="../plugin/jquery.cookie.js"></script>
+    <script src="../plugin/getQuery.js"></script>
+    <script>
+        $(function () {
+
+            function count() {
+                var length = $("input[name='lesson']").length  //获取所有课程的长度
+                var selectArr = [];//存储用户选中的课程id
+
+                // 恢复之前页面选中状态
+                if (localStorage.getItem("next")) {
+                    console.log("显示选中状态")
+                    var preArr = localStorage.getItem("select").split(",");
+                    if (preArr.length == length) {
+                        $(".check").prop("checked", "checked");
+                    }
+                    $("input[name='lesson']").each(function (j, val) {
+                        console.log(val)
+                        $(preArr).each(function (i, v) {
+                            if ($(val).data("id") == v) {
+                                $(val).prop("checked", true);
+                            }
+
+                        })
+                    })
+                    localStorage.removeItem("next")
+                }
+                var sum = 0;
+                if (localStorage.getItem("sum") && localStorage.getItem("num")) {
+                    $(".num").html(localStorage.getItem("num"));
+                    $(".sum").html(localStorage.getItem("sum"));
+                    sum = localStorage.getItem("sum");
+                    localStorage.removeItem("num");
+                    localStorage.removeItem("sum");
+                    localStorage.removeItem("select");
+                }
+
+
+                // 全选全不选
+                $(".check").change(function () {
+                    var status = $(this).prop("checked");
+                    $("input[name='lesson']").each(function (i, v) {
+                        if (status) {
+                            selectArr.push($(v).data("id"))
+                        } else {
+                            selectArr = [];
+                        }
+                        $(v).prop("checked", status)
+                    })
+                    console.log(selectArr)
+                })
+                // 点击单个课程
+                $("input[name='lesson']").click(function () {
+                    var len = $("input[name='lesson']:checked").length;
+                    if ($(this).prop("checked")) {
+                        alert("选中")
+                        selectArr.push($(this).data("id"))
+                    } else {
+                        alert("不选中")
+                        selectArr.splice(selectArr.indexOf($(this).data("id")), 1)
+                    }
+
+                    if (length == len) {
+                        $(".check").prop("checked", true)
+                    } else {
+                        $(".check").prop("checked", false)
+                    }
+                    console.log(selectArr)
+
+                })
+                // 计算课程数和总金额
+                $("input").change(function () {
+                    sum = 0;
+                    $("input[name='lesson']").each(function (i, v) {
+                        if ($(v).prop("checked")) {
+                            sum += Number(($(v).parent().find(".price").html()));
+                        }
+                    })
+                    sum = sum.toFixed(2)
+                    $(".sum").html(sum);
+                    $(".num").html($("input[name='lesson']:checked").length)
+                })
+                // 下一步
+                $(".next").click(function () {
+                    localStorage.setItem("select", selectArr.join(","));
+                    localStorage.setItem("sum", sum);
+                    localStorage.setItem("next", true);
+                    localStorage.setItem("num", $("input[name='lesson']:checked").length)
+                    if (sum < 2000) {
+                        mui.toast('开票金额不得低于2000元', { duration: 'long', type: 'div' })
+                    } else {
+                        location.href = "openInvoice.html?money=" + sum;
+                    }
+                })
+
+            }
+            var userId = localStorage.getItem("userId");
+            ajax("json/invoice.json", "invoice", ".content", count, { userId: userId });
+        })
+    </script>
+</body>
+
+</html>

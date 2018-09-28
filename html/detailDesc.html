@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>详情描述</title>
+    <script src="../plugin/rem.js"></script>
+    <link rel="stylesheet" href="../css/icon/iconfont.css">
+    <link rel="stylesheet" href="../plugin/reset.css">
+    <script src="../plugin/jquery-1.12.1.min.js"></script>
+    <style>
+        .detailDesc {
+            height: 100%;
+            padding-top: .4rem;
+        }
+
+        .detailDesc nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: .4rem;
+            line-height: .4rem;
+            text-align: center;
+            font-size: .18rem;
+            color: #65c5aa;
+            font-weight: bold;
+            background-color: #fff;
+        }
+
+        .detailDesc nav i {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: .2rem;
+        }
+        .detailDesc .content{
+            padding:0 .2rem;
+        }
+        .detailDesc h3{
+            height: .6rem;
+            line-height: .6rem;
+            border-bottom:1px solid #eee;
+        }
+        .detailDesc p{
+            margin-top:.1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="detailDesc">
+        <nav>
+            <i class="iconfont icon-fanhui" onclick="javascript:history.go(-1);"></i>
+            详情描述
+        </nav>
+        <div class="content">
+                <h3></h3>
+                <p></p>
+        </div>
+
+    </div>
+    <script>
+        $(function(){
+            var question=[{id:1,title:"如何入学",content:"打开官网-个人中心-购买支付"},
+        {id:2,title:"学籍即将到期/过期怎么办",content:"官网-个人中心-续费"},
+        {id:3,title:"非大陆手机号如何注册App",content:"无文案"},
+        {id:4,title:"注册收不到验证码",content:"无文案"},
+        {id:5,title:"团队报名",content:"无文案"},
+        {id:6,title:"如何到现场听课",content:"无文案"},
+        {id:7,title:"直播卡顿",content:"无文案"},
+        {id:8,title:"如何联系我们",content:"无文案"}];
+        var student = [
+            {id:"1-1",title:"12模块学生大课，拓宽认知边界",content:"1-1"},
+            {id:"1-2",title:"每周可以练习，解决实际问题",content:"1-2"},
+            {id:"2-1",title:"学分制教育：上课、练习可获得学分",content:"2-1"},
+            {id:"2-2",title:"混沌大学学位证书由知名企业联名认证",content:"2-2"},
+            {id:"3-1",title:"分社和班级提供超级链接",content:"3-1"},
+            {id:"3-2",title:"加入后是否可以更改？",content:"3-2"},
+            {id:"3-3",title:"分社和班级提供多样化的线下学习服务",content:"3-3"},
+            {id:"4-1",title:"参与学生专属的研值激励计划",content:"4-1"},
+            {id:"4-2",title:"学习、推荐好友入学可获得研值激励",conent:"4-2"},
+            {id:"4-3",title:"研值可兑换更多课程和限量线下学习机会",content:"4-3"},
+            {id:"5-1",title:"4次年度超级大课",content:"5-1"},
+            {id:"5-2",title:"赠送分享课程给好友",content:"5-2"}
+        ]
+            // 获取参数
+            function getQueryString(name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+                var r = window.location.search.substr(1).match(reg);
+                if (r != null)
+                    return unescape(r[2]);
+                return null;
+            }
+            var mbid = getQueryString("id");
+            var page = getQueryString("page");
+            console.log(page)
+            if(page=="question"){
+                for(var i = 0;i<question.length;i++){
+                if(question[i].id==mbid){
+                    $("h3").html(question[i].title);
+                    $("p").html(question[i].content)
+                }
+            }
+            }else{
+               console.log(mbid=="1-1")
+                for(var i = 0;i<student.length;i++){
+                if(student[i].id==mbid){
+                    $("h3").html(student[i].title);
+                    $("p").html(student[i].content)
+                }
+            }
+            }
+            
+        })
+    </script>
+</body>
+
+</html>

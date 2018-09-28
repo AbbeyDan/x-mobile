@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>发票课程详情</title>
+    <script src="../plugin/rem.js"></script>
+    <link rel="stylesheet" href="../css/icon/iconfont.css">
+    <link rel="stylesheet" href="../plugin/reset.css">
+    <script src="../plugin/jquery-1.12.1.min.js"></script>
+    <style>
+        .invoiceLesson {
+            height: 100%;
+            background-color: #eee;
+            padding-top: .4rem;
+        }
+
+        .invoiceLesson nav {
+            color: #65c5aa;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: .4rem;
+            line-height: .4rem;
+            text-align: center;
+            font-size: .2rem;
+            font-weight: bold;
+            background-color: #fff;
+            z-index: 1;
+        }
+
+        .invoiceLesson nav i {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: .2rem;
+        }
+
+
+        .invoiceLesson .content li {
+            padding: 0 .2rem;
+            border-bottom: 1px solid #eee;
+            position: relative;
+            background-color: #fff;
+            margin-top: .1rem;
+        }
+
+
+
+        .invoiceLesson .content {
+            margin-bottom: 1rem;
+        }
+
+        .invoiceLesson .content .text {
+            line-height: .3rem;
+            color: #666;
+        }
+
+        .invoiceLesson .money {
+            position: absolute;
+            bottom: 0;
+            right: .2rem;
+            color: #e25c58;
+            font-size: .16rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="invoiceLesson">
+        <nav>
+            <i class="iconfont icon-fanhui" onclick="javascript:history.go(-1);"></i>
+            纸质发票课程详情
+        </nav>
+        <div class="content">
+
+            <ul>
+                <!-- 模板 -->
+            </ul>
+        </div>
+    </div>
+</body>
+<script src="../plugin/getQuery.js"></script>
+<script src="../plugin/ajax.js"></script>
+<script src="../plugin/template-web.js"></script>
+<!-- 发票包含的课程 -->
+<script type="text/template" id="lists">
+    {{each list[0].data}}
+    <li>
+
+        <div class="text">
+            <p>{{$value.time}}</p>
+            <h6>{{$value.type}}</h6>
+            <span>伴侣咨询案例</span>
+            <span class="money">
+                <span class="price">{{$value.price}}</span>
+                <span>元</span>
+            </span>
+        </div>
+
+    </li>
+    {{/each}}
+</script>
+<script>
+    $(function(){
+        // 获取发票单号
+        var orderNum = getQueryString("orderNum");
+        ajax("json/invoice.json","lists",".content ul","",{orderNum:orderNum});
+    })
+</script>
+</html>

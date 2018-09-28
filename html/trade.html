@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>行业选择</title>
+    <script src="../plugin/rem.js"></script>
+    <link rel="stylesheet" href="../css/icon/iconfont.css">
+    <link rel="stylesheet" href="../plugin/reset.css">
+    <script src="../plugin/jquery-1.12.1.min.js"></script>
+    <style>
+        .trade {
+            background-color: #eee;
+            padding-top: .4rem;
+        }
+
+        .trade nav {
+            border-bottom: 1px solid #ccc;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: .4rem;
+            line-height: .4rem;
+            text-align: center;
+            font-size: .18rem;
+            color: #65c5aa;
+            font-weight: bold;
+            background-color: #fff;
+        }
+
+        .trade nav i {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: .2rem;
+        }
+
+        .trade .content {
+            background-color: #fff;
+        }
+
+        .trade .left {
+            width: 1rem;
+            float: left;
+        }
+
+        .trade .left li {
+            width: 100%;
+            height: .5rem;
+            line-height: .5rem;
+            text-align: center;
+            border-right: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+
+        .trade .left li.active {
+            border-right: none;
+            color: rgb(168, 146, 22);
+        }
+
+        .trade .right {
+            margin-left: 1rem;
+            text-align: center;
+            padding-top: .1rem;
+        }
+
+        .trade .right li {
+            margin-top: .2rem;
+        }
+        .trade .right li.active {
+            color: rgb(168, 146, 22);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="trade">
+        <nav>
+            <i class="iconfont icon-fanhui"  onclick="javascript:history.go(-1);"></i>
+            行业
+        </nav>
+        <div class="content">
+            <ul class="left">
+            </ul>
+            <div>
+                <ul class="right none">
+                    <li>技术</li>
+                    <li>产品</li>
+                    <li>设计</li>
+                    <li>运营</li>
+                    <li>市场</li>
+                    <li>职能/高级管理</li>
+                    <li>销售</li>
+                    <li>其他</li>
+                </ul>
+                <ul class="right none">
+                    <li>投资</li>
+                    <li>银行</li>
+                    <li>证券</li>
+                    <li>基金</li>
+                    <li>保险</li>
+                    <li>期货</li>
+                    <li>信托</li>
+                    <li>典当</li>
+                    <li>结算</li>
+                    <li>风控</li>
+                    <li>税务审计</li>
+                    <li>其他</li>
+                </ul>
+                <ul class="right none">
+                    <li>零售业</li>
+                </ul>
+                <ul class="right none">
+                    <li>生产运营</li>
+                    <li>质量安全</li>
+                    <li>机械设计/制造</li>
+                    <li>化工</li>
+                    <li>服装</li>
+                    <li>纺织</li>
+                    <li>皮革</li>
+                    <li>技工/普工</li>
+                    <li>其他</li>
+                </ul>
+                <ul class="right none">
+                    <li>设计/动画</li>
+                    <li>广告</li>
+                    <li>公关</li>
+                    <li>广告策划</li>
+                    <li>编导制作</li>
+                    <li>记者/编辑</li>
+                    <li>影视</li>
+                    <li>其他</li>
+                </ul>
+                <ul class="right none">
+                    <li>教育产品研发</li>
+                    <li>教育行政</li>
+                    <li>教师</li>
+                    <li>IT培训</li>
+                    <li>职业培训</li>
+                    <li>招生</li>
+                    <li>教练</li>
+                    <li>其他</li>
+                </ul>
+                <ul class="right none">
+                    <li>房产销售</li>
+                    <li>项目管理</li>
+                    <li>房产策划</li>
+                    <li>市场商务</li>
+                    <li>工程师</li>
+                    <li>设计师</li>
+                    <li>房地产经纪</li>
+                    <li>物业管理</li>
+                    <li>其他</li>
+                </ul>
+                <ul class="right none">
+                    <li>服务业</li>
+                </ul>
+                <ul class="right none">
+                    <li>物流</li>
+                    <li>仓储</li>
+                    <li>运输</li>
+                    <li>其他</li>
+                </ul>
+                <ul class="right none">
+                    <li>药店</li>
+                    <li>医疗技术</li>
+                    <li>护士/护理</li>
+                    <li>医师/医生</li>
+                    <li>健康整形</li>
+                    <li>市场销售</li>
+                    <li>其他</li>
+                </ul>
+                <ul class="right none">
+                    <li>政府/组织</li>
+                </ul>
+                <ul class="right none">
+                    <li>化工能源</li>
+                </ul>
+                <ul class="right none">
+                    <li>农林牧渔</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    <script src="../plugin/template-web.js"></script>
+    <script type="text/template" id="trade">         
+                    {{each list}}
+                    <li data-id="{{$value.id}}">{{$value.trade}}</li>
+                    {{/each}}     
+    </script>
+
+
+    <script>
+        $(function () {
+            var obj={};
+            $.ajax({
+                url: "json/trade.json",
+                type: "get",
+                dataType: "json",
+                success: function (res) {
+                    var html = template("trade", res);
+                    $(".trade .left").append(html);
+
+                }
+            })
+            $(".trade ").on("click", " .left li", function () {
+                $(this).addClass("active").siblings().removeClass("active");
+                $(".trade  .right").eq($(this).index()).removeClass("none").siblings().addClass("none")
+                obj.trade=$(this).html();
+            })
+            $(".trade .right li").click(function(){
+                $(this).addClass("active").siblings().removeClass("active");
+                obj.child=$(this).html();
+                console.log(obj)
+            })
+        })
+    </script>
+</body>
+
+</html>

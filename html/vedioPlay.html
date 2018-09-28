@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>视频播放页面</title>
+    <script src="../plugin/rem.js"></script>
+    <link rel="stylesheet" href="../css/icon/iconfont.css">
+    <script src="../css/icon/iconfont.js"></script>
+    <link rel="stylesheet" href="../plugin/reset.css">
+    <link rel="stylesheet" href="../plugin/mui.css">
+    <link rel="stylesheet" href="../plugin/reset.css">
+    <script src="../plugin/mui.min.js"></script>
+    <script src="../plugin/jquery-1.12.1.min.js"></script>
+    <script src="../plugin/bscroll.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/clipboard.js/1.5.12/clipboard.min.js"></script>
+    <style>
+        .vedioPlay {
+            padding-top: 3.2rem;
+            box-sizing: border-box;
+        }
+
+        /* 顶部 */
+
+        .vedioPlay nav {
+            border-bottom: 1px solid #ccc;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: .4rem;
+            line-height: .4rem;
+            text-align: center;
+            font-size: .2rem;
+            color: white;
+            z-index: 1;
+            background: #65c5aa;
+        }
+
+        .vedioPlay nav i {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: .2rem;
+        }
+
+        .vedioPlay nav p {
+            color: white;
+            font-size: .2rem;
+        }
+
+        nav span.icon-fenxiang,
+        nav span.icon-shoucang {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: .2rem;
+        }
+
+        nav span.icon-fenxiang {
+            right: .4rem;
+        }
+
+        nav span.icon-shoucang {
+            right: .1rem;
+        }
+
+        nav span.icon-shoucang.active {
+            color: pink;
+        }
+
+        /* 切换 */
+
+        .vedioPlay .tab {
+            display: flex;
+            justify-content: space-between;
+            background-color: #fff;
+            position: fixed;
+            top: 2.8rem;
+            width: 100%;
+            z-index: 2;
+        }
+
+        .vedioPlay .tab div {
+            width: 50%;
+            text-align: center;
+            height: .4rem;
+            line-height: .4rem;
+        }
+
+        .vedioPlay .tab div.active {
+            color: #65c5aa;
+            border-bottom: 2px solid #65c5aa;
+        }
+
+        .vedioPlay .content {
+            margin-top: .1rem;
+        }
+
+        .lessonNum {
+            width: 100%;
+            overflow-x: hidden;
+            height: .6rem;
+            line-height: .6rem;
+            background-color: #fff;
+        }
+
+        .lessonNum li {
+            display: inline-block;
+            width: .3rem;
+            height: .3rem;
+            margin-left: .1rem;
+            text-align: center;
+            line-height: .3rem;
+            background-color: #eee;
+            transition: all 2s;
+        }
+
+        .lessonNum li.active {
+            color: rgb(137, 240, 192);
+            background-color: #666;
+            transition: all 2s;
+        }
+
+        .vedioPlay .bscroll-container {
+            white-space: nowrap;
+            display: inline-block;
+        }
+
+        .vedioPlay .lessonCate,
+        .vedioPlay .ppt {
+            padding: 0 .2rem;
+            background-color: #fff;
+            margin-bottom: .1rem;
+        }
+
+        .vedioPlay .ppt {
+            height: 2rem;
+        }
+
+        .mui-slider,
+        .mui-slider .mui-slider-group {
+            height: 100%;
+        }
+
+        .mui-slider .mui-slider-group img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .vedioPlay h4 {
+            color: #666;
+            height: .4rem;
+            line-height: .4rem;
+            display: inline-block;
+        }
+
+        .lessonCate ul {
+            height: 1.2rem;
+            overflow: hidden;
+        }
+
+        .lessonCate ul.toggle {
+            height: auto;
+        }
+
+        .lessonCate div.more {
+            text-align: center;
+        }
+
+        .vedioPlay .lessonCate li {
+            height: .4rem;
+            line-height: .4rem;
+            border-top: 1px solid #eee;
+            color: #666;
+        }
+
+        .vedioPlay .lessonCate li.active {
+            color: #65c5aa;
+        }
+
+        /* 学习资料 */
+
+        .lessonDesc,
+        .lessonNote,
+        .exercises {
+            padding: .1rem;
+            background-color: #fff;
+            margin-bottom: .1rem;
+        }
+
+        .lessonDesc>span,
+        .lessonNote>span,
+        .exercises>span,
+        .comment>span{
+            font-size: .18rem;
+            color: #333;
+            border-bottom: 2px solid #65c5aa;
+        }
+
+        .lessonDesc p,
+        .lessonNote p,
+        .exercises p {
+            text-align: left;
+            color: #666;
+            margin-top: .1rem;
+        }
+
+        .lessonNote h3 {
+            font-size: .18rem;
+        }
+
+        .lessonNote h5 {
+            border-left: 3px solid #dc8d46;
+            padding-left: .2rem;
+            margin: .2rem 0;
+        }
+
+        .vedioBox {
+            height: 2.4rem;
+            position: fixed;
+            width: 100%;
+            top: .4rem;
+            z-index: 2;
+        }
+
+
+        video {
+            background: transparent url("../img/load.jpg") 50% 50% no-repeat;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-color: cover;
+            background-color: cover;
+            object-fit: fill;
+        }
+
+        /* vip视频提示购买 */
+
+        .vedioBox .buy {
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, .5);
+            position: absolute;
+            top: 0;
+            left: 0;
+            text-align: center;
+            line-height: 2.4rem;
+        }
+
+        .vedioBox button {
+            margin-top: 1rem;
+
+        }
+
+        .lessonDesc p,
+        .exercises p {
+            height: .6rem;
+            overflow: hidden;
+        }
+
+        .lessonDesc div,
+        .exercises div {
+            text-align: center;
+            font-size: .16rem;
+            color: #999;
+        }
+
+        .exercises .trian {
+            height: .4rem;
+            line-height: .4rem;
+            text-align: center;
+            background-color: #65c5aa;
+            color: white;
+        }
+
+        .shareBox {
+            width: 100%;
+            background-color: rgb(233, 230, 230);
+            height: .6rem;
+            text-align: center;
+            position: fixed;
+            bottom: -.6rem;
+            display: flex;
+            justify-content: space-between;
+            z-index: 999;
+        }
+
+        .shareBox>div {
+            width: 25%;
+            padding-top: .1rem;
+        }
+
+        .erweima {
+            width: 60%;
+            height: 60%;
+            position: fixed;
+            top: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2147483647;
+        }
+
+        .erweima img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .icon {
+            width: .2rem;
+            height: .2rem;
+            vertical-align: middle;
+        }
+
+        /* 目录介绍 */
+
+        .cateDesc {
+            height: 2rem;
+            background-color: #fff;
+
+        }
+
+        .cateDesc ul {
+            padding: 0 .2rem;
+        }
+
+        /* 评论 */
+
+        .comment {
+            padding: 0 .2rem;
+            margin-top: .2rem;
+            color: #333;
+        }
+
+        .comment .avator {
+            width: .4rem;
+            height: .4rem;
+            float: left;
+            border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid #ddd;
+        }
+
+        .comment .avator img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .comment .info {
+            margin-left: .6rem;
+        }
+
+        .comment .value {
+            padding-left: .6rem;
+        }
+
+        .comment .bot {
+            margin: .1rem 0;
+            font-size: .14rem;
+        }
+        .comment>ul{
+            margin-top:.2rem;
+        }
+        .comment>ul>li {
+            border-top: 1px solid #bbb;
+            padding: .1rem;
+            box-sizing: border-box;
+        }
+
+        .comment .zan.active {
+            color: rgb(243, 59, 13);
+        }
+        .review {
+            margin-top: .1rem;
+            color: #666;
+            background-color: #eee;
+            padding-left: .2rem;
+        }
+
+        .review li {
+            margin-bottom: .1rem;
+            padding:.1rem;
+            box-sizing: border-box;
+        }
+
+        /* 弹出层 */
+
+        .mask {
+            background-color: rgba(0, 0, 0, 0.5);
+            position: fixed;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            bottom: .6rem;
+            z-index: 2147483646;
+        }
+
+        video.android-full {
+            position: relative;
+            height: 100%;
+            object-fit: contain;
+            object-position: left 0 top 0;
+        }
+
+        video.android-full::-webkit-media-controls-enclosure {
+            -webkit-appearance: none;
+            position: absolute;
+            top: 166px;
+        }
+
+        /* 加载更多评论 */
+
+        .loadmore {
+            width: 100%;
+    color: #65c5aa;
+    height: .4rem;
+    line-height: .4rem;
+    text-align: center;
+        }
+        /* 评论 */
+        .foot{
+            height: .4rem;
+            text-align:center;
+            line-height: .4rem;
+            background-color:#65c5aa;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="vedioPlay">
+        <!-- 模板 -->
+
+    </div>
+    <script src="../plugin/template-web.js"></script>
+    <script src="../plugin/ajax.js"></script>
+    <script type="text/template" id="vedioInfo">
+        <nav>
+            <i class="iconfont icon-fanhui" onclick="javascript:history.go(-1);"></i>
+            <span class="share iconfont icon-fenxiang"></span>
+            <span class="collect iconfont icon-shoucang"></span>
+            <p>{{list.lessonCate[0]}}</p>
+        </nav>
+        <!-- 视频播放 -->
+        <div class="vedioBox" data-vip="{{list.vip}}">
+
+            <video width="100%" height="100%" controls class="vedio" preload="auto" x5-video-player-type='h5' x5-video-player-fullscreen="true"muted>
+                <source src="#" type="video/mp4">
+            </video>
+            <div class="buy none">
+                <button>购买该课程</button>
+            </div>
+        </div>
+        <!-- 视频播放结束 -->
+        <!-- 学习资料和课程选集切换按钮 -->
+        <div class="tab">
+            <div class="learn active">学习资料</div>
+            <div class="lesson">课程选集</div>
+        </div>
+
+        <div class="content">
+            <div class="learnDetail ">
+                <!-- 课程简介 -->
+                <div class="lessonDesc">
+                    <span>课程简介</span>
+                    <p>{{list.lessonDesc}}</p>
+                    <div class="zhankai iconfont icon-zhankai">展开</div>
+                </div>
+                <!-- 课程笔记 -->
+                <div class="lessonNote" onclick="location.href='note.html?lessonId={{list.lessonId}}'">
+                    <span>课程笔记
+                        <span class="iconfont icon-gengduo fr"></span>
+                    </span>
+                    <p>
+                        <h3>{{list.noteTit}}</h3>
+                        <h5>{{list.noteDesc}}</h5>
+                    </p>
+
+                </div>
+                <!-- 课程习题 -->
+                <div class="exercises">
+                    <span>课程习题</span>
+                    <p>{{list.exercises}}</p>
+                    <div class="zhankai iconfont icon-zhankai">展开</div>
+                    <div class="trian" onclick="location.href='trianDetail.html'">开始练习</div>
+                </div>
+                <!-- 评论 -->
+                <div class="comment">
+                    <span>课程评论</span>
+                    <ul>
+                        {{include 'comment'}}
+                    </ul>
+                </div>
+                <div class="loadmore">加载更多评论</div>
+                <div class="foot" >评论</div>
+            </div>
+            <div class="lessonDetail none">
+                <!-- 集数 -->
+                <div class="lessonNum">
+                    <div class="bscroll-container">
+                        <ul>
+                            {{each list.lessonNum}}
+                            <li class={{$index==0?"active":""}}>{{$value}}</li>
+                            {{/each}}
+                        </ul>
+                    </div>
+                </div>
+                <!-- 课程目录 -->
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-renjijiaohuDrotate-xuanzhuanrotat"></use>
+                </svg>
+                <h4> 课程目录</h4>
+                <div class="lessonCate">
+
+                    <ul>
+                        {{each list.lessonCate}}
+                        <li>{{$index+1}}. {{$value}}</li>
+                        {{/each}}
+                    </ul>
+                    <div class="more iconfont icon-zhankai"></div>
+                </div>
+                <!-- 目录介绍 -->
+                <div class="cateDesc none">
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-renjijiaohuDrotate-xuanzhuanrotat"></use>
+                    </svg>
+                    <h4></h4>
+                    <ul>
+                            {{each list.cateDesc}}
+                            <li class="none">{{$value}}</li>
+                            {{/each}}
+                    </ul>
+
+                </div>
+                <!-- ppt -->
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-renjijiaohuDrotate-xuanzhuanrotat"></use>
+                </svg>
+                <h4>PPT</h4>
+                <div class="ppt">
+                    <div class="mui-slider">
+                        <div class="mui-slider-group">
+                            <!--第一个内容区容器-->
+                            {{each list.ppt}}
+                            <div class="mui-slider-item">
+                                <img src="{{$value}}" alt="">
+                            </div>
+                            {{/each}}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+      
+        <!-- 点击分享底部弹出层 -->
+        <div class="shareBox">
+            <div class="share">
+                <div class="iconfont icon-erweima"></div>
+                <p>二维码</p>
+            </div>
+            <div class="link" data-clipboard-text="">
+                <div class="iconfont icon-lianjie"></div>
+                <p>复制链接</p>
+            </div>
+            <div>
+                <div class="iconfont icon-weixin" style="color:green"></div>
+                <p>微信</p>
+            </div>
+            <div>
+                <div class="iconfont icon-pengyouquan" style="color:green"></div>
+                <p>朋友圈</p>
+            </div>
+        </div>
+        <!-- 二维码 -->
+        <div class="erweima none">
+            <img src="../img/avator.jpeg" alt="">
+        </div>
+        <!-- 遮罩层 -->
+        <div class="mask none"></div>
+        <input type="text" class="url none" id="target">
+    </script>
+    <script type="text/template" id="comment">
+        {{each comments}}
+        <li>
+                <div class="top">
+                    <div class="avator">
+                        <img src="../img/avator.jpeg" alt="">
+                    </div>
+                    <div class="info">
+                        <p>{{$value.user.nickname}}</p>
+                        <p>{{$value.add_time}}</p>
+                    </div>
+                </div>
+                <div class="value">
+                        {{if $value.text.length>130}}
+                        {{$value.text.splice(0,130)+"..."}}
+                    {{else}}
+                        {{$value.text}}
+                    {{/if}}
+                </div>
+                <div class="bot clearfix">
+                        <span>浏览36次</span>
+                        <span class="fr">
+                            <a href="javascript:void(0);" class="iconfont icon-shoucang zan">点赞</a>
+                            <a href="javascript:void(0);" class="discuss" data-cid="{{$value.id}}">评论</a>
+                        </span>
+                </div>
+                <ul class="review">
+                        <%for( j = 0; j < $value.items.length; j++) {%>
+                    <li>
+                            <div class="top">
+                                    <div class="avator">
+                                        <img src="../img/v1.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                            <p><%=$value.items[j].user.nickname%></p>
+                                            <p><%=$value.items[j].add_time%></p>
+                                    </div>
+                            </div>
+                            <div class="value">
+                                    <%=$value.items[j].text%>
+                            </div>
+                    </li>
+                    <%}%>
+                </ul>
+            </li>
+            {{/each}}
+    </script>
+    <script src="../plugin/getQuery.js"></script>
+    <script>
+        $(function () {
+
+            // 获取该课程的vid
+            var vid = getQueryString("vid");
+            var userId = localStorage.getItem("userId");
+            // 判断用户是否登录
+            if (!localStorage.getItem("userId")) {
+                location.href = "../login.html?url=play&vid=" + vid;
+            }
+            // 页面加载时，请求当前课程的信息
+            $.ajax({
+                url: "json/vedioInfo.json",
+                type: "get",
+                data: { vid: vid },
+                success: function (res) {
+                    console.log(res)
+                    var html = template("vedioInfo", res);
+                    $(".vedioPlay").append(html);
+                    // 判断用户是否有观看该视频的权限
+                    var userVip = localStorage.getItem("vip");
+                    var lessonVip = $(".vedioBox").data("vip");
+                    console.log(userVip)
+                    console.log(lessonVip)
+                    if (userVip != lessonVip) {
+                        $(".buy").removeClass("none")
+                    } else {
+                        $(".buy").addClass("none")
+                    }
+                    // 购买成功后可观看
+                    $(".buy button").click(function () {
+                        mui.toast('购买成功', { duration: 'long', type: 'div' });
+                        $(".buy").addClass("none")
+                    })
+                    // 初始化ppt
+                    mui(".mui-slider").slider()
+                    // 存储当前网页链接
+                    var url = location.href;
+                    $(".link").attr("data-clipboard-text", url);
+                    mui('#sheet1').popover('toggle');
+                    // 课程视频名称数组
+                    var title = res.list.lessonCate;
+                    // 视频链接
+                    var list = res.list.src;
+                    var imgList = ["../img/load.jpg", "../img/2.jpg", "../img/3.jpg", "../img/4.jpg"]
+                    // 获取视频标签
+                    var vedio = document.querySelector(".vedio")
+                    // 切换视频
+                    // $("#poster_img").css("background-image", "url(" + "../img/load.jpg" + ")");
+                    var vLen = list.length;
+                    var curr = 0;
+                    $(".vedioPlay .lessonNum li").click(function () {
+                        $(this).addClass("active").siblings().removeClass("active")
+                        $(".vedio").attr("src", list[$(this).index()])
+                        $(".vedio").attr("poster", imgList[$(this).index()])
+                        // vedio.play();
+                        $("#poster_img").hide();
+                        curr = $(this).index() + 1;
+                        $(".vedioPlay nav p").html(title[$(this).index()]);
+
+                    });
+                    // 自动播放下一个视频
+                    function playnext() {
+                        console.log(curr)
+                        vedio.src = list[curr];
+                        vedio.poster = imgList[curr];
+                        vedio.load();
+                        // vedio.play();
+                        $("#poster_img").hide();
+                        curr++;
+                    }
+                    playnext(vedio) //播放第一个视频
+                    // 视频播放结束
+                    vedio.addEventListener("ended", function () {
+                        playnext(vedio);
+                        $(".vedioPlay .lessonNum li").eq(curr - 1).addClass("active").siblings().removeClass("active")
+
+                        $(".vedioPlay nav p").html(title[curr - 1]);
+                        if (curr == vLen) {
+                            curr = 0;
+                        }
+
+                    });
+                    // 课程选集横向滚动
+                    var scrollConfig = {
+                        scrollX: true, scrollY: false,
+                        click: true,
+                        bounce: {
+                            top: false,
+                            bottom: false,
+                            left: false,
+                            right: false,
+                            tap: true
+                        }
+                    }
+                    // 切换学习资料和课程选集
+                    $(".vedioPlay .tab div").click(function () {
+                        $(this).addClass("active").siblings().removeClass("active");
+                        $(".vedioPlay .content>div").eq($(this).index()).removeClass("none").siblings().addClass("none");
+                        if ($(this).hasClass("lesson")) {
+                            let lesson = document.querySelector(".lessonNum");
+                            new BScroll(lesson, scrollConfig);
+                        }
+                    });
+                    // 选择课程目录
+                    $(".lessonCate li").click(function () {
+                        $(this).addClass("active").siblings().removeClass("active");
+                        $(".cateDesc h4").html($(this).html())
+                        $(".cateDesc").removeClass("none");
+                        $(".cateDesc li").eq($(this).index()).removeClass("none").siblings().addClass("none");
+                    })
+                    $(".lessonCate .more").click(function () {
+                        $(".lessonCate ul").toggleClass("toggle");
+                        if ($(this).hasClass("icon-zhankai")) {
+                            $(this).addClass("icon-shouqi").removeClass("icon-zhankai");
+                        } else {
+                            $(this).addClass("icon-zhankai").removeClass("icon-shouqi");
+                        }
+                    })
+                    //课程简介\ 课程习题展开收起功能
+                    $(".zhankai").click(function () {
+
+                        if ($(this).html() == "展开") {
+                            $(this).parent().find("p").css("height", "auto");
+                            $(this).html("收起");
+                            $(this).removeClass("icon-zhankai").addClass(" icon-shouqi")
+                        } else {
+                            $(this).parent().find("p").css("height", ".6rem");
+                            $(this).html("展开");
+                            $(this).addClass("icon-zhankai").removeClass(" icon-shouqi")
+                        }
+                    })
+
+                    // 课程链接分享和收藏
+                    $("nav .collect").click(function () {
+                        $(this).toggleClass("active")
+                        if ($(this).hasClass("active")) {
+                            mui.toast('收藏成功', { duration: 'long', type: 'div' })
+                        } else {
+                            mui.toast('取消收藏', { duration: 'long', type: 'div' })
+                        }
+
+                    })
+                    // 点击分享按钮，底部显示
+                    $("nav .share").click(function () {
+                        $(".shareBox").css({ "bottom": "0" })
+                    })
+                    $("nav .share").click(function () {
+                        console.log("弹出弹出层")
+                        $(".mask").removeClass("none");
+                        $(".vedioBox").css("visibility", "hidden");// 隐藏视频框
+                        $(".erweima").removeClass("none")
+                    })
+                    var clipboard = new Clipboard('.shareBox .link');
+                    clipboard.on('success', function (e) {
+                        mui.toast('链接已复制', { duration: 'long', type: 'div' })
+                        $(".shareBox").css({ "bottom": "-.6rem" });
+                        $(".vedioBox").css("visibility", "")
+                        e.clearSelection();
+                        console.log(e.clearSelection);
+                        $(".erweima").addClass("none")
+                        $(".mask").addClass("none");
+                    });
+                    clipboard.on('error', function (e) {
+                        alert('请选择“拷贝”进行复制!')
+                    });
+                    // 点击content，关闭分享底部
+                    $(".vedioPlay .mask").click(function () {
+                        console.log("关闭弹出层和二维码")
+                        $(".erweima").addClass("none")
+                        $(".mask").addClass("none");
+                        $(".shareBox").css({ "bottom": "-.6rem" });
+                        $(".vedioBox").css("visibility", "")
+
+                    })
+                    // 加载当前课程的评论信息
+                    var page = 1;
+                    var isLoad = true;
+                    function loadComment() {
+                        $.ajax({
+                            url: "http://39.104.90.182:80/px/service/px/comment_list.json",
+                            type: "get",
+                            data: { tbl_id: vid, page: page },
+                            success: function (res) {
+                                var commentHtml = template("comment", { comments: res.list });
+                                $(".comment>ul").append(commentHtml);
+                                page++;
+                                if (res.pager.pageCount == res.pager.pageNumber || page > res.pager.pageCount) {
+                                    // if (data.pageCount == data.pageNo || currentPage > data.pageCount) {
+                                    //数据全部加载完毕
+                                    isLoad = false;
+                                    // 如果加载完所有数据，显示不能加载更多
+                                    $(".loadmore").html("没有更多评论了");
+                                }
+                            }
+                        })
+                    }
+                    // 首次加载评论
+                    loadComment();
+                    // 点击加载更多
+                    $(".loadmore").click(function(){
+                        if(isLoad){
+                            loadComment()
+                        }
+                    })
+                    // 点击底部的评论
+                    $(".foot").click(function(){
+                        // 跳转到评论页面
+                        location.href="comment.html?tbl_id="+vid+"&page=1";
+                    })
+                    // 评论他人的评论
+                    $(".vedioPlay").on("click",".discuss",function(){
+                        alert(1)
+                        location.href="comment.html?tbl_id="+vid+"&cid="+$(this).data("cid");
+                    })
+                    // 评论的点赞
+                    $(".vedioPlay").on("click",".zan",function () {
+                        console.log("点赞")
+                        $(this).toggleClass("active")
+                    })
+                    // $(document).ready(function () {
+                    //     $(window).resize(function () {
+                    //         var windowWidth = $(window).innerWidth();
+                    //         var windowHeight = $(window).innerHeight();
+                    //         $('.c-h5').css({
+                    //             width: windowWidth,
+                    //             height: windowHeight
+                    //         })
+                    //     })
+                    // })
+
+
+
+                }
+            })
+
+
+        })
+
+
+    </script>
+</body>
+
+</html>

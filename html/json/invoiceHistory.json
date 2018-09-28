@@ -1,0 +1,10 @@
+{
+    "list":[
+        {"orderNum":"110123456789","status":true,"sum":"2500","vtype":"在线视频","people":"2","itype":"增值税普通发票","time":"2018/10/10/10:00"},
+        {"orderNum":"120123456789","status":false,"sum":"2200","vtype":"在线视频","people":"2","itype":"增值税普通发票","time":"2018/10/10/10:00"},
+        {"orderNum":"130123456789","status":true,"sum":"2000","vtype":"在线视频","people":"2","itype":"增值税普通发票","time":"2018/10/10/10:00"},
+        {"orderNum":"140123456789","status":false,"sum":"4000","vtype":"在线视频","people":"2","itype":"增值税普通发票","time":"2018/10/10/10:00"},
+        {"orderNum":"150123456789","status":true,"sum":"5900","vtype":"在线视频","people":"2","itype":"增值税普通发票","time":"2018/10/10/10:00"},
+        {"orderNum":"160123456789","status":true,"sum":"2100","vtype":"在线视频","people":"2","itype":"增值税普通发票","time":"2018/10/10/10:00"}
+    ]
+}

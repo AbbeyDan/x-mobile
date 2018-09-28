@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>练习概览</title>
+    <script src="../plugin/rem.js"></script>
+    <link rel="stylesheet" href="../css/icon/iconfont.css">
+    <script src="../css/icon/iconfont.js"></script>
+    <link rel="stylesheet" href="../plugin/reset.css">
+    <script src="../plugin/jquery-1.12.1.min.js"></script>
+    <style>
+        .trian {
+            /* background-color: #eee; */
+            padding-top: .41rem;
+        }
+
+        .trian nav {
+            border-bottom: 1px solid #ccc;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: .4rem;
+            line-height: .4rem;
+            text-align: center;
+            font-size: .18rem;
+            color: #65c5aa;
+            background-color: #fff;
+        }
+
+        .trian nav span,
+        .trian nav i {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .trian nav span {
+            right: .2rem;
+            font-size: .15rem;
+        }
+
+        .trian nav i {
+            left: .2rem;
+        }
+        .trian .content{
+            padding:0 .2rem;
+        }
+        .trian form{
+            margin-top:.2rem;
+        }
+        .trian .question{
+            color:#666;
+            padding:.2rem 0;
+            border-bottom:1px solid #eee;
+        }
+        .trian input{
+            width: 100%;
+            height: .4rem;
+            border:1px solid #ddd;
+            background-color: rgb(218, 216, 216);
+            padding-left:.2rem;
+        }
+        .trian textarea{
+            width: 100%;
+            margin-top:.2rem;
+            height: 4rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="trian">
+        <nav>
+            <i class="iconfont icon-fanhui" onclick="javascript:history.go(-1);"></i>
+            练习概览
+            <span>提交</span>
+        </nav>
+        <div class="content">
+            <div class="question">
+                <span>习题</span>
+                <p>
+                    根据老师所讲内容，选择一款你最近使用的科技产品（或者一种历史上的科技），分析它是否符合老师介绍的逻辑，入符合，该如何改善它从而增加更多的商机；
+                </p>
+            </div>
+            <form action="">
+                <div class="title">
+                    <input type="text" placeholder="标题：请将字数限制在20字以内">
+                </div>
+                <textarea name="" id="" cols="50" rows="10" placeholder="请输入不少于100字的回答" maxlength="100"></textarea>
+            </form>
+        </div>
+
+    </div>
+</body>
+
+</html>

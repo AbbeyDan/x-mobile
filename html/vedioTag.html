@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../plugin/rem.js"></script>
+    <link rel="stylesheet" href="../css/icon/iconfont.css">
+    <script src="../css/icon/iconfont.js"></script>
+    <link rel="stylesheet" href="../plugin/reset.css">
+    <!-- <link rel="stylesheet" href="http://res.wx.qq.com/open/libs/weui/0.4.0/weui.min.css"> -->
+    <script src="../plugin/jquery-1.12.1.min.js"></script>
+    <style>
+        .icon {
+            width: .3rem;
+            height: .3rem;
+        }
+
+        .vedioTag {
+            background-color: #eee;
+            padding-top: .41rem;
+        }
+
+        .vedioTag nav {
+            border-bottom: 1px solid #ccc;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: .4rem;
+            line-height: .4rem;
+            text-align: center;
+            font-size: .18rem;
+            color: white;
+            background:#65c5aa;
+        }
+
+        .vedioTag nav i {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .vedioTag nav i {
+            left: .2rem;
+        }
+
+        .vedioTag .content {
+            background-color: #fff;
+            overflow: hidden;
+        }
+
+        .vedioTag .content ul {
+            margin-top: .1rem;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .vedioTag .content li {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="vedioTag">
+        <nav>
+            <i class="iconfont icon-fanhui" onclick="javascript:history.go(-1);"></i>
+            视频分类
+        </nav>
+        <div class="content">
+            <ul>
+                <li>
+                    <a href="tag.html?tag=rumen">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-rumen"></use>
+                        </svg>
+                        <p>入门必修</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="tag.html?tag=attestation">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-renzheng"></use>
+                        </svg>
+                        <p>认证课程</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="tag.html?tag=zhenduan">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-zhenduan"></use>
+                        </svg>
+                        <p>诊断评估</p>
+                    </a>
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    <a href="tag.html?tag=teacher">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-mingshi"></use>
+                        </svg>
+                        <p>名师讲堂</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="tag.html?tag=consulting">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-anli"></use>
+                        </svg>
+                        <p>咨询案例</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="tag.html?tag=meeting">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-meeting"></use>
+                        </svg>
+                        <p>会议回放</p>
+                    </a>
+                </li>
+            </ul>
+            <ul>
+
+                <li>
+                    <a href="tag.html?tag=technical">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-jishu"></use>
+                        </svg>
+                        <p>技术/流派</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="tag.html?tag=domain">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-lingyu"></use>
+                        </svg>
+                        <p>咨询领域</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="tag.html?tag=serviceGroups">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-renqun"></use>
+                        </svg>
+                        <p>服务人群</p>
+                    </a>
+                </li>
+
+            </ul>
+            <ul>
+                <li>
+                    <a href="tag.html?tag=trian">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-taolun"></use>
+                        </svg>
+                        <p>线下培训视频</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>

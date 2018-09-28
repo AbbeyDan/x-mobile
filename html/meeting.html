@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../plugin/rem.js"></script>
+    <link rel="stylesheet" href="../css/icon/iconfont.css">
+    <link rel="stylesheet" href="../plugin/reset.css">
+    <!-- <link rel="stylesheet" href="http://res.wx.qq.com/open/libs/weui/0.4.0/weui.min.css"> -->
+    <script src="../plugin/jquery-1.12.1.min.js"></script>
+    <style>
+        .meetTag {
+            background-color: #eee;
+            padding-top: 1rem;
+        }
+
+        .meetTag nav {
+            border-bottom: 1px solid #ccc;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: .4rem;
+            line-height: .4rem;
+            text-align: center;
+            font-size: .18rem;
+            color: white;
+            background-color:#65c5aa;
+        }
+
+
+        .meetTag nav i {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: .2rem;
+        }
+        .meetTag .choose {
+            padding: 0 .2rem;
+            height: 0.4rem;
+            line-height: .4rem;
+            border-bottom: 1px solid #eee;
+            font-weight: bold;
+            background-color: #fff;
+            position: fixed;
+            top: .4rem;
+            width: 100%;
+            font-size: .15rem;
+            color: #333;
+        }
+
+        .meetTag .choose li {
+            float: left;
+            margin-right: .1rem;
+        }
+
+        .meetTag .choose li.active {
+            color: rgb(7, 189, 221);
+        }
+
+        .meetTag .content {
+            background-color: white;
+            padding-left: .2rem;
+        }
+
+        .meetTag .content li {
+            height: .6rem;
+            line-height: .6rem;
+            border-bottom: 1px solid #eee;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="meetTag">
+        <nav>
+            <i class="iconfont icon-fanhui" onclick="javascript:history.go(-1);"></i>
+            会议回放
+        </nav>
+        <!-- 分类 -->
+        <div class="choose">
+            <span class="fl">会议回放 ：</span>
+            <ul>
+                <li data-flag="all">全部</li>
+                <li class="18" data-flag="18">18年</li>
+                <li class="17" data-flag="17">17年</li>
+                <li class="16" data-flag="16">16年</li>
+            </ul>
+        </div>
+        <div class="content">
+            <ul>
+                <!-- 会议列表 -->
+            </ul>
+        </div>
+    </div>
+    <script src="../plugin/template-web.js"></script>
+    <script type="text/template" id="meeting">
+        {{each}}
+        <li data-id="{{$value.id}}">{{$value.content}}</li>
+        {{/each}}
+    </script>
+    <script src="../plugin/getQuery.js"></script>
+    <script>
+        $(function () {
+            //用户选择某个年份的会议
+            var mbid = getQueryString("meetTag");
+            // 首次加载根据上一个页面的选择默认选中年份
+            $(".meetTag .choose li." + mbid).addClass("active")
+            console.log(mbid)
+            // 根据用户上一个页面选择的会议年份请求数据
+            $.ajax({
+                url: "json/meeting.json",   //请求会议json
+                type: "get",
+                data: mbid, //用户选择的会议年份
+                success: function (res) {
+                    var arr = [];
+                    $(res.list).each(function (i, v) {
+                        if (v.year == mbid) {
+                            arr.push(v)
+                        }
+                    })
+                        var html = template("meeting", arr);
+                        console.log(arr)
+                        $(".content ul").html(html)
+                }
+            })
+
+            // 分类选中样式
+            $(".choose").on("click", "li:gt(0)", function () {
+                $(this).addClass("active").siblings().removeClass("active");
+                history.replaceState({}, "", 'meeting.html?meetTag=' + $(this).data("flag"));
+                 mbid= $(this).data("flag");
+                // 发送ajax请求
+                $.ajax({
+                url: "json/meeting.json",   //请求会议json
+                type: "get",
+                data: mbid, //用户选择的会议年份
+                success: function (res) {
+                     arr = [];
+                    $(res.list).each(function (i, v) {
+                        if (v.year == mbid) {
+                            arr.push(v)
+                        }
+                    })
+                    alert("切换年份重新加载数据")
+                        var html = template("meeting", arr);
+                        console.log(arr)
+                        $(".content ul").html(html)
+                }
+            })
+            })
+            // 选择“全部”选项后
+            $(".meetTag .choose").on("click","li:first",function(){
+                location.href="tag.html?tag=meeting&childTag="+$(this).data("flag")+"&year=all";
+            })
+            $(".meetTag .content").on("click","li",function(){
+                alert(1)
+                location.href="tag.html?tag=meeting&childTag="+$(this).data("id")+"&year="+mbid;
+            })
+            
+        })
+
+    </script>
+</body>
+
+</html>

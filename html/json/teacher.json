@@ -1,0 +1,6 @@
+{
+    "list":[
+        {"id":1,"author":"岳晓东","img":"../img/avator.jpeg","lessonNum":"255","intro":"1111中科院心理所危机干预中心副主任、北川心理援助工作站站长、中科院心理所心理咨询社创始人之一、心理咨询社执行督导、国家心理咨询师培训教程编者、国家心理咨询师职业资格培训专家","lesson":[{"img":"../img/v1.png","title":"岳晓东的课程1","desc":"岳晓东的课程描述1","link":"vedioPlay.html","vid":"1"},{"img":"../img/v1.png","title":"岳晓东的课程1","desc":"岳晓东的课程描述1","link":"vedioPlay.html","vid":"2"},{"img":"../img/v1.png","title":"岳晓东的课程1","desc":"岳晓东的课程描述1","link":"vedioPlay.html","vid":"3"}]},
+        {"id":2,"author":"阿尔伯特.艾利斯","img":"../img/avator.jpeg","lessonNum":"300","intro":"2222中科院心理所危机干预中心副主任、北川心理援助工作站站长、中科院心理所心理咨询社创始人之一、心理咨询社执行督导、国家心理咨询师培训教程编者、国家心理咨询师职业资格培训专家","lesson":[{"img":"../img/v1.png","title":"阿尔伯特.艾利斯1","desc":"阿尔伯特.艾利斯1"},{"img":"../img/v1.png","title":"岳晓东的课程1","desc":"岳晓东的课程描述1"},{"img":"../img/v1.png","title":"岳晓东的课程1","desc":"岳晓东的课程描述1"}]}
+    ]
+}

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>开票说明</title>
+    <script src="../plugin/rem.js"></script>
+    <link rel="stylesheet" href="../css/icon/iconfont.css">
+    <link rel="stylesheet" href="../plugin/reset.css">
+    <script src="../plugin/jquery-1.12.1.min.js"></script>
+    <style>
+        .invoiceDesc {
+            height: 100%;
+            background-color: #eee;
+            padding-top: .4rem;
+        }
+
+        .invoiceDesc nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: .4rem;
+            line-height: .4rem;
+            text-align: center;
+            font-size: .2rem;
+    color: #666;
+            font-weight: bold;
+            background-color: #fff;
+            z-index: 1;
+        }
+
+        .invoiceDesc nav i {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: .2rem;
+        }
+
+        .invoiceDesc>p {
+            height: .4rem;
+            line-height: .4rem;
+            font-size: .16rem;
+            color: #999;
+            padding-left: .2rem;
+        }
+
+        .invoiceDesc .content ul {
+            background-color: #fff;
+            padding:0 .2rem;
+            overflow: hidden;
+        }
+
+        .invoiceDesc ul p {
+            color: #333;
+        }
+
+        .invoiceDesc .ask,
+        .invoiceDesc .anwser {
+            color: #65c5aa;
+        }
+        .invoiceDesc .content li{
+            height: auto;
+            margin-top:.3rem;
+        }
+        .invoiceDesc .content li:last-child{
+            margin-bottom:.3rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="invoiceDesc">
+        <nav>
+            <i class="iconfont icon-fanhui" onclick="javascript:history.go(-1);"></i>
+            开票说明
+        </nav>
+        <p>开票规则</p>
+        <div class="content">
+           
+            <ul>
+                <li>
+                    <p>
+                        <span class="ask">问 ：</span>已正确填写电子邮箱，为何无法获取电子发票？</p>
+                    <p>
+                        <span class="anwser">答 ：</span>请您联系客服人员为您处理</p>
+                </li>
+                <li>
+                    <p>
+                        <span class="ask">问 ：</span>电子发票如何换开纸质发票？</p>
+                    <p>
+                        <span class="anwser">答 ：</span>请您联系客服人员,我们会在2个工作日之内为您处理，届时您可以重新恢复发票并重新开具纸质发票</p>
+                </li>
+                <li>
+                    <p>
+                        <span class="ask">问 ：</span>收到的发票为何无法从税务局查到</p>
+                    <p>
+                        <span class="anwser">答 ：</span>发票数据从企业上传到税务局会有短暂的延迟，请稍后再尝试查询</p>
+                </li>
+                <li>
+                    <p>
+                        <span class="ask">问 ：</span>发票抬头等信息填写错误，能否修改？</p>
+                    <p>
+                        <span class="anwser">答 ：</span>请您联系客服人员为您处理</p>
+                </li>
+                <li>
+                    <p>
+                        <span class="ask">问 ：</span>已正确填写电子邮箱，为何无法获取电子发票？</p>
+                    <p>
+                        <span class="anwser">答 ：</span>请您联系客服人员为您处理</p>
+                </li>
+                <li>
+                    <p>
+                        <span class="ask">问 ：</span>已正确填写电子邮箱，为何无法获取电子发票？</p>
+                    <p>
+                        <span class="anwser">答 ：</span>请您联系客服人员为您处理</p>
+                </li>
+               
+            </ul>
+           
+        </div>
+        <p>相应业务线客服电话 010 82865508</p>
+    </div>
+</body>
+
+</html>

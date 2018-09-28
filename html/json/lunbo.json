@@ -1,0 +1,8 @@
+{
+    "list":[
+        {"img":"img/banner1.jpg","link":"html/vedioPlay.html"},
+        {"img":"img/banner2.jpg","link":"html/vedioPlay.html"},
+        {"img":"img/banner3.jpg","link":"html/vedioPlay.html"},
+        {"img":"img/banner4.jpg","link":"html/vedioPlay.html"}
+    ]
+}

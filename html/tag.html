@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>分类页</title>
+    <script src="../plugin/rem.js"></script>
+    <link rel="stylesheet" href="../css/icon/iconfont.css">
+    <link rel="stylesheet" href="../plugin/mui.css">
+    <link rel="stylesheet" href="../plugin/reset.css">
+    <!-- <link rel="stylesheet" href="http://res.wx.qq.com/open/libs/weui/0.4.0/weui.min.css"> -->
+    <script src="../plugin/jquery-1.12.1.min.js"></script>
+    <style>
+        .tagPage {
+            padding-top: .41rem;
+        }
+
+        .tagPage nav {
+            border-bottom: 1px solid #ccc;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #fff;
+            z-index: 1;
+        }
+
+        option::-ms-expand {
+            display: none;
+        }
+
+        option {
+            -moz-appearance: none;
+            /* Firefox */
+            -webkit-appearance: none;
+            /* Safari 和 Chrome */
+            appearance: none;
+            background-color: #65c5aa;
+            border: none;
+        }
+
+        .tagPage nav div {
+            width: 2rem;
+            height: .4rem;
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .tagPage nav div:after {
+            content: "";
+            width: .15rem;
+            height: .15rem;
+            background: url(../img/down.png) no-repeat center;
+            position: absolute;
+            right: .3rem;
+            top: 50%;
+            transform: translateY(-50%) rotate(90deg);
+            pointer-events: none;
+        }
+
+        select {
+            border: none;
+            appearance: none;
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            display: block;
+            margin: 0 auto;
+            background-color: transparent;
+            outline: none;
+            height: 100%;
+            /* text-align:center; */
+            font-size: .18rem;
+            color: black;
+            width: 100%;
+            text-align: center; /*IE*/
+            -moz-text-align: center; /*Firefox*/
+            -webkit-text-align:center; /*Chrome*/
+            text-align-last: center;
+            margin: 0;
+            padding: 0;
+        }
+        select:after{
+            content: '';
+            width: 100%;
+            display: inline-block;
+        }
+        option {
+            border: 0;
+            font-size: .18rem;
+        }
+
+        .tagPage nav span,
+        .tagPage nav i {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .tagPage nav span {
+            right: .2rem;
+            color: #65c5aa;
+        }
+
+        .tagPage nav i {
+            left: .2rem;
+        }
+
+        .icon-gengduo {
+            transform: rotateX(180deg);
+        }
+
+        .tagPage .content {
+            border-top: 1px solid #ccc;
+        }
+
+        .tagPage .content li {
+            margin: .1rem 0;
+            display: inline-block;
+            height: 1.2rem;
+            width: 100%;
+        }
+
+        .tagPage .content li>a {
+            display: inline-block;
+            height: 100%;
+            width: 100%;
+        }
+
+        .tagPage .content .img {
+            width: 50%;
+            height: 100%;
+            float: left;
+            position: relative;
+        }
+
+        .tagPage .content img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .tagPage .content .img>i {
+            display: inline-block;
+            width: .3rem;
+            text-align: center;
+            height: .2rem;
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: rgb(165, 112, 14);
+            color: white;
+        }
+
+        .tagPage .content .img span {
+            position: absolute;
+            bottom: 0;
+            right: .05rem;
+            color: white;
+
+        }
+
+        .tagPage .text {
+            margin-left: 50%;
+            padding: 0 .1rem;
+            height: 100%;
+            border-bottom: 1px solid #eee;
+            width: 50%;
+        }
+
+        .tagPage h4 {
+            font-size: .16rem;
+            height: .5rem;
+        }
+
+        .tagPage .text .author {
+            text-decoration: underline;
+        }
+
+        .tagPage .text .bot {
+            margin-top: .2rem;
+        }
+
+        .tagPage .text p {
+            position: relative;
+            font-size: .12rem;
+            margin-top: .05rem;
+        }
+
+        .tagPage .text .iconfont {
+            position: absolute;
+            font-size: .12rem;
+            right: 0;
+        }
+
+        .tagPage .choose ul {
+            /* display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-between; */
+            height: auto;
+            overflow: hidden;
+            /* border-bottom: 1px solid #ccc; */
+        }
+
+        .tagPage .choose li {
+            float: left;
+            /* flex-grow:1; */
+            height: .3rem;
+            line-height: .3rem;
+            margin-left: .1rem;
+        }
+
+        .tagPage .choose li.active {
+            color: #65c5aa;
+        }
+
+        .tagPage .choose .more {
+            text-align: center;
+            font-size: .12rem;
+
+        }
+
+        .tagPage .loadmore {
+            background-color: #65c5aa;
+            color: white;
+            height: .3rem;
+            line-height: .3rem;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="tagPage">
+        <nav>
+            <i class="iconfont icon-fanhui" onclick="javascript:history.back(-1);"></i>
+            <div>
+                <select id="tags">
+                    <option value="rumen">入门必修</option>
+                    <option value="attestation">认证课程</option>
+                    <option value="zhenduan">诊断评估</option>
+                    <option value="teacher">名师讲堂</option>
+                    <option value="consulting">咨询案例</option>
+                    <option value="meeting">会议回放</option>
+                    <option value="technical">技术/流派</option>
+                    <option value="domain">咨询领域</option>
+                    <option value="serviceGroups">服务人群</option>
+                    <option value="trian">线下培训视频</option>
+                </select>
+            </div>
+
+            <span onclick="location.href='allVedio.html'">筛选</span>
+        </nav>
+        <div class="choose">
+            <div class="more iconfont icon-zhankai">
+                展开
+            </div>
+        </div>
+
+        <div class="content">
+
+            <ul>
+                <!-- 课程列表 -->
+            </ul>
+            <div class="loadmore">加载更多</div>
+        </div>
+    </div>
+
+    <script src="../plugin/template-web.js"></script>
+    <script src="../plugin/loadmore.js"></script>
+    <!--入门必修和诊断评估-->
+    <script type="text/template" id="rumen">
+       
+    </script>
+    <script type="text/template" id="zhenduan">
+      
+    </script>
+    <!-- 认证模板 -->
+    <script type="text/template" id="attestation">
+        <ul class="clearfix renzheng">
+            <li class="active" data-id="all">全部</li>
+            <li data-id="1">心理辅导员</li>
+            <li data-id="2">心理社工</li>
+            <li data-id="3">社工师</li>
+            </ul>
+    </script>
+    <!-- 名师讲堂模板 -->
+    <script type="text/template" id="teacher">
+        <ul class="clearfix mingshi">
+                <li class="active">全部</li>
+                <li data-id="remen">热门</li>
+                <li data-id="guonei">国内</li>
+                <li data-id="guowai">国外</li>
+            </ul>
+    </script>
+    <script type="text/template" id="consulting">
+        <ul class="clearfix anli">
+            <li class="active" data-id="all">全部</li>
+            <li data-id="1">包含案例</li>
+            <li data-id="2">情景案例</li>
+            <li data-id="3">真实案例</li>
+            </ul>
+    </script>
+    <script type="text/template" id="meeting">
+        <ul class="clearfix meeting">
+                <li class="active" data-id="all">全部</li>
+                <li data-id="18">18年</li>
+                <li data-id="17">17年</li>
+                <li data-id="16">16年</li>
+            </ul>
+    </script>
+    <script type="text/template" id="technical">
+        <ul class="clearfix jishu">
+            <li class="active" data-id="all">全部</li>
+            <li data-id="1">精神分析</li>
+            <li data-id="2">心理动力学</li>
+            <li data-id="3">认知行为</li>
+            <li data-id="4">人本主义</li>
+            <li data-id="5">团体咨询</li>
+            <li data-id="6">艺术治疗</li>
+            <li data-id="7">存在主义</li>
+            <li data-id="8">完形治疗</li>
+            <li data-id="8">超个人心理</li>
+            <li data-id="10">表达性艺术治疗</li>
+            <li data-id="11">沙盘游戏</li>
+            <li data-id="12">游戏治疗</li>
+            <li data-id="13">家庭治疗</li>
+            <li data-id="14">催眠治疗</li>
+            <li data-id="15">接纳与继承治疗</li>
+            <li data-id="16">叙事治疗</li>
+            <li data-id="17">正念减压治疗</li>
+            <li data-id="18">正念认知治疗</li>
+            <li data-id="19">辩证行为治疗</li>
+            <li data-id="20">焦点解决治疗</li>
+            </ul>
+    </script>
+    <script type="text/template" id="trian">
+        <ul class="clearfix shipin">
+            <li class="active" data-id="all">全部</li>
+            <li data-id="1">静观治疗</li>
+            <li data-id="2">心理评估</li>
+            <li data-id="3">叙事疗法</li>
+            <li data-id="4">人际冲突疗愈</li>
+            </ul>
+    </script>
+    <!-- 咨询领域 -->
+    <script type="text/template" id="domain">
+        <ul class="clearfix">
+                <li class="active" data-id="all">全部</li>
+                <li  data-id="1">个人成长</li>
+                <li  data-id="2">两性情感</li>
+                <li  data-id="3">人系关系</li>
+                <li  data-id="4">家庭亲子</li>
+                <li  data-id="5">情绪压力</li>
+                <li  data-id="6">职场技能</li>
+                <li  data-id="7">心理健康</li>
+                <li  data-id="8">心理疾病</li>
+            </ul>
+    </script>
+    <!-- 服务人群 -->
+    <script type="text/template" id="serviceGroups">
+        <ul class="clearfix">
+                <li class="active"  data-id="all">全部</li>
+                <li data-id="1">亲子</li>
+                <li  data-id="2">伴侣</li>
+                <li  data-id="3">家庭</li>
+                <li  data-id="4">学生党</li>
+                <li  data-id="5">幼儿</li>
+                <li  data-id="6">儿童</li>
+                <li  data-id="7">青少年</li>
+                <li  data-id="8">成年</li>
+                <li  data-id="9">中老年</li>
+                <li  data-id="10">孕产妇</li>
+                <li  data-id="11">残疾人</li>
+                <li  data-id="12">性少数</li>
+                <li  data-id="13">其他人群</li>
+            </ul>
+    </script>
+    <!-- 课程列表 -->
+    <script type="text/template" id="list">
+        {{each}}
+        <li>
+                <a href="{{$value.link+"?vid="+$value.vid}}">
+                    <div class="img">
+                        <img src="../{{$value.img}}" alt="">
+                        {{if $value.vip}}
+                        <i class="iconfont icon-VIP"></i>
+                        {{/if}}
+                        <span>
+                            <i>{{$value.lessonum}}</i>集
+                        </span>
+                    </div>
+                    <div class="text">
+                        <h4>{{$value.title}}</h4>
+                        <div class="bot">
+                            <span class="author">{{$value.author}}</span> 博士
+                            <p>
+                                <i>{{$value.price}}</i>元
+                                <span class="iconfont  icon-lishijilu">
+                                    <i>{{$value.number}}</i>人观看过</span>
+                            </p>
+                        </div>
+
+                    </div>
+
+                </a>
+            </li>
+            {{/each}}
+    </script>
+    <script src="../plugin/getQuery.js"></script>
+    <script>
+        $(function () {
+            var mbid = getQueryString("tag"); //用户选择的分类
+            var tag = getQueryString("childTag"); //子分类或者是meeting页面选择会议后返回的会议id
+            var year = getQueryString("year"); //从meeting页面返回后选择的年份
+            console.log(mbid, tag, year);
+            //用来存储用户选择的的类别
+            var Conditions = {};
+            Conditions.type = mbid; //大分类
+            Conditions.value = tag ? tag : "all"; //大分类下的子分类
+            // 首次加载,获取用户初始选择的课程
+            var page = 1;
+            $.ajax({
+                url: "json/tag.json",
+                type: "get",
+                data: { conditions: JSON.stringify(Conditions) }, //进入tag页面时的分类
+                success: function (res) {
+                    console.log("加载" + Conditions.type + "分类下的" + Conditions.value)
+                    var html = template("list", res[page]);
+                    $(".tagPage .content ul").append(html);
+                    //选择会议返回后年份的选中状态
+                    if (year) {
+                        console.log("用户选择了" + year + "年的"+tag+"的会议")
+                        $(".choose li[data-id='" + year + "']").addClass("active").siblings().removeClass("active");
+                    } 
+                     if(tag) {
+                        $(".choose li[data-id='" + tag + "']").addClass("active").siblings().removeClass("active");
+                    }
+                
+                }
+            })
+            // 判断哪几个分类有子标签以及展开收起
+                $(".more").addClass("icon-shouqi").removeClass("icon-zhankai").html("收起")
+                    $("select").val(mbid).attr("selected", true); //页面首次加载设置选中项
+                    if (mbid == "rumen" || mbid == "zhenduan") {
+                        $(".choose").hide();
+                    } else if (mbid == "rechinical" || mbid == "domain" || mbid == "serviceGroups") {
+                        $(".choose").show();
+                    } else {
+                        $(".choose").show();
+                        $(".more").hide()
+                    }
+                    $(".choose .more").before(template(mbid, {}))
+                    $(".choose li." + tag).addClass("active").siblings().removeClass("active")
+            // 切换下拉菜单选项时
+            $("select").bind("change", function () {
+                page = 1;
+                $(".more").addClass("icon-shouqi").removeClass("icon-zhankai").html("收起");
+                history.replaceState({}, "", 'tag.html?tag=' + $("select").val());
+                if ($("select").val() == "rumen" || $("select").val() == "zhenduan") {
+                    $(".choose").hide();
+                } else if ($("select").val() == "technical" || $("select").val() == "domain" || $("select").val() == "serviceGroups") {
+                    $(".choose").show();
+                    $(".more").show()
+                } else {
+                    $(".choose").show();
+                    $(".more").hide()
+                }
+                $(".choose").children("ul").remove();
+                $(".choose .more").before(template($("select").val(), {}));
+                // 切换下拉菜单时，发送ajax获取新课程
+                Conditions.type = $("select").val();
+                Conditions.value = "all";
+                console.log(JSON.stringify(Conditions))
+                $.ajax({
+                    url: "json/tag.json",
+                    type: "get",
+                    data: { conditions: JSON.stringify(Conditions) },
+                    success: function (res) {
+                        console.log("加载" + Conditions.type + "分类下的" + Conditions.value)
+                        var html = template("list", res[page]);
+                        $(".tagPage .content ul").html(html);
+                    }
+                })
+            })
+            // 筛选选中改变颜色
+            $(".choose").on("click", "li", function () {
+                page = 1;
+                $(this).addClass("active").siblings().removeClass("active");
+                // 根据选择的子标签，更新课程列表
+                Conditions.type = $("select").val();
+                Conditions.value = $(this).data("id");
+                console.log(Conditions)
+                $.ajax({
+                    url: "json/tag.json",
+                    type: "get",
+                    data: { conditions: JSON.stringify(Conditions) },
+                    success: function (res) {
+                        console.log("加载" + Conditions.type + "分类下的" + Conditions.value)
+                        var html = template("list", res[page]);
+                        $(".tagPage .content ul").html(html);
+                        if ($(".tagPage ul li").length == 0) {
+                        $(".nomore").removeClass("none")
+                    }
+                    }
+                })
+            })
+            // 点击加载更多
+            $(".loadmore").click(function(){
+                page++;
+                $.ajax({
+                    url: "json/tag.json",
+                    type: "get",
+                    data:{ conditions: JSON.stringify(Conditions) },//传给后端用户选择的分类和子分类
+                    success: function (res) {
+                        console.log(res[page])
+                        if (!res[page]) {
+                            $(".loadmore").html("没有更多数据了");
+                            return false;
+                        }
+                        var html = template("list", res[page]);
+                        $(".tagPage .content ul").append(html);
+                    }
+                })
+
+            })
+            // 展开收起
+            $(".more").click(function () {
+                if ($(this).hasClass("icon-shouqi")) {
+                    $(".choose ul").css("height", ".3rem")
+                    $(this).addClass("icon-zhankai").removeClass("icon-shouqi")
+                    $(this).html("展开");
+                } else {
+                    $(".choose ul").css("height", "auto")
+                    $(this).addClass("icon-shouqi").removeClass("icon-zhankai");
+                    $(this).html("收起");
+                }
+
+            })
+
+        })
+    </script>
+    <script>    
+        // 名师讲堂点击分类跳转
+        $(".tagPage").on("click", ".mingshi li:nth-child(n+2) ", function () {
+            location.href = "mingshiTag.html?mingshiTag=" + $(this).data("id");
+        })
+        // 会议回放点击分类跳转
+        $(".tagPage").on("click", ".meeting li:nth-child(n+2) ", function () {
+            location.href = "meeting.html?meetTag=" + $(this).data("id");
+        })
+    </script>
+</body>
+
+</html>

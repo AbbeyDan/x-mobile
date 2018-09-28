@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>意见反馈</title>
+    <script src="../plugin/rem.js"></script>
+    <link rel="stylesheet" href="../css/icon/iconfont.css">
+    <link rel="stylesheet" href="../plugin/reset.css">
+    <script src="../plugin/jquery-1.12.1.min.js"></script>
+    <style>
+        .opinion {
+            height: 100%;
+    background-color: #eee;
+    padding-top: .5rem;
+    padding-bottom: .6rem;
+    box-sizing: border-box;
+}
+
+        .opinion nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: .4rem;
+            line-height: .4rem;
+            text-align: center;
+            font-size: .2rem;
+            color: #65c5aa;
+            font-weight: bold;
+            background-color: #fff;
+            z-index:1;
+        }
+
+        .opinion nav i {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: .2rem;
+        }
+
+        .opinion .content {
+            padding: 0 .1rem;
+        }
+
+        .opinion .text {
+            background-color: rgb(250, 250, 250);
+            height: 2rem;
+            position: relative;
+
+            color: #666;
+        }
+
+        .opinion textarea {
+            display: block;
+            width: 100%;
+            height: 100%;
+            border: none;
+            background-color: transparent;
+            outline: none;
+            font-size: .18rem;
+            z-index:-1;
+        }
+
+        .opinion .text p {
+            position: absolute;
+            right: .1rem;
+            bottom: -.3rem;
+        }
+
+        .opinion .upimg {
+            margin-top: .1rem;
+            font-size: .18rem;
+            color: #666;
+        }
+
+        .opinion .upimg .img {
+            margin-top: .1rem;
+        }
+
+        .opinion .img div {
+            display: inline-block;
+            width: 30%;
+            position: relative;
+            margin-left: .1rem;
+        }
+
+        .opinion .img img {
+
+            width: 100%;
+            height: 1.2rem;
+        }
+
+        .opinion .weixin {
+            height: .5rem;
+            line-height: .5rem;
+            background-color: #fff;
+            margin-top: .2rem;
+            padding-left: .1rem;
+            font-size: .16rem;
+        }
+        .opinion .weixin label{
+            width: 20%;
+    display: inline-block;
+        }
+        .opinion .weixin input {
+            height: .4rem;
+            width: 70%;
+            font-size: .16rem;
+        }
+
+        .opinion .submit {
+            height: .4rem;
+    background-color: #ccc;
+    color: white;
+    font-size: .16rem;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .opinion .upimg span.iconfont {
+            display: inline-block;
+            width: .2rem;
+            height: .2rem;
+            position: absolute;
+            top: -.08rem;
+            right: -.05rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="opinion">
+        <nav>
+            <i class="iconfont icon-fanhui" onclick="javascript:history.go(-1);"></i>
+            意见反馈
+        </nav>
+        <form class="content" enctype="multipart/form-data" >
+            <div class="text">
+                <textarea name="txt" id="" cols="30" rows="10" placeholder="请简要描述您遇到的问题，不少于10个字" minlength="10" maxlength="200"></textarea>
+                <p>
+                    <span class="max">0</span>/
+                    <span class="remain">200</span>
+                </p>
+            </div>
+            <!-- 添加图片 -->
+            <div class="upimg">
+                <p>添加图片（最多添加3张）</p>
+                <div class="img">
+                    <div class="up">
+                        <img src="../img/upload.png" alt="">
+                    </div>
+                </div>
+                <input class="camera" type="file" accept="image/*" name="img" style="display:none" multiple="multiple">
+            </div>
+            <div class="weixin">
+                <label for="">微信号：</label>
+                <input type="text" placeholder="填写微信号方便我们与您联系" name="weixin">
+            </div>
+            <input type="button" class="submit" value="提交反馈">
+        </form>
+    </div>
+    <script>
+        $(function () {
+            var txt = document.querySelector("textarea");
+            var txtNum = document.querySelector(".max");
+            var all = document.querySelector(".remain");
+            var sw = false;      //定义关闭的开关
+
+            txt.addEventListener("keyup", function () {
+                if (sw == false) {
+                    countTxt();
+                }
+            });
+            txt.addEventListener("compositionstart", function () {
+                sw = true;
+            });
+            txt.addEventListener("compositionend", function () {
+                sw = false;
+                countTxt();
+            });
+            function countTxt() {       //计数函数
+                if (sw == false) {        //只有开关关闭时，才赋值
+                    txtNum.innerHTML = txt.value.length;
+                    all.innerHTML = 200 - txt.value.length;
+                }
+            }
+            // 上传图片
+            // 头像预览
+            var count = 0;
+            $(".upimg img").on("click", function (e) {
+                if (count == 2) {
+                    $(".up").hide();
+                }
+                $(".camera").trigger("click");
+            });
+            // $(".camera").click(); //隐藏了input:file样式后，点击头像就可以本地上传
+            var imgs= {};
+            imgs.name= "imgArr";
+            imgs.value=[];
+            $(".camera").on("change", function () {
+                var objUrl = getObjectURL(this.files[0]); //获取图片的路径，该路径不是图片在本地的路径
+                imgs.value.push(objUrl);
+                console.log(imgs)
+                if (objUrl) {
+                    var html = "<div><img src='" + objUrl + "' class='add'><span class='iconfont icon-guanbi del'></span></div>";
+                    count++;
+                    $(".upimg .img").prepend(html);
+                }
+            });
+            // 提交反馈
+            $(".submit").click(function(){
+                var data = $("form").serializeArray();
+               data.push(imgs)
+              console.log(data)
+              $.ajax({
+                  url:"json/user.php",
+                  type:"post",
+                  data: data,
+                  success:function(res){
+                  }
+              })
+            })
+            //建立一個可存取到該file的url
+            function getObjectURL(file) {
+                var url = null;
+                if (window.createObjectURL != undefined) { // basic
+                    url = window.createObjectURL(file);
+                } else if (window.URL != undefined) { // mozilla(firefox)
+                    url = window.URL.createObjectURL(file);
+                } else if (window.webkitURL != undefined) { // webkit or chrome
+                    url = window.webkitURL.createObjectURL(file);
+                }
+                return url;
+            }
+            // 删除图片
+            $(".img").on("click", ".del", function () {
+                alert(1)
+                // console.log(imgArr.indexOf($(this).siblings().attr("src")));
+                imgs.value.splice(imgs.value.indexOf($(this).siblings().attr("src")),1)
+                $(this).parent().remove();
+                $(".up").show();
+                count--;
+            })
+            // 解决键盘顶起固定定位元素问题
+            let screenHeight = document.body.offsetHeight;
+            // 为window绑定resize事件
+            window.onresize=function(){
+                let nowHeight = document.body.offsetHeight;
+                if(nowHeight<screenHeight){
+                    //将底部弹起的按钮隐藏
+                    $(".submit").addClass("none");
+                }else{
+                    //将按钮正常显示
+                    $(".submit").removeClass("none");
+                }
+            }
+
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>课程笔记</title>
+    <script src="../plugin/rem.js"></script>
+    <link rel="stylesheet" href="../css/icon/iconfont.css">
+    <link rel="stylesheet" href="../plugin/reset.css">
+    <script src="../plugin/jquery-1.12.1.min.js"></script>
+    <script src="../plugin/bscroll.min.js"></script>
+    <style>
+        .note {
+            background-color: #eee;
+            padding-top: .5rem;
+        }
+
+        .note nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: .4rem;
+            line-height: .4rem;
+            text-align: center;
+            font-size: .2rem;
+            color: #65c5aa;
+            font-weight: bold;
+            background-color: #fff;
+            border-bottom: 1px solid #eee;
+        }
+
+        .note nav i {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: .2rem;
+        }
+
+        .note .artical {
+            padding: 0 .2rem;
+            background-color: #fff;
+        }
+
+        .note .title h3 {
+            padding-left: .1rem;
+            margin-top: .1rem;
+            color: #666;
+        }
+
+        .note .artical .content {
+            margin-top: .1rem;
+            font-size: .16rem;
+            color: #333;
+            border: 1px dashed #ddd;
+            line-height: .3rem;
+            text-indent: 2em;
+            padding: 0 .1rem;
+        }
+
+        .note .artical p {
+            margin-bottom: .1rem;
+            text-indent: 2em;
+        }
+
+        .comment {
+            padding: 0 .2rem;
+            margin-top: .2rem;
+            color: #333;
+            margin-bottom: .41rem;
+        }
+
+        .comment .avator {
+            width: .4rem;
+            height: .4rem;
+            float: left;
+        }
+
+        .comment .avator img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .comment .info {
+            margin-left: .6rem;
+        }
+
+        .comment .value {
+            padding-left: .6rem;
+        }
+
+        .comment .bot {
+            margin: .1rem 0;
+            font-size: .14rem;
+        }
+
+        .comment>ul>li {
+            border-bottom: 1px solid #bbb;
+            padding-bottom: .1rem;
+        }
+
+        .comment .zan.active {
+            color: rgb(248, 84, 8);
+        }
+
+        .review {
+            margin-top: .1rem;
+            border: 1px dashed #ccc;
+            color: #666;
+            background-color: rgb(167, 202, 199);
+        }
+
+        .review li {
+            margin-bottom: .1rem;
+        }
+
+        /* 底部 */
+
+        .foot {
+            height: .4rem;
+            line-height: .4rem;
+            background-color: #65c5aa;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* 加载更多评论 */
+
+        .loadmore {
+            width: 100%;
+            color: #65c5aa;
+            height: .4rem;
+            line-height: .4rem;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="note">
+        <nav>
+            <i class="iconfont icon-fanhui" onclick="javascript:history.go(-1);"></i>
+            课程笔记
+        </nav>
+        <!-- 模板 -->
+    </div>
+
+    <script src="../plugin/template-web.js"></script>
+    <script src="../plugin/ajax.js"></script>
+    <script type="text/template" id="note">
+        <div class="artical">
+            <div class="title">
+                <h2>
+                    {{list.tit}}
+                </h2>
+                <h3>{{list.desc}}</h3>
+            </div>
+            <div class="content">
+                {{list.section}}
+            </div>
+        </div>
+        <!-- 评论 -->
+        <div class="comment">
+            <h3>评论</h3>
+            <ul>
+                {{include "comment"}}
+            </ul>
+            <div class="loadmore">加载更多评论</div>
+        </div>
+        <!-- 底部 -->
+
+            <div  class="foot" onclick="location.href='comment.html'">评论</div>
+
+   </script>
+    <script type="text/template" id="comment">  
+        {{each comments}}
+        <li>
+                <div class="top">
+                    <div class="avator">
+                        <img src="../img/avator.jpeg" alt="">
+                    </div>
+                    <div class="info">
+                        <p>{{$value.user.nickname}}</p>
+                        <p>{{$value.add_time}}</p>
+                    </div>
+                </div>
+                <div class="value">
+                        {{if $value.text.length>130}}
+                        {{$value.text.splice(0,130)+"..."}}
+                    {{else}}
+                        {{$value.text}}
+                    {{/if}}
+                </div>
+                <div class="bot clearfix">
+                        <span>浏览36次</span>
+                        <span class="fr">
+                            <a href="javascript:void(0);" class="iconfont icon-shoucang zan">点赞</a>
+                            <a href="javascript:void(0);" class="discuss" data-cid={{$value.id}}>评论</a>
+                        </span>
+                </div>
+                <ul class="review">
+                        <%for( j = 0; j < $value.items.length; j++) {%>
+                    <li>
+                            <div class="top">
+                                    <div class="avator">
+                                        <img src="../img/v1.png" alt="">
+                                    </div>
+                                    <div class="info">
+                                            <p><%=$value.items[j].user.nickname%></p>
+                                            <p><%=$value.items[j].add_time%></p>
+                                    </div>
+                            </div>
+                            <div class="value">
+                                    <%=$value.items[j].text%>
+                            </div>
+                    </li>
+                    <%}%>
+                </ul>
+            </li>
+            {{/each}}
+    </script>
+    <script src="../plugin/getQuery.js"></script>
+    <script>
+        $(function () {
+            // 获取课程id  课程id应该和笔记id相同
+            var noteId = getQueryString("lessonId");
+            // 加载笔记内容
+            $.ajax({
+                url: "json/note.json",
+                type: "get",
+                success: function (res) {
+                    var html = template("note", res);
+                    $(".note").append(html);
+                    // 加载评论数据
+                    // 加载当前课程的评论信息
+                    var page = 1;
+                    var isLoad = true;
+                    function loadComment() {
+                        $.ajax({
+                            url: "http://39.104.90.182:80/px/service/px/comment_list.json",
+                            type: "get",
+                            data: { tbl_id: noteId, page: page },
+                            success: function (res) {
+                                console.log(res)
+                                var commentHtml = template("comment", { comments: res.list });
+                                $(".comment>ul").append(commentHtml);
+                                page++;
+                                if (res.pager.pageCount == res.pager.pageNumber || page > res.pager.pageCount) {
+                                    //数据全部加载完毕
+                                    isLoad = false;
+                                    // 如果加载完所有数据，显示不能加载更多
+                                    $(".loadmore").html("没有更多评论了");
+                                }
+                            }
+                        })
+                    }
+                    // 首次加载评论
+                    loadComment();
+                    // 点击加载更多
+                    $(".loadmore").click(function () {
+                        if (isLoad) {
+                            loadComment()
+                        }
+                    })
+                    // 点击底部的评论
+                    $(".foot").click(function () {
+                        // 跳转到评论页面
+                        location.href = "comment.html?tbl_id=" + noteId + "&page=1";
+                    })
+                    // 评论他人的评论
+                    $(".note").on("click", ".discuss", function () {
+                        location.href = "comment.html?tbl_id=" + noteId + "&cid=" + $(this).data("cid");
+                    })
+                    // 评论的点赞
+                    $(".note").on("click", ".zan", function () {
+                        console.log("点赞")
+                        $(this).toggleClass("active")
+                    })
+                }
+            })
+        })
+
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>观看历史</title>
+    <script src="../plugin/rem.js"></script>
+    <link rel="stylesheet" href="../css/icon/iconfont.css">
+    <link rel="stylesheet" href="../plugin/reset.css">
+    <script src="../plugin/jquery-1.12.1.min.js"></script>
+    <style>
+        .watchHistory {
+            height: 100%;
+            background-color: #eee;
+            padding-top: .41rem;
+        }
+
+        .watchHistory nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: .4rem;
+            line-height: .4rem;
+            text-align: center;
+            font-size: .2rem;
+            color: #65c5aa;
+            font-weight: bold;
+            background-color: #fff;
+            z-index: 3;
+            border-bottom: 1px solid #eee;
+        }
+
+        .watchHistory nav i {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: .2rem;
+        }
+
+        .watchHistory nav span {
+            font-size: .14rem;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: .2rem;
+            color: #333;
+        }
+
+        .watchHistory ul {
+            padding: 0 .1rem;
+            background-color: #fff;
+        }
+
+        .watchHistory li {
+            margin-bottom: .2rem;
+            padding: .1rem 0;
+            position: relative;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .watchHistory span.icon-del {
+            position: absolute;
+            top: .1rem;
+            right: 0;
+            z-index: 2;
+        }
+
+        .watchHistory a {
+            display: inline-block;
+            height: 100%;
+            width: 100%;
+        }
+
+        .watchHistory .img {
+            width: 1.6rem;
+            height: 1rem;
+            float: left;
+            position: relative;
+        }
+        .watchHistory .img>i{
+            display: inline-block;
+    width: .3rem;
+    text-align: center;
+    height: .2rem;
+    line-height: .2rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: rgb(165, 112, 14);
+    color: white;
+        }
+        .watchHistory span{
+            position: absolute;
+    bottom: .05rem;
+    right: .1rem;
+    color: white;
+        }
+        .watchHistory img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .watchHistory .text {
+            margin-left: 1.7rem;
+            height: 1rem;
+            position: relative;
+        }
+
+        .watchHistory .bot {
+            position: absolute;
+            bottom: .1rem;
+            font-size: .12rem;
+            line-height: .3rem;
+        }
+
+        .watchHistory .bot .perc {
+            color: goldenrod;
+        }
+
+        .watchHistory .content>div.title {
+            color: #666;
+            height: .4rem;
+            line-height: .4rem;
+
+        }
+
+        .watchHistory .total {
+            border: 1px solid #999;
+        }
+
+        .watchHistory .current {
+            /* width: 10%; */
+            border: 1px solid #65c5aa;
+        }
+
+        .watchHistory>p {
+            text-align: center;
+            margin-top: 50%;
+        }
+
+        .watchHistory .loadmore {
+            height: .3rem;
+            line-height: .3rem;
+            text-align: center;
+            background-color: #65c5aa;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="watchHistory">
+        <nav>
+            <i class="iconfont icon-fanhui" onclick="javascript:history.go(-1);"></i>
+            观看历史
+            <span>清空全部</span>
+        </nav>
+        <ul>
+            <!-- 历史记录 -->
+        </ul>
+        <div class="loadmore">加载更多</div>
+        <p class="none">没有观看过的历史记录哦~</p>
+    </div>
+    <script src="../plugin/template-web.js"></script>
+    <script type="text/template" id="list">
+        {{each}}
+        <li>
+                <span class="iconfont icon-del"></span>
+                <a href="{{$value.link+"?vid="+$value.vid}}">
+                    <div class="img">
+                        <img src="../{{$value.img}}" alt="">
+                        {{if $value.vip}}
+                                    <i class="iconfont icon-VIP"></i>
+                                    {{/if}}
+                                    <span><i>{{$value.num}}</i>集</span>
+                    </div>
+                    <div class="text">
+                            {{if $value.title.length>5}}
+                            <h4>{{$value.title.slice(0,5)+'...'}}</h4>
+                            {{else}}
+                            <h4>{{$value.title}}</h4>
+                            {{/if}}
+                        <div class="bot">
+                            <p class="author">
+                                第<span>{{$value.num}}</span>集 
+                            </p>
+                            <p>已观看到
+                                <span>{{$value.currenttime}}</span>分钟 / 共<span>{{$value.totalnum}}</span>集
+                            </p>
+                            <div class="total" data-current="{{$value.currenttime}}">
+                                <div class="current" data-duration="{{$value.totaltime}}" style="width:{{$value.currenttime/$value.totaltime*100}}%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            {{/each}}
+    </script>
+    <script>
+        $(function () {
+            // 判断用户是否登录
+            var userId = localStorage.getItem("userId");
+            if (!userId) {
+                location.href = "../login.html"
+            }
+
+        var page = 1;
+        // 首次加载历史记录
+        $.ajax({
+            url: "json/history.json",
+            type: "get",
+            data:{userId:userId},
+            success: function (res) {
+                var html = template("list", res[page]);
+                $(".watchHistory  ul").append(html);
+                if ($(".watchHistory  li").length == 0) {
+                    $(".watchHistory>p").removeClass("none");
+                };
+            }
+        })
+        //  点击加载更多
+        $(".watchHistory .loadmore").click(function () {
+            page++;
+            $.ajax({
+                url: "json/history.json",
+                type: "get",
+                data:{userId:userId},
+                success: function (res) {
+                    console.log(res[page])
+                    if (!res[page]) {
+                        $(".watchHistory .loadmore").html("没有更多数据了");
+                        return false;
+                    }
+                    var html = template("list", res[page]);
+                    $(".watchHistory  ul").append(html);
+                }
+            })
+
+        })
+        function del() {
+            $(".watchHistory>p").removeClass("none");
+            $(".watchHistory .loadmore").addClass("none");
+        }
+        // 点击每条记录的删除按钮删除该条记录
+        $(".watchHistory").on("click", "li>span", function () {
+            $(this).parent().remove();
+            if ($(".watchHistory ul li").length == 0) {
+                del()
+            }
+        })
+        // 清空全部历史记录
+        $(".watchHistory nav span").click(function () {
+            $(".watchHistory ul li").remove();
+            del()
+        })
+    })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,8 @@
+{
+    "list":[
+        {"vid":790,"img":"img/v1.png","title":"标题1标题1标题1标题1标题1","desc":"描述1","num":"1","vip":true,"link":"html/vedioPlay.html"},
+        {"vid":794,"img":"img/v1.png","title":"标题2","desc":"描述2描述2描述2描述2描述2","num":"2","vip":false,"link":"html/vedioPlay.html"},
+        {"vid":790,"img":"img/v1.png","title":"标题3","desc":"描述3","num":"4","vip":true,"link":"html/vedioPlay.html"},
+        {"vid":794,"img":"img/v1.png","title":"标题4","desc":"描述4","num":"4","vip":false,"link":"html/vedioPlay.html"}
+    ]
+}

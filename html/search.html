@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>搜索页面</title>
+    <script src="../plugin/rem.js"></script>
+    <script src="../plugin/jquery-1.12.1.min.js"></script>
+    <!-- <link rel="stylesheet" href="../plugin/mui.css"> -->
+    <link rel="stylesheet" href="../css/icon/iconfont.css">
+    <link rel="stylesheet" href="../plugin/reset.css">
+    <style>
+        nav {
+            padding: .1rem .5rem 0;
+            position: relative;
+            height: .5rem;
+        }
+
+        .search .icon-fanhui,
+        .search .searchBtn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .search .icon-fanhui {
+            left: .2rem;
+        }
+        .search input{
+            height: .4rem;
+    border: 1px solid #eee;
+    width: 100%;
+    padding-left: .2rem;
+    border-radius: .1rem;
+    background-color: #eee;
+        }
+        .search .searchBtn {
+            right: .1rem;
+        }
+        .icon-guanbi{
+            position: absolute;
+    transform: translateX(-150%) translateY(-50%);
+    top: 50%;
+        } 
+
+        /*课程列表*/
+
+        .search>.content {
+            margin-top: .1rem;
+            background-color: #fff;
+        }
+
+
+        .search>.content li {
+            margin-top: .1rem;
+            display: inline-block;
+            height: 1.2rem;
+            width: 100%;
+
+        }
+
+        .rumen>.content li>a {
+            display: inline-block;
+            height: 100%;
+            width: 100%;
+        }
+
+        .search>.content .img {
+            width: 50%;
+            height: 100%;
+            float: left;
+            position: relative;
+        }
+
+        .search>.content .img>i {
+            display: inline-block;
+            width: .3rem;
+            text-align: center;
+            height: .2rem;
+            line-height: .2rem;
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: rgb(165, 112, 14);
+            color: white;
+        }
+
+        .search>.content .img span {
+            position: absolute;
+            bottom: .05rem;
+            right: .05rem;
+            color: white;
+        }
+
+        .search>.content img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .search>.content .text {
+            margin-left: 50%;
+            padding: 0 .1rem;
+            height: 100%;
+            width: 50%;
+        }
+
+        .search>.content .text h4 {
+            font-size: .18rem;
+            height: .52rem;
+        }
+
+        .search>.content .bot {
+            margin-top: .2rem;
+        }
+
+        .search>.content .text .author {
+            text-decoration: underline;
+        }
+
+        .search>.content .text p {
+            position: relative;
+            font-size: .14rem;
+            margin-top: .05rem
+        }
+
+        .search>.content .text .iconfont {
+            position: absolute;
+            font-size: .12rem;
+            right: 0;
+        }
+        .loadmore{
+            text-align: center;
+    height: .4rem;
+    line-height: .4rem;
+    color: #65c5aa;
+    font-size: .16rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="search">
+        <nav>
+            <span class="iconfont icon-fanhui fl" onclick="javascript:history.go(-1)"></span>
+            <input type="text" placeholder="请输入内容"><span class="iconfont icon-guanbi none"></span>
+            <span class="searchBtn">搜索</span>
+        </nav>
+
+        <ul class="content">
+            <!-- 搜索列表 -->
+        </ul>
+        <p class="loadmore">加载更多</p>
+    </div>
+    <script src="../plugin/template-web.js"></script>
+    <script type="text/template" id="list">
+        {{each data}}
+        <li>
+                <a href="{{$value.link}}">
+                    <div class="img">
+                        <img src="../{{$value.img}}" alt="">
+                        <i class="iconfont icon-VIP"></i>
+                        <span><i>{{$value.lessonum}}</i>集</span>
+                    </div>
+                    <div class="text">
+                        <h4>{{$value.title}}</h4>
+                        <div class="bot">
+                                <span class="author">{{$value.author}}</span> 博士
+                                <p>
+                                    <i>{{$value.price}}</i>元
+                                    <span class="iconfont  icon-lishijilu"><i>{{$value.number}}</i>人观看过</span>
+                                </p>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            {{/each}}
+    </script>
+    <script src="../plugin/getQuery.js"></script>
+    <script src="../plugin/ajax.js"></script>
+    <script>
+        $(function () {
+            var val = getQueryString("val");
+            var page = 1;
+            if(val){
+                $("input").val(decodeURI(val));
+                $.ajax({
+                    url: "json/newlesson.json",
+                    type: "get",
+                    data: val,
+                    success: function (res) {
+                        console.log(val)
+                        $(".content").html(template("list", { data: res[page] }))
+                       
+                    }
+
+                })
+            }else{
+                $(".loadmore").addClass("none");
+            }
+            // 监测用户输入，每次输入发送请求
+            $("input").keyup(function () {
+                if($(this).val()){
+                    $(".icon-guanbi").removeClass("none");
+                }
+            //     page=1;
+            //     var input = $("input").val();
+            //     $.ajax({
+            //         url: "json/newlesson.json",
+            //         type: "get",
+            //         data: input,
+            //         success: function (res) {
+            //             console.log("发送请求")
+            //             $(".content").html(template("list", { data: res[page] }))
+                       
+            //         }
+
+            //     })
+             
+            })
+            // 点击搜索加载数据
+            $(".searchBtn").click(function(){
+                if($("input").val()){
+                    $(".loadmore").removeClass("none");
+                    $.ajax({
+                    url: "json/newlesson.json",
+                    type: "get",
+                    data: {val:$("input").val()},
+                    success: function (res) {
+                        console.log("发送请求")
+                        $(".content").html(template("list", { data: res[page] }))
+                       
+                    }
+
+                    })
+                }else{
+                    console.log("请输入内容")
+                }
+            })
+            // 加载更多
+            $(".search .loadmore").click(function () {
+                page++;
+                if($("input").val()){
+
+                    $.ajax({
+                    url: "json/newlesson.json",
+                    type: "get",
+                    data: $("input").val(),
+                    success: function (res) {
+                        console.log(page)
+                        if (!res[page]) {
+                            $(".search .loadmore").html("没有更多数据了");
+                            return false;
+                        }
+                        $(".content").append(template("list", { data: res[page] }))
+                    }
+                })
+                }
+            })
+            $("input").focus(function(){
+                if($(this).val()){
+                    $(".icon-guanbi").removeClass("none");
+                }
+            })
+            $(".icon-guanbi").click(function(){
+                alert(1)
+                $("input").val("");
+                $(".icon-guanbi").addClass("none");
+            })
+
+
+        })
+    </script>
+</body>
+
+</html>

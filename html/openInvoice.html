@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>开具发票</title>
+    <script src="../plugin/rem.js"></script>
+    <link rel="stylesheet" href="../css/icon/iconfont.css">
+    <link rel="stylesheet" href="../plugin/reset.css">
+    <script src="../plugin/jquery-1.12.1.min.js"></script>
+    <style>
+        .openInvoice {
+            /* height: 100%; */
+            background-color: #eee;
+            padding-top: .4rem;
+            padding-bottom: .6rem;
+        }
+
+        .openInvoice nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: .4rem;
+            line-height: .4rem;
+            text-align: center;
+            font-size: .2rem;
+            color: #666;
+            font-weight: bold;
+            background-color: #fff;
+            z-index:1;
+        }
+
+        .openInvoice nav i {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: .2rem;
+        }
+
+        .openInvoice form p {
+            height: .4rem;
+            line-height: .4rem;
+            font-size: .16rem;
+            color: #999;
+            padding-left: .2rem;
+        }
+
+        .openInvoice form>div {
+            height: .6rem;
+            line-height: .6rem;
+            background-color: #fff;
+            padding: 0 .2rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .openInvoice form div.last {
+            /* margin-bottom: .6rem; */
+        }
+
+        .openInvoice .money input {
+            color: #e25c58;
+        }
+
+        .openInvoice label {
+            width: 20%;
+            display: inline-block;
+        }
+
+        input[type="radio"] {
+            appearance: none;
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            background-image: url('../img/1111_03.png');
+            background-size: 0.2rem 0.2rem;
+            width: 0.2rem;
+            height: 0.2rem;
+            cursor: pointer;
+            background-repeat: no-repeat;
+            background-position: 0 0;
+            outline: none;
+
+        }
+
+        input:checked {
+            background-image: url('../img/checked.png');
+            background-size: cover;
+        }
+
+        .openInvoice button {
+            width: 100%;
+            height: .6rem;
+            border: 1px solid transparent;
+            background-color: #888;
+            font-size: .16rem;
+            color: wheat;
+            position: fixed;
+            bottom: 0;
+        }
+
+        input[type="text"] {
+            height: 100%;
+            margin-left: .1rem;
+            width: 70%;
+        }
+    </style>
+</head>
+
+<body>
+       
+    <div class="openInvoice">
+            
+        <nav>
+            <i class="iconfont icon-fanhui" onclick="history.go(-1)"></i>
+            开具发票
+        </nav>
+
+        <form action="json/user.php">
+            <p>发票详情</p>
+            <div>
+                抬头类型
+                <input type="radio" name="company" value="1" checked>企业单位
+                <input type="radio" name="company" id="" value="2">个人/非企业单位
+
+            </div>
+            <div>
+                发票抬头
+                <input type="text" placeholder="请输入公司名称" name="invoiceTit">
+
+            </div>
+            <div>
+                税号
+                <input type="text" placeholder="请输入公司税号" name="duty">
+            </div>
+            <div>
+                发票内容
+                <input type="text" placeholder="*培训费*会议费*会务费" name="content">
+            </div>
+            <div class="money">
+                发票金额
+                <input type="text" placeholder="1286.5元" name="price">
+            </div>
+            <div>
+                更多信息
+                <input type="text" placeholder="填写备注等" name="more">
+            </div>
+            <p>接收方式</p>
+            <div>
+                <label for="">收件人</label>
+                <input type="text" placeholder="心教育" name="name">
+            </div>
+            <div>
+                <label for="">联系电话</label>
+                <input type="text" placeholder="13811888685" name="phone">
+            </div>
+            <div>
+                <label for="">所在地区</label>
+                <input type="text" placeholder="填写备注等" name="area">
+            </div>
+            <div>
+                <label for="">详细地址</label>
+                <input type="text" placeholder="填写备注等" name="adr">
+            </div>
+            <div class="last">
+                <label for="">电子邮件</label>
+                <input type="text" placeholder="填写备注等" name="email">
+            </div>
+            <button type="submit">提交</button>
+        </form>
+    </div>
+    <script src="../plugin/getQuery.js"></script>
+    <script>
+        $(function () {
+            // 获取参数发票金额
+            var money = getQueryString("money");
+            // 获取上一个页面选中项的总金额显示
+            $(".money input").val(money + "元")
+            // 解决移动端键盘顶起固定定位元素
+            let screenHeight = document.body.offsetHeight;
+            window.onresize = function () {
+                let nowHeight = document.body.offsetHeight;
+                if (nowHeight < screenHeight) {
+                    $("button").addClass("none");
+                } else {
+                    $("button").removeClass("none");
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

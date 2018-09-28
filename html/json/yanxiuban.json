@@ -1,0 +1,12 @@
+{
+    "list":[
+        {"avator":"../img/avator.jpeg","tname":"辅导员A","text":"通知欢迎同学来到这个大家庭，我是我们班的辅导员，为大家提供各种帮助和咨询","img":"../img/v1.png"},
+        {"avator":"../img/avator.jpeg","tname":"辅导员B","text":"通知欢迎同学来到这个大家庭，我是我们班的辅导员，为大家提供各种帮助和咨询","img":""},
+        {"avator":"../img/avator.jpeg","tname":"辅导员A","text":"通知欢迎同学来到这个大家庭，我是我们班的辅导员，为大家提供各种帮助和咨询","img":"../img/logo.jpg"},
+        {"avator":"../img/avator.jpeg","tname":"辅导员C","text":"通知欢迎同学来到这个大家庭，我是我们班的辅导员，为大家提供各种帮助和咨询","img":"../img/v1.png"},
+        {"avator":"../img/avator.jpeg","tname":"辅导员B","text":"通知欢迎同学来到这个大家庭，我是我们班的辅导员，为大家提供各种帮助和咨询","img":"../img/v1.png"},
+        {"avator":"../img/avator.jpeg","tname":"辅导员A","text":"通知欢迎同学来到这个大家庭，我是我们班的辅导员，为大家提供各种帮助和咨询","img":"../img/v1.png"},
+        {"avator":"../img/avator.jpeg","tname":"辅导员B","text":"通知欢迎同学来到这个大家庭，我是我们班的辅导员，为大家提供各种帮助和咨询","img":"../img/v1.png"},
+        {"avator":"../img/avator.jpeg","tname":"辅导员A","text":"通知欢迎同学来到这个大家庭，我是我们班的辅导员，为大家提供各种帮助和咨询","img":""}
+    ]
+}

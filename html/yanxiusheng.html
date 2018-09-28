@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>认证班级</title>
+    <script src="../plugin/rem.js"></script>
+    <link rel="stylesheet" href="../css/icon/iconfont.css">
+    <link rel="stylesheet" href="../plugin/reset.css">
+    <script src="../plugin/jquery-1.12.1.min.js"></script>
+    <style>
+        .yanxiusheng {
+            height: 100%;
+            background-color: #eee;
+            padding-top: .41rem;
+        }
+
+        .yanxiusheng nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: .4rem;
+            line-height: .4rem;
+            text-align: center;
+            font-size: .2rem;
+            color: #65c5aa;
+            font-weight: bold;
+            background-color: #fff;
+            z-index: 1;
+            border-bottom: 1px solid #eee;
+        }
+
+        .yanxiusheng nav i {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: .2rem;
+        }
+
+        .yanxiusheng .content {
+            background-color: #fff;
+            padding: 0 .2rem;
+        }
+
+        .yanxiusheng .content li {
+            margin: .1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .yanxiusheng .tag {
+            text-align: center;
+            height: .3rem;
+            line-height: .3rem;
+            color: #999;
+        }
+
+        .yanxiusheng .avator {
+            width: .6rem;
+            height: .6rem;
+            border-radius: 50%;
+            border: 1px solid #eee;
+            overflow: hidden;
+            float: left;
+        }
+
+        .yanxiusheng .avator img {
+            width: 100%;
+        }
+
+        .yanxiusheng .text {
+            margin-left: .8rem;
+            padding-top: .1rem;
+        }
+
+        .yanxiusheng .level {
+            color: orangered;
+        }
+
+        .yanxiusheng .text p {
+            margin-top: .1rem;
+        }
+
+        .yanxiusheng .comment {
+            margin-top: .1rem;
+            margin-left: .8rem;
+        }
+
+        .yanxiusheng .comment a {
+            float: right;
+        }
+        .img{
+            height: 2rem;
+        }
+        .img img{
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="yanxiusheng">
+        <nav>
+            <i class="iconfont icon-fanhui" onclick="javascript:history.go(-1);"></i>
+            研修生班级
+        </nav>
+        <div class="content">
+            <div class="tag"></div>
+            <ul>
+                <!-- 辅导员通知内容模板 -->
+
+            </ul>
+        </div>
+
+    </div>
+</body>
+<script src="../plugin/ajax.js"></script>
+<script src="../plugin/template-web.js"></script>
+<script src="../plugin/getQuery.js"></script>
+<script type="text/template" id="inform">
+    {{each list}}
+                <li>
+                    <div class="avator">
+                        <img src="{{$value.avator}}" alt="">
+                    </div>
+                    <div class="text">
+                        <span class="level">{{$value.tname}}</span>
+                        <p>{{$value.text}}</p>
+                        {{if $value.img}}
+                        <div class="img">
+                            <img src="{{$value.img}}" alt="">
+                        </div>
+                        {{/if}}
+                    </div>
+                    <div class="comment clearfix">
+                       <a href="tel:15148020920">咨询客服</a>
+                    </div>
+                </li>
+{{/each}}
+</script>
+<script>
+    $(function(){
+        $(function(){
+            if(!localStorage.getItem("userId")){
+                location.href="../login.html"
+            }
+        })
+        var yanxiuban = getQueryString("yanxiuban");
+        $(".tag").html(decodeURI(yanxiuban));
+        var userId = localStorage.getItem("userId");
+        ajax("json/yanxiuban.json","inform",".content ul",null,{userId:userId})
+    })
+</script>
+</html>

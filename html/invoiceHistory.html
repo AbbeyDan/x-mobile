@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>开票历史</title>
+    <script src="../plugin/rem.js"></script>
+    <link rel="stylesheet" href="../css/icon/iconfont.css">
+    <link rel="stylesheet" href="../plugin/reset.css">
+    <script src="../plugin/jquery-1.12.1.min.js"></script>
+    <link rel="stylesheet" href="../plugin/mui.css">
+    <script src="../plugin/mui.min.js"></script>
+    <style>
+        .invoiceHistory {
+            background-color: #eee;
+            padding-top: .4rem;
+        }
+
+        .invoiceHistory nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: .4rem;
+            line-height: .4rem;
+            text-align: center;
+            font-size: .2rem;
+            color: #65c5aa;
+            font-weight: bold;
+            background-color: #fff;
+            z-index: 1;
+        }
+
+        .invoiceHistory nav i {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: .2rem;
+        }
+
+        .invoiceHistory li {
+            margin-top: .1rem;
+            background-color: #fff;
+            padding: 0 .1rem;
+            line-height: .35rem;
+            color: #666;
+            font-size:.16rem;
+        }
+
+        .invoiceHistory li .title {
+            border-bottom: 1px solid #eee;
+        }
+        .invoiceHistory .isComplete{
+            color:#d4843a;
+        }
+        .invoiceHistory .isComplete.active{
+            color:#65c5aa;
+        }
+        .invoiceHistory li .number,
+        .invoiceHistory li .time{
+            color:#999;
+            font-weight:bold;
+        }
+        .invoiceHistory .date{
+            position: relative;
+        }
+        .invoiceHistory .icon-gengduo{
+            position: absolute;
+            right:0;
+        }
+        .invoiceHistory .invoiceDetail,
+        .date i{
+            font-size:.12rem;
+            color:#8180de;
+        }
+        .date{
+            position: relative;
+        }
+        .date .invoiceDetail{
+            position: absolute;
+            right:.15rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="invoiceHistory">
+        <nav>
+            <i class="iconfont icon-fanhui" onclick="javascript:history.go(-1);"></i>
+            开票历史
+        </nav>
+        <ul>
+          <!-- 开票历史模板 -->
+        </ul>
+    </div>
+    <script src="../plugin/template-web.js"></script>
+    <script src="../plugin/ajax.js"></script>
+    <!-- 开票历史模板 -->
+    <script type="text/template" id="order">
+        {{each list}}
+        <li>
+                <div class="title">
+                    订单号：
+                    <span class="number">{{$value.orderNum}}</span>
+                    <span class="fr isComplete {{$value.status?'active':''}}">{{$value.status?"已完成":"未完成"}}</span>
+                </div>
+                <div class="content">
+                    <!-- 订单金额 -->
+                    <div class="sum">
+                        订单金额：
+                        <span>{{$value.sum}}</span>元
+                    </div>
+                    <!-- 订单类型 -->
+                    <div class="orderType">
+                        订单类型：
+                        <span>{{$value.vtype}}</span>
+                    </div>
+                    <!-- 人数 -->
+                    <div class="num">
+                        人数：
+                        <span>{{$value.people}}</span>人
+                    </div>
+                    <!--发票类型  -->
+                    <div class="invoiceType">
+                        发票类型:
+                        <span>增值税普通发票</span>
+                        <span class="fr status">{{$value.status?"已开发票":"开票中"}}</span>
+                    </div>
+                    <!-- 开票时间 -->
+                    <div class="date" data-number={{$value.orderNum}}>
+                        开票时间：
+                        <span class="time">{{$value.time}}</span>
+                        <span class="invoiceDetail">开票详情</span>
+                        <i class="iconfont icon-gengduo"></i>
+                    </div>
+                </div>
+            </li>
+            {{/each}}
+    </script>
+    <script>
+        $(function(){
+            function detail(){
+                $(".date").click(function(){
+                location.href="invoiceDetail.html?orderNum="+$(this).data("number");
+               
+            })
+            }
+            var userId = localStorage.getItem("userId");
+            ajax("json/invoiceHistory.json","order","ul",detail,{userId:userId});
+        })
+    </script>
+</body>
+
+</html>

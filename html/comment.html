@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>评论</title>
+    <script src="../plugin/rem.js"></script>
+    <link rel="stylesheet" href="../css/icon/iconfont.css">
+    <link rel="stylesheet" href="../plugin/reset.css">
+    <script src="../plugin/jquery-1.12.1.min.js"></script>
+    <link rel="stylesheet" href="../plugin/mui.css">
+    <script src="../plugin/mui.min.js"></script>
+    <style>
+        .comment {
+            height: 100%;
+            background-color: #eee;
+            padding-top: .41rem;
+        }
+
+        .comment nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: .4rem;
+            line-height: .4rem;
+            text-align: center;
+            font-size: .2rem;
+            color: #65c5aa;
+            font-weight: bold;
+            background-color: #fff;
+            border-bottom: 1px solid #eee;
+        }
+
+        .comment nav i {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: .2rem;
+        }
+
+        textarea {
+            width: 100%;
+        }
+
+        .comment .submit {
+            display: block;
+            width: .8rem;
+            height: .3rem;
+            line-height: .3rem;
+            color: white;
+            background-color: #65c5aa;
+            text-align: center;
+            font-size: .16rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="comment">
+        <nav>
+            <i class="iconfont icon-fanhui" onclick="javascript:history.go(-1);"></i>
+
+            评论
+        </nav>
+        <textarea name="" id="" cols="60" rows="10" placeholder="请输入不超过1000字的评论"></textarea>
+        <span class="submit fr">提交</span>
+    </div>
+    <script src="../plugin/getQuery.js"></script>
+    <script>
+        $(function(){
+            // 获取课程id  课程id应该和笔记id相同
+            var tbl_id = getQueryString("tbl_id");
+            var cid = getQueryString("cid");
+            var page = getQueryString("page");
+            // 获取评论的用户id
+            var userId = localStorage.getItem("userId");
+            $(".submit").click(function(){
+                console.log($('textarea').val())
+                if($("textarea").val()==""||$.trim($("textarea").val())==""){
+                    mui.toast('评论内容不能为空', { duration: 'long', type: 'div' })
+                }else{
+                    if(page==1){
+                        $.ajax({
+                    url:"http://39.104.90.182:80/px/service/px/comment_save.json?",
+                    type:"post",
+                    data:{ user_id: userId,tbl_id: tbl_id, text: $('textarea').val() },
+                    success:function(){
+                        location.href=document.referrer;
+                    }
+                })
+                    }else{
+                        $.ajax({
+                    url:"http://39.104.90.182:80/px/service/px/comment_save.json?",
+                    type:"post",
+                    data:{ user_id: userId,cid:cid,tbl_id: tbl_id, text: $('textarea').val() },
+                    success:function(){
+                        location.href=document.referrer;
+                    }
+                })
+                    }
+                }
+               
+            })
+               
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>设置</title>
+    <script src="../plugin/rem.js"></script>
+    <link rel="stylesheet" href="../css/icon/iconfont.css">
+    <link rel="stylesheet" href="../plugin/reset.css">
+    <script src="../plugin/jquery-1.12.1.min.js"></script>
+    <style>
+              .setting {
+            /* background-color: #eee; */
+            padding-top: .4rem;
+        }
+
+        .setting nav {
+            border-bottom: 1px solid #ccc;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: .4rem;
+            line-height: .4rem;
+            text-align: center;
+            font-size: .18rem;
+            color: #65c5aa;
+            font-weight: bold;
+            background-color: #fff;
+        }
+
+        .setting nav i {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: .2rem;
+        }
+        .setting ul{
+            padding:0 .2rem;
+            
+        }
+        .setting li{
+            height: .6rem;
+            line-height: .6rem;
+            position: relative;
+            padding-left:.3rem;
+            border-bottom:1px solid #eee;
+        }
+        .setting .iconfont{
+           position: absolute;
+           top:50%;
+           transform: translateY(-50%);
+           color:rgb(235, 171, 171);
+        }
+        .setting ul i{
+            left:0;
+        }
+        .setting ul .icon-gengduo{
+            right:0;
+        }
+    </style>
+</head>
+<body>
+    <div class="setting">
+            <nav>
+                    <i class="iconfont icon-fanhui" onclick="javascript:history.go(-1);"></i>
+                    设置
+                </nav>
+        <ul>
+
+                        <li onclick="location.href='userDetail.html'">
+                            <i class="iconfont icon-gerenziliao"></i>个人资料
+                            <!-- <span class="iconfont icon-gengduo"></span> -->
+                        </li>
+                        <li>
+                            <i class="iconfont icon-dengluyonghuicon"></i>
+                            <span class="isLogin">退出登录</span>
+                            <!-- <span class="iconfont icon-gengduo"></span> -->
+                        </li>
+        </ul>
+    </div>
+    <script>
+        if(localStorage.getItem("userId")){
+            $(".isLogin").html("退出登录")
+        }else{
+            $(".isLogin").html("登录")
+
+        }
+        $("li:last-child").click(function(){   
+             if(localStorage.getItem("userId")){
+                localStorage.clear();
+                $(".isLogin").html("登录")
+             }else{
+                location.href="../login.html"
+             }
+        })
+    </script>
+</body>
+</html>

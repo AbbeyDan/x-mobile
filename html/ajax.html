@@ -1,0 +1,94 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../plugin/rem.js"></script>
+    <link rel="stylesheet" href="../css/icon/iconfont.css">
+    <link rel="stylesheet" href="../plugin/reset.css">
+    <script src="../plugin/jquery-1.12.1.min.js"></script>
+    <style>
+        .aboutUs {
+            background-color: #eee;
+            padding-top: .4rem;
+        }
+
+        .aboutUs nav {
+            border-bottom: 1px solid #ccc;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: .4rem;
+            line-height: .4rem;
+            text-align: center;
+            font-size: .18rem;
+            color: #65c5aa;
+            font-weight: bold;
+            background-color: #fff;
+        }
+
+        .aboutUs nav i {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: .2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="aboutUs">
+        <nav>
+            <i class="iconfont icon-fanhui" onclick="javascript:history.go(-1);"></i>
+            关于我们
+        </nav>
+        <div class="list">
+                <ul id="list">
+
+                </ul>
+            </div>
+            <!-- 加载更多 -->
+        <div id="loading">点击加载更多</div>
+    </div>
+    <script src="../plugin/template-web.js"></script>
+    <script type="text/template" id="data">
+        {{ each}}
+        <li>{{$value.desc}}</li>
+        {{/each}}
+    </script>
+    <script type="text/javascript">
+    var page=1;
+     $.ajax({
+         url:"json/ajax.json",
+         type:"post",
+         success:function(res){
+            var html = template("data",res[page]);
+            $(".list").html(html);
+         }
+     })
+     $("#loading").click(function(){
+         alert(1)
+         page++;
+         $.ajax({
+         url:"json/ajax.json",
+         type:"post",
+         success:function(res){
+             console.log(res[page])
+             if(!res[page]){
+                 $("#loading").html("没有更多数据了");
+                 return false;
+             }
+            var html = template("data",res[page]);
+            $(".list").append(html);
+         }
+     })
+
+     })
+    
+            
+    </script>
+</body>
+
+</html>

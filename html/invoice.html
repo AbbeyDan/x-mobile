@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>发票</title>
+    <script src="../plugin/rem.js"></script>
+    <link rel="stylesheet" href="../css/icon/iconfont.css">
+    <link rel="stylesheet" href="../plugin/reset.css">
+    <script src="../plugin/jquery-1.12.1.min.js"></script>
+    <style>
+        .invoice {
+            height: 100%;
+            background-color: #eee;
+            padding-top: .4rem;
+        }
+
+        .invoice nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: .4rem;
+            line-height: .4rem;
+            text-align: center;
+            font-size: .2rem;
+            color: #65c5aa;
+            font-weight: bold;
+            background-color: #fff;
+            z-index: 1;
+        }
+
+        .invoice nav i {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: .2rem;
+        }
+        .invoice ul{
+            margin-top:.1rem;
+            background-color: #fff;
+            padding-left:.2rem;
+        }
+        .invoice li{
+            height: .5rem;
+            line-height: .5rem;
+            border-bottom:1px solid #eee;
+            position: relative;
+        }
+        .invoice li a{
+            display:inline-block;
+            width: 100%;
+        }
+        .invoice ul span {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            right: .2rem;
+            color:#666;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="invoice">
+        <nav>
+            <i class="iconfont icon-fanhui" onclick="javascript:history.go(-1);"></i>
+            发票与报销
+        </nav>
+        <ul>
+            <li><a href="applyInvoice.html">申请发票</a> <span class="iconfont icon-gengduo"></span></li>
+            <li><a href="invoiceDesc.html">开票说明</a> <span class="iconfont icon-gengduo"></span></li>
+            <li><a href="invoiceHistory.html">开票历史</a> <span class="iconfont icon-gengduo"></span></li>
+        </ul>
+    </div>
+</body>
+<script>
+
+     // 判断用户是否登录
+     if(!localStorage.getItem("userId")){
+                location.href="../login.html"
+            }
+    
+</script>
+</html>

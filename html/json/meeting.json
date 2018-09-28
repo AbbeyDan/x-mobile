@@ -1,0 +1,17 @@
+{
+    "list":[
+        {"id":"meet_1","type":"meeting","content":"(17年)12地震十周年论坛","year":17},
+        {"id":"meet_2","type":"meeting","content":"(16年)第三届全国身障人'五创'高峰论坛（台湾）","year":16},
+        {"id":"meet_3","type":"meeting","content":"(17年)心理咨询基本功研讨会","year":17},
+        {"id":"meet_4","type":"meeting","content":"(17年)中国心理卫生协会残疾人心理卫生分会","year":17},
+        {"id":"meet_5","type":"meeting","content":"(17年)第二届全国残疾人心理健康服务学术研讨会","year":17},
+        {"id":"meet_6","type":"meeting","content":"(17年)第十一次心理卫生学术大会","year":17},
+        {"id":"meet_7","type":"meeting","content":"(17年)2018年首届中国婚姻家庭心理健康高峰论坛","year":17},
+        {"id":"meet_8","type":"meeting","content":"(18年)2018中国EAP行业峰会","year":18},
+        {"id":"meet_9","type":"meeting","content":"(16年)第三届全国身障人'五创'高峰论坛（台湾）","year":16},
+        {"id":"meet_10","type":"meeting","content":"(16年)心理咨询基本功研讨会","year":16},
+        {"id":"meet_11","type":"meeting","content":"(18年)中国心理卫生协会残疾人心理卫生分会","year":18},
+        {"id":"meet_12","type":"meeting","content":"(18年)第二届全国残疾人心理健康服务学术研讨会","year":18},
+        {"id":"meet_13","type":"meeting","content":"(18年)第十一次心理卫生学术大会","year":18}
+    ]
+}

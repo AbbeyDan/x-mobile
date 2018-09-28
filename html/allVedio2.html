@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>不限视频</title>
+    <script src="../plugin/rem.js"></script>
+    <!-- <link rel="stylesheet" href="http://res.wx.qq.com/open/libs/weui/0.4.0/weui.min.css"> -->
+    <link rel="stylesheet" href="../css/icon/iconfont.css">
+    <link rel="stylesheet" href="../plugin/reset.css">
+    <script src="../plugin/bscroll.min.js"></script>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.2/css/swiper.min.css"> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.2/js/swiper.min.js"></script> -->
+    <style>
+        .allVedio {
+            background-color: #fff;
+        }
+
+        .allVedio nav {
+            height: 0.6rem;
+            line-height: .6rem;
+            text-align: center;
+            background: linear-gradient(rgb(250, 119, 232), rgb(100, 206, 248), rgb(137, 240, 192));
+            padding: 0 .2rem;
+
+        }
+
+        .allVedio .filter {
+            padding: 0 .1rem;
+        }
+
+        .allVedio .tips span {
+            display: inline-block;
+            transform: rotate(180deg);
+        }
+
+        .allVedio .tips {
+            text-align: right;
+        }
+
+        .allVedio .watcher,
+        .allVedio .domain,
+        .allVedio .serviceGroups,
+        .allVedio .technical,
+        .allVedio .teacher,
+        .allVedio .meeting,
+        .allVedio .consulting,
+        .allVedio .attestation,
+        .allVedio .trian,
+        .allVedio .releaseTime,
+        .allVedio .other {
+            width: 100%;
+            overflow-x: hidden;
+
+        }
+
+        .allVedio .bscroll-container {
+            white-space: nowrap;
+            display: inline-block;
+        }
+
+        .allVedio .filter li:first-child {
+            width: .7rem;
+        }
+
+        .allVedio .filter li.active {
+            color: #65c5aa;
+        }
+
+        .allVedio .bscroll-container li {
+            /* width:.7rem; */
+            height: .3rem;
+            line-height: .3rem;
+            display: inline-block;
+            margin-right: .1rem;
+        }
+
+        .allVedio .filter .more {
+            text-align: center;
+        }
+
+        .allVedio .filter span {
+            float: right;
+        }
+
+        /* 排序 */
+
+        .allVedio .sort {
+            padding-left: .1rem;
+            margin-top: .1rem;
+        }
+
+        .allVedio .sort ul {
+            margin-left: .2rem;
+        }
+
+        .allVedio .sort li {
+            padding: 0 .1rem;
+            float: left;
+            border: 1px solid #ccc;
+        }
+
+        .allVedio .sort li.active {
+            background-color: #65c5aa;
+            color: white;
+        }
+
+        /*  */
+
+        .allVedio .content {
+            margin-top: .1rem;
+            background-color: #fff;
+        }
+
+
+        .allVedio .content li {
+            margin-top: .1rem;
+            display: inline-block;
+            height: 1.2rem;
+            width: 100%;
+        }
+
+        .rumen .content li>a {
+            display: inline-block;
+            height: 100%;
+        }
+
+        .allVedio .content .img {
+            width: 1.8rem;
+            height: 100%;
+            float: left;
+        }
+
+        .allVedio .content img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .allVedio .content .text {
+            margin-left: 1.8rem;
+            padding: 0 .1rem;
+            height: 100%;
+        }
+
+        .allVedio .content .text h2 {
+            height: .8rem;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .allVedio .content .text .author {
+            text-decoration: underline;
+        }
+
+        .allVedio .content .text p {
+            position: relative;
+        }
+
+        .allVedio .content .text .iconfont {
+            position: absolute;
+            font-size: .12rem;
+            right: 0;
+        }
+
+        .allVedio .content .more {
+            text-align: center;
+            height: .4rem;
+            line-height: .4rem;
+            color: green;
+        }
+
+        /* 遮挡层，和老师筛选弹窗 */
+        .xxwmod{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #828282;
+            opacity: .8;
+        }
+        .xxwmodbox{
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 2.6rem;
+            height: 4.2rem;
+            margin-left: -1.3rem;
+            margin-top: -2.1rem;
+            background: #fff;
+            box-sizing: border-box;
+        }
+        /* 筛选弹窗顶部 */
+        .box_header{
+            width: 100%;
+            height: 0.3rem;
+            box-sizing: border-box;
+            padding-left: 10px;
+            border-bottom: 1px solid #ccc;
+
+        }
+        .box_header li{
+            
+            float: left;
+            font-size: .09rem;
+            color: #070707;
+            width: 0.35rem;
+            height: 0.3rem;
+            line-height: 0.3rem;
+            text-align: center;
+            font-weight: bold;
+        }
+      
+        
+        .box_nav{
+            font-size: .09rem;
+            width: 100%;
+            height: .3rem;
+            position: relative;
+            border-bottom: 1px solid #CCC;
+        }
+        .box_nav div{
+            float: left;
+            width: 50%;
+            height: .3rem;
+            line-height: 0.3rem;
+            text-align: center;
+        }
+        .box_nav div span{
+            display: inline-block;
+            height: .3rem;
+            line-height: .3rem;
+        }
+        .box_nav i{
+            position: absolute;
+            top: .1rem;
+            left: 50%;
+            display: block;
+            width: 2px;
+            height: 0.1rem;
+            background: #ccc;
+        }
+        
+        .box_list{
+            width: 100%;
+            background: #ebedec;
+            box-sizing: border-box;
+            padding-top: .2rem;
+            height: 3rem;
+            overflow: scroll;
+
+        }
+        .box_list ul {
+            width: 100%;
+            padding: 0 20px;
+            background: #fff;
+        }
+        .box_list ul li{
+            height: 0.35rem;
+            line-height: 0.35rem;
+            border-bottom: 1px solid #ccc;
+        }
+        .xxw_btn{
+            position: absolute;
+            width: 100%;
+            height: 0.35rem;
+            bottom: 0;
+            left: 0;
+        }
+        .xxw_btn div{
+            float: left;
+            width: 50%;
+            height: 100%;
+        }
+        .xxw_btn div button{
+         
+            width: 48%;
+            height: 100%;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-size: 100%;
+            border: none;
+        }
+        .xxw_btn div button:nth-child(1){
+            background: #ccc;
+        }
+        .xxw_btn div button:nth-child(2){
+            background: #e93b3d;
+            color: #fff;
+        }
+        /* 选中样式 */
+        .box_header,.box_list .xxw_active{
+            color: #65c5aa;
+        }
+        .box_nav .xxw_active_line{
+            border-bottom: 2px solid #65c5aa;
+        }
+        
+
+    </style>
+</head>
+
+<body>
+    <div class="allVedio">
+        <nav>
+            <span class="iconfont icon-fanhui fl" onclick="javascript:history.go(-1)"></span>
+            全部视频
+            <a class="iconfont icon-sousuo5 fr" href="search.html"></a>
+        </nav>
+        <!-- 用户提示 -->
+        <div class="tips">
+            <span class="iconfont icon-handoup"></span> 向左滑动查看更多
+        </div>
+        <!-- 不限视频帅选 -->
+        <div class="filter">
+            <!-- 观看者 -->
+            <div class="watcher">
+                <div class="bscroll-container">
+                    <ul class="">
+                        <li> 观看者
+                            <span>:</span>
+                        </li>
+                        <li class="active">不限</li>
+                        <li>心理爱好者</li>
+                        <li>心理工作者</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 咨询领域 -->
+            <div class="domain">
+                <div class="bscroll-container">
+                    <ul>
+                        <li>咨询领域
+                            <span>:</span>
+                        </li>
+                        <li class="active">不限</li>
+                        <li>个人成长</li>
+                        <li>两性情感</li>
+                        <li>人系关系</li>
+                        <li>家庭亲子</li>
+                        <li>情绪压力</li>
+                        <li>职场技能</li>
+                        <li>心理健康</li>
+                        <li>心理疾病</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 服务人群 -->
+            <div class="serviceGroups">
+                <div class="bscroll-container">
+                    <ul>
+                        <li>服务人群
+                            <span>:</span>
+                        </li>
+                        <li class="active">不限</li>
+                        <li>亲子</li>
+                        <li>伴侣</li>
+                        <li>家庭</li>
+                        <li>学生党</li>
+                        <li>幼儿</li>
+                        <li>儿童</li>
+                        <li>青少年</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 技术流派 -->
+            <div class="technical">
+                <div class="bscroll-container">
+                    <ul>
+                        <li>技术流派
+                            <span>:</span>
+                        </li>
+                        <li class="active">不限</li>
+                        <li>精神分析</li>
+                        <li>心理动力学</li>
+                        <li>认知行为</li>
+                        <li>人本主义</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 讲师 -->
+            <div class="teacher">
+                <div class="bscroll-container">
+                    <ul>
+                        <li>讲师
+                            <span>:</span>
+                        </li>
+                        <li class="active">不限</li>
+                        <li>热门</li>
+                        <li>国内</li>
+                        <li>国外</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 会议回放 -->
+            <div class="meeting">
+                <div class="bscroll-container">
+                    <ul>
+                        <li>会议回放
+                            <span>:</span>
+                        </li>
+                        <li class="active">不限</li>
+                        <li>18年</li>
+                        <li>17年</li>
+                        <li>16年</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 咨询案例 -->
+            <div class="consulting">
+                <div class="bscroll-container">
+                    <ul>
+                        <li>咨询领域
+                            <span>:</span>
+                        </li>
+                        <li class="active">不限</li>
+                        <li>包含案例</li>
+                        <li>情景案例</li>
+                        <li>真实案例</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 认证课程 -->
+            <div class="attestation">
+                <div class="bscroll-container">
+                    <ul>
+                        <li>认证课程
+                            <span>:</span>
+                        </li>
+                        <li class="active">不限</li>
+                        <li>心理辅导员</li>
+                        <li>心理社工</li>
+                        <li>社工师</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 培训录播 -->
+            <div class="trian">
+                <div class="bscroll-container">
+                    <ul>
+                        <li>培训录播
+                            <span>:</span>
+                        </li>
+                        <li class="active">不限</li>
+                        <li>静观治疗</li>
+                        <li>心理评估</li>
+                        <li>叙事疗法</li>
+                        <li>人际冲突疗愈</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 发布时间 -->
+            <div class="releaseTime">
+                <div class="bscroll-container">
+                    <ul>
+                        <li>发布时间
+                            <span>:</span>
+                        </li>
+                        <li class="active">不限</li>
+                        <li>近1个月</li>
+                        <li>近3年</li>
+                        <li>近10年</li>
+                        <li>10年以前</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 其他分类 -->
+            <div class="other">
+                <div class="bscroll-container">
+                    <ul>
+                        <li>其它分类
+                            <span>:</span>
+                        </li>
+                        <li class="active">不限</li>
+                        <li>入门必修</li>
+                        <li>诊断分类</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="more iconfont icon-zhankai">
+
+            </div>
+        </div>
+        <!-- 排序 -->
+        <div class="sort">
+            <ul class="clearfix">
+                <li>排序</li>
+                <li class="active">综合</li>
+                <li>热度</li>
+                <li>价格</li>
+                <li>发布时间</li>
+            </ul>
+        </div>
+        <!-- 视频 -->
+        <div class="content">
+            <ul>
+                <li>
+                    <a href="#">
+                        <div class="img">
+                            <img src="../img/v1.png" alt="">
+                        </div>
+                        <div class="text">
+                            <h2>青春主题宣传周-告别依赖</h2>
+                            <span class="author">欧文.亚隆</span> 博士
+                            <p>
+                                <i>188元</i>
+                                <span class="iconfont  icon-lishijilu">1234人观看过</span>
+                            </p>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <div class="img">
+                            <img src="../img/v1.png" alt="">
+                        </div>
+                        <div class="text">
+                            <h2>青春主题宣传周-告别依赖</h2>
+                            <span class="author">欧文.亚隆</span> 博士
+                            <p>
+                                <i>188元</i>
+                                <span class="iconfont  icon-lishijilu">1234人观看过</span>
+                            </p>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <div class="img">
+                            <img src="../img/v1.png" alt="">
+                        </div>
+                        <div class="text">
+                            <h2>青春主题宣传周-告别依赖</h2>
+                            <span class="author">欧文.亚隆</span> 博士
+                            <p>
+                                <i>188元</i>
+                                <span class="iconfont  icon-lishijilu">1234人观看过</span>
+                            </p>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+
+    </div>
+    <!-- 遮挡层 -->
+    <div class="xxwmod">  
+    </div>
+    <!-- 弹出层 -->
+    <div class="xxwmodbox">
+        <ul class="box_header">
+            <li >不限</li>
+            <li class="xxw_active">热门</li>
+            <li>国内</li>
+            <li>国外</li>
+        </ul>
+        <div class="box_nav">
+            <i></i>
+            <div class="box_nav_left">
+                <span class="box_nav_span xxw_active_line">按播放次数排序</span>
+            </div>
+            <div class="box_nav_right">
+                <span class="box_nav_span">按字母排序</span>
+            </div>
+        </div>
+        <div class="box_list">
+            <ul>
+                <li>岳晓东</li>
+                <li>阿尔伯特·爱丽丝</li>
+                <li>岳晓东</li>
+                <li>阿尔伯特·爱丽丝</li>
+                <li>岳晓东</li>
+                <li>阿尔伯特·爱丽丝</li>
+                <li>岳晓东</li>
+                <li>阿尔伯特·爱丽丝</li>
+                <li>岳晓东</li>
+                <li>阿尔伯特·爱丽丝</li>
+                <li>岳晓东</li>
+                <li>阿尔伯特·爱丽丝</li>
+                <li>岳晓东</li>
+                <li>阿尔伯特·爱丽丝</li>
+                <li>岳晓东</li>
+                <li>阿尔伯特·爱丽丝</li>
+                <li>岳晓东</li>
+                <li>阿尔伯特·爱丽丝</li>
+                <li>岳晓东</li>
+                <li>阿尔伯特·爱丽丝</li>
+                <li>岳晓东</li>
+                <li>阿尔伯特·爱丽丝</li>
+                <li>岳晓东</li>
+                <li>阿尔伯特·爱丽丝</li>
+                <li>岳晓东</li>
+                <li>阿尔伯特·爱丽丝</li>
+                <li>岳晓东</li>
+                <li>阿尔伯特·爱丽丝</li>
+                <li>岳晓东</li>
+                <li>阿尔伯特·爱丽丝</li>
+                <li>岳晓东</li>
+                <li>阿尔伯特·爱丽丝</li>
+                <li>岳晓东</li>
+                <li>阿尔伯特·爱丽丝</li>
+                <li>岳晓东</li>
+                <li>阿尔伯特·爱丽丝</li>
+            </ul>
+        </div>
+        <div class="xxw_btn">
+            <div class="xxw_btn_left"></div>
+            <div class="xxw_btn_right">
+                <button>取消</button>
+                <button>确认</button>
+            </div>
+        </div>
+    </div>
+    <script src="../plugin/jquery-1.12.1.min.js"></script>
+    <script>
+        // var swiper = new Swiper('.watcher', {
+        //     slidesPerView: 3,
+        //     paginationClickable: true,
+        //     spaceBetween: 10,
+        //     freeMode: true
+        // });
+        // document.querySelector(".swiper-wrapper").addEventListener("touchstart", function (event) {
+        //     //code here
+        //     event.preventDefault();
+        // }, false)
+        $(function () {
+
+            let watcherDom = document.querySelector(".watcher")
+            let domainDom = document.querySelector(".domain")
+            let serviceGroupsDom = document.querySelector(".serviceGroups")
+            let technicalDom = document.querySelector(".technical")
+            let teacherDom = document.querySelector(".teacher")
+            let meetingDom = document.querySelector(".meeting")
+            let consultingDom = document.querySelector(".consulting")
+            let attestationDom = document.querySelector(".attestation")
+            let trianDom = document.querySelector(".trian")
+            let releaseTimeDom = document.querySelector(".releaseTime")
+            let otherDom = document.querySelector(".other")
+            var scrollConfig = {
+                scrollX: true, scrollY: false,
+                click:true,
+                 bounce: {
+                    top: false,
+                    bottom: false,
+                    left: false,
+                    right: false,
+                    tap:true
+                }
+            }
+            new BScroll(watcherDom, scrollConfig);
+            new BScroll(domainDom, scrollConfig);
+            new BScroll(serviceGroupsDom, scrollConfig);
+            new BScroll(technicalDom, scrollConfig);
+            new BScroll(teacherDom, scrollConfig);
+            new BScroll(meetingDom, scrollConfig);
+            new BScroll(consultingDom, scrollConfig);
+            new BScroll(attestationDom, scrollConfig);
+            new BScroll(trianDom, scrollConfig);
+            new BScroll(releaseTimeDom, scrollConfig);
+            new BScroll(otherDom, scrollConfig);
+            $(".filter>div:gt(2)").not(".more").addClass("none")
+
+            // 展开和收起
+            $(".more").click(function () {
+                if ($(this).hasClass("icon-zhankai")) {
+                    $(".filter>div.none").removeClass("none");
+                    $(this).removeClass("icon-zhankai").addClass("icon-shouqi")
+                } else {
+                    $(".filter>div:gt(2)").not(".more").addClass("none")
+                    $(this).removeClass("icon-shouqi").addClass("icon-zhankai")
+                }
+
+            })
+            // 筛选选中效果
+            $(".allVedio .filter li").click(function (e) {
+                
+                $(this).addClass("active").siblings().removeClass("active")
+            })
+            // 排序选中效果
+            $(".allVedio .sort li").click(function () {
+                $(this).addClass("active").siblings().removeClass("active")
+            })
+
+            // 点击teacher 下的li标签
+            $('.teacher li').click(function (e) { 
+                e.preventDefault();
+                    console.log(1);
+
+
+                    
+            });
+
+            $('.box_header li').click(function (e) { 
+                e.preventDefault();
+             
+                $(this).addClass("xxw_active").siblings().removeClass("xxw_active")
+          
+            });
+            // 点击box_nav span 
+            $('.box_nav_span').click(function (e) { 
+                e.preventDefault();
+                console.log(this);
+                $('.box_nav_span').removeClass("xxw_active_line");
+                $(this).addClass('xxw_active_line');
+
+          
+            });
+            // 
+            $('.box_list li').click(function (e) { 
+                e.preventDefault();
+                $(this).addClass("xxw_active").siblings().removeClass("xxw_active")
+            });
+
+
+        })
+    </script>
+</body>
+
+</html>

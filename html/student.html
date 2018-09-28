@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>学员权益</title>
+    <script src="../plugin/rem.js"></script>
+    <link rel="stylesheet" href="../css/icon/iconfont.css">
+    <link rel="stylesheet" href="../plugin/reset.css">
+    <script src="../plugin/jquery-1.12.1.min.js"></script>
+    <style>
+        .student {
+            height: 100%;
+            background-color: #eee;
+            padding-top: .4rem;
+        }
+
+        .student nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: .4rem;
+            line-height: .4rem;
+            text-align: center;
+            font-size: .2rem;
+    color: #65c5aa;
+            font-weight: bold;
+            background-color: #fff;
+            z-index:1;
+        }
+
+        .student nav i {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: .2rem;
+        }
+
+        .student .content>div {
+            background-color: #fff;
+            margin-top: .1rem;
+            padding: 0 .1rem;
+            overflow: hidden;
+        }
+
+        .student .content h3 {
+            margin-top:.2rem;
+            color:#65c5aa;
+        }
+        .student .content ul{
+            margin-top:.2rem;
+        }
+        .student .content li {
+            height: .4rem;
+            line-height: .4rem;
+            padding-left: .1rem;
+            position: relative;
+            color:#666;
+        }
+
+        .student .content span {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            right: .2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="student">
+        <nav>
+            <i class="iconfont icon-fanhui" onclick="javascript:history.go(-1);"></i>
+            学员权益
+        </nav>
+        <div class="content">
+            <div>
+                <h3>1.如何学习：上课+学习</h3>
+                <ul>
+                    <li data-id="1-1">12模块学生大课，拓宽认知边界
+                        <span class="iconfont icon-gengduo"></span>
+                    </li>
+                    <li data-id="1-2">每周可以练习，解决实际问题
+                        <span class="iconfont icon-gengduo"></span>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                    <h3>2.学位与学分</h3>
+                    <ul>
+                        <li data-id="2-1">学分制教育：上课、练习可获得学分
+                            <span class="iconfont icon-gengduo"></span>
+                        </li>
+                        <li data-id="2-2">混沌大学学位证书由知名企业联名认证
+                            <span class="iconfont icon-gengduo"></span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                        <h3>3.入学后，自动加入分社和班级，与有梦想的同学共同进步</h3>
+                        <ul>
+                            <li data-id="3-1">分社和班级提供超级链接
+                                <span class="iconfont icon-gengduo"></span>
+                            </li>
+                            <li data-id="3-2">加入后是否可以更改？
+                                <span class="iconfont icon-gengduo"></span>
+                            </li>
+                            <li data-id="3-3">分社和班级提供多样化的线下学习服务
+                                <span class="iconfont icon-gengduo"></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                            <h3>4.研值</h3>
+                            <ul>
+                                <li data-id="4-1">参与学生专属的研值激励计划
+                                    <span class="iconfont icon-gengduo"></span>
+                                </li>
+                                <li data-id="4-2">学习、推荐好友入学可获得研值激励
+                                    <span class="iconfont icon-gengduo"></span>
+                                </li>
+                                <li data-id="4-3">研值可兑换更多课程和限量线下学习机会
+                                    <span class="iconfont icon-gengduo"></span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                                <h3>5.免费年度超级大课等专属权益</h3>
+                                <ul>
+                                    <li data-id="5-1">4次年度超级大课
+                                        <span class="iconfont icon-gengduo"></span>
+                                    </li>
+                                    <li data-id="5-2">赠送分享课程给好友
+                                        <span class="iconfont icon-gengduo"></span>
+                                    </li>
+                                </ul>
+                            </div>
+        </div>
+    </div>
+    <script>
+        $(function(){
+            $(function(){
+            $(".student li").click(function(){
+                location.href="detailDesc.html?id="+$(this).data("id")+"&page=student"
+            })
+        })
+        })
+    </script>
+</body>
+
+</html>

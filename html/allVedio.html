@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>不限视频</title>
+    <script src="../plugin/rem.js"></script>
+    <!-- <link rel="stylesheet" href="http://res.wx.qq.com/open/libs/weui/0.4.0/weui.min.css"> -->
+    <link rel="stylesheet" href="../css/icon/iconfont.css">
+    <link rel="stylesheet" href="../plugin/reset.css">
+    <script src="../plugin/bscroll.min.js"></script>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.2/css/swiper.min.css"> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.2/js/swiper.min.js"></script> -->
+    <style>
+        .allVedio {
+            background-color: #fff;
+        }
+
+        .allVedio nav {
+            height: 0.4rem;
+            line-height: .4rem;
+            text-align: center;
+            padding: 0 .2rem;
+            border-bottom: 1px solid #eee;
+            font-size: .18rem;
+        }
+
+        .allVedio .filter {
+            padding: 0 .1rem;
+        }
+
+        .allVedio .tips span {
+            display: inline-block;
+            transform: rotate(180deg);
+        }
+
+        .allVedio .tips {
+            text-align: right;
+        }
+
+        .allVedio .watcher,
+        .allVedio .domain,
+        .allVedio .serviceGroups,
+        .allVedio .technical,
+        .allVedio .teacher,
+        .allVedio .meeting,
+        .allVedio .consulting,
+        .allVedio .attestation,
+        .allVedio .trian,
+        .allVedio .releaseTime,
+        .allVedio .other {
+            width: 100%;
+            overflow-x: hidden;
+
+        }
+
+        .allVedio .bscroll-container {
+            white-space: nowrap;
+            display: inline-block;
+        }
+
+        .allVedio .filter li:first-child {
+            width: .7rem;
+        }
+
+        .allVedio .filter li.active {
+            color: #65c5aa;
+        }
+
+        .allVedio .bscroll-container li {
+            height: .3rem;
+            line-height: .3rem;
+            display: inline-block;
+            margin-right: .1rem;
+        }
+
+        .allVedio .filter .more {
+            text-align: center;
+        }
+
+        .allVedio .filter span {
+            float: right;
+        }
+
+        /* 排序 */
+
+        .allVedio .sort span {
+            float: left;
+        }
+
+        .allVedio .sort {
+            padding-left: .1rem;
+            margin-top: .1rem;
+        }
+
+        .allVedio .sort ul {
+            margin-left: .4rem;
+        }
+
+        .allVedio .sort li {
+            padding: 0 .1rem;
+            float: left;
+            border: 1px solid #ccc;
+        }
+
+        .allVedio .sort li.active {
+            background-color: #65c5aa;
+            color: white;
+        }
+
+        /*课程列表*/
+
+        .allVedio>.content {
+            margin-top: .1rem;
+            background-color: #fff;
+        }
+
+
+        .allVedio>.content li {
+            margin-top: .1rem;
+            display: inline-block;
+            height: 1.2rem;
+            width: 100%;
+
+        }
+
+        .rumen>.content li>a {
+            display: inline-block;
+            height: 100%;
+            width: 100%;
+        }
+
+        .allVedio>.content .img {
+            width: 50%;
+            height: 100%;
+            float: left;
+            position: relative;
+        }
+
+        .allVedio>.content .img>i {
+            display: inline-block;
+            width: .3rem;
+            text-align: center;
+            height: .2rem;
+            line-height: .2rem;
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: rgb(165, 112, 14);
+            color: white;
+        }
+
+        .allVedio>.content .img span {
+            position: absolute;
+            bottom: 0.05rem;
+            right: .05rem;
+            color: white;
+        }
+
+        .allVedio>.content img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .allVedio>.content .text {
+            margin-left: 50%;
+            padding: 0 .1rem;
+            height: 100%;
+            width: 50%;
+        }
+
+        .allVedio>.content .text h4 {
+            font-size: .18rem;
+            height: .52rem;
+        }
+
+        .allVedio>.content .bot {
+            margin-top: .32rem;
+        }
+
+        .allVedio>.content .text .author {
+            text-decoration: underline;
+        }
+
+        .allVedio>.content .text p {
+            position: relative;
+        }
+
+        .allVedio>.content .text .iconfont {
+            position: absolute;
+            font-size: .12rem;
+            right: .1rem;
+        }
+
+        .allVedio>.content .more {
+            text-align: center;
+            height: .4rem;
+            line-height: .4rem;
+            color: green;
+        }
+
+        .allVedio>.content .loadmore {
+            height: .3rem;
+            line-height: .3rem;
+            text-align: center;
+            background-color: #65c5aa;
+            color: white;
+        }
+
+        /* 遮罩层 */
+
+        .mask {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index:10;
+        }
+
+        /* 讲师弹出层 */
+
+        .popup {
+             width: 90%;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            padding-top: .91rem;
+            background-color: #fff;
+            overflow: hidden; 
+            overflow-y:scroll;
+            z-index:20;
+            -webkit-overflow-scrolling : touch; /* ios 自带滚动条不平滑解决方法 */
+}
+        .popup .icon-guanbi,
+        .meetpop .icon-guanbi {
+            display: inline-block;
+            width: .2rem;
+            height: .2rem;
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 999;
+        }
+
+        .popup .choose {
+            padding: 0 .2rem;
+            height: 0.4rem;
+            line-height: .4rem;
+            border-bottom: 1px solid #ccc;
+            font-weight: bold;
+            background-color: #fff;
+            position: fixed;
+            top: 0rem;
+            width: 100%;
+        }
+
+        .popup .choose li {
+            float: left;
+            margin-right: .1rem;
+        }
+
+        .popup .choose li.active {
+            color: rgb(7, 189, 221);
+        }
+
+        .popup .sort {
+            border-bottom: 1px solid #ccc;
+            font-weight: bold;
+            background-color: #fff;
+            position: fixed;
+            top: .3rem;
+            width: 100%;
+        }
+
+        .popup .sort div {
+            width: 50%;
+            height: .5rem;
+            line-height: .5rem;
+            float: left;
+            text-align: center;
+        }
+
+        .popup .sort div.active {
+            color: rgb(247, 103, 8);
+        }
+
+        .popup .sort span {
+            /* display: inline-block; */
+            height: 0.2rem;
+            border-left: 1px solid #ccc;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -0.1rem;
+        }
+
+        .popup .content {
+            width: 100%;
+            height: 4rem;
+            overflow: scroll;
+        }
+
+        .popup .content .play {
+            padding: 0 .2rem;
+            height: 4rem;
+            box-sizing: border-box;
+        }
+
+        .popup .content .play li {
+            height: .6rem;
+            line-height: .6rem;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .popup .content .left a {
+            display: block;
+            background-color: #eee;
+            padding: 0 .2rem;
+        }
+
+        .popup .content .letter li {
+            height: .6rem;
+            height: .6rem;
+            line-height: .6rem;
+            padding-left: .3rem;
+            border-bottom: 1px solid #ccc;
+
+        }
+
+        .popup .letterSort {
+            position: fixed;
+            right: 0;
+            top: .7rem;
+            line-height: 0;
+            height: 4rem;
+            overflow-y: scroll;
+        }
+
+        .popup .letterSort a {
+            display: block;
+            height: .2rem;
+            font-size: .12rem;
+            width: .2rem;
+            height: .2rem;
+            text-align: center;
+            line-height: .2rem;
+            border-radius: 50%;
+        }
+
+        .popup .letterSort a.active {
+            color: white;
+            background-color: red;
+        }
+
+        input {
+            appearance: none;
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            background-image: url('../img/1111_03.png');
+            background-size: 0.2rem 0.2rem;
+            width: 0.2rem;
+            height: 0.2rem;
+            cursor: pointer;
+            background-repeat: no-repeat;
+            background-position: 0 0;
+            outline: none;
+        }
+
+        input:checked {
+            background-image: url('../img/checked.png');
+            background-size: cover;
+        }
+
+        /* 会议弹出层 */
+
+        .meetpop .choose {
+            padding: 0 .2rem;
+            height: 0.4rem;
+            line-height: .4rem;
+            border-bottom: 1px solid #eee;
+            font-weight: bold;
+            background-color: #fff;
+            position: fixed;
+            top: 0rem;
+            width: 100%;
+            font-size: .15rem;
+            color: #333;
+        }
+
+        .meetpop .choose li {
+            float: left;
+            margin-right: .1rem;
+        }
+
+        .meetpop .choose li.active {
+            color: rgb(7, 189, 221);
+        }
+
+        .meetpop .content {
+            background-color: white;
+            padding-left: .2rem;
+            height: 5rem;
+            overflow: scroll;
+        }
+
+        .meetpop .content li {
+            height: .6rem;
+            line-height: .6rem;
+            border-bottom: 1px solid #eee;
+            color: #666;
+
+        }
+
+        .meetpop .content li a {
+            display: block;
+        }
+
+        .meetpop {
+            width: 90%;
+            /* height: 90%; */
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            padding-top: .4rem; 
+            overflow-y:scroll;
+            z-index:20;
+            -webkit-overflow-scrolling : touch; /* ios 自带滚动条不平滑解决方法 */;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="allVedio">
+        <nav>
+            <span class="iconfont icon-fanhui fl" onclick="location.href='../index.html'"></span>
+            全部视频
+            <a class="iconfont icon-sousuo5 fr" href="search.html"></a>
+        </nav>
+        <!-- 用户提示 -->
+        <div class="tips">
+            <span class="iconfont icon-handoup"></span> 向左滑动查看更多
+        </div>
+        <!-- 不限视频帅选 -->
+        <div class="filter">
+            <!-- 观看者 -->
+            <div class="watcher">
+                <div class="bscroll-container">
+                    <ul class="">
+                        <li> 观看者
+                            <span>:</span>
+                        </li>
+                        <li class="active" name="all">不限</li>
+                        <li name="hobby">心理爱好者</li>
+                        <li name="worker">心理工作者</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 咨询领域 -->
+            <div class="domain">
+                <div class="bscroll-container">
+                    <ul>
+                        <li>咨询领域
+                            <span>:</span>
+                        </li>
+                        <li class="active" name="all">不限</li>
+                        <li name="1">个人成长</li>
+                        <li name="2">两性情感</li>
+                        <li name="3">人系关系</li>
+                        <li name="4">家庭亲子</li>
+                        <li name="5">情绪压力</li>
+                        <li name="6">职场技能</li>
+                        <li name="7">心理健康</li>
+                        <li name="8">心理疾病</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 服务人群 -->
+            <div class="serviceGroups">
+                <div class="bscroll-container">
+                    <ul>
+                        <li>服务人群
+                            <span>:</span>
+                        </li>
+                        <li class="active" name="all">不限</li>
+                        <li name="1">亲子</li>
+                        <li name="2">伴侣</li>
+                        <li name="3">家庭</li>
+                        <li name="4">学生党</li>
+                        <li name="5">幼儿</li>
+                        <li name="6">儿童</li>
+                        <li name="7">青少年</li>
+                        <li name="8">成年</li>
+                        <li name="9">中老年</li>
+                        <li name="10">孕产妇</li>
+                        <li name="11">残疾人</li>
+                        <li name="12">性少数</li>
+                        <li name="13">其他人群</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 技术流派 -->
+            <div class="technical">
+                <div class="bscroll-container">
+                    <ul>
+                        <li>技术流派
+                            <span>:</span>
+                        </li>
+                        <li class="active" name="all">不限</li>
+                        <li name="1">精神分析</li>
+                        <li name="2">心理动力学</li>
+                        <li name="3">认知行为</li>
+                        <li name="4">人本主义</li>
+                        <li name="5">团体咨询</li>
+                        <li name="6">艺术治疗</li>
+                        <li name="7">存在主义</li>
+                        <li name="8">完形治疗</li>
+                        <li name="8">超个人心理</li>
+                        <li name="10">表达性艺术治疗</li>
+                        <li name="11">沙盘游戏</li>
+                        <li name="12">游戏治疗</li>
+                        <li name="13">家庭治疗</li>
+                        <li name="14">催眠治疗</li>
+                        <li name="15">接纳与继承治疗</li>
+                        <li name="16">叙事治疗</li>
+                        <li name="17">正念减压治疗</li>
+                        <li name="18">正念认知治疗</li>
+                        <li name="19">辩证行为治疗</li>
+                        <li name="20">焦点解决治疗</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 讲师 -->
+            <div class="teacher">
+                <div class="bscroll-container">
+                    <ul>
+                        <li>讲师
+                            <span>:</span>
+                        </li>
+                        <li class="active" name="all">不限</li>
+                        <li data-flag="remen" name="remen">热门</li>
+                        <li data-flag="guonei" name="guonei">国内</li>
+                        <li data-flag="guowai" name="guowai">国外</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 会议回放 -->
+            <div class="meeting">
+                <div class="bscroll-container">
+                    <ul>
+                        <li>会议回放
+                            <span>:</span>
+                        </li>
+                        <li class="active" name="all">不限</li>
+                        <li data-flag="18" name="18">18年</li>
+                        <li data-flag="17" name="17">17年</li>
+                        <li data-flag="16" name="16">16年</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 咨询案例 -->
+            <div class="consulting">
+                <div class="bscroll-container">
+                    <ul>
+                        <li>咨询案例
+                            <span>:</span>
+                        </li>
+                        <li class="active" name="all">不限</li>
+                        <li name="1">包含案例</li>
+                        <li name="2">情景案例</li>
+                        <li name="3">真实案例</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 认证课程 -->
+            <div class="attestation">
+                <div class="bscroll-container">
+                    <ul>
+                        <li>认证课程
+                            <span>:</span>
+                        </li>
+                        <li class="active" name="all">不限</li>
+                        <li name="1">心理辅导员</li>
+                        <li name="2">心理社工</li>
+                        <li name="3">社工师</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 培训录播 -->
+            <div class="trian">
+                <div class="bscroll-container">
+                    <ul>
+                        <li>培训录播
+                            <span>:</span>
+                        </li>
+                        <li class="active" name="all">不限</li>
+                        <li name="1">静观治疗</li>
+                        <li name="2">心理评估</li>
+                        <li name="3">叙事疗法</li>
+                        <li name="4">人际冲突疗愈</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 发布时间 -->
+            <div class="releaseTime">
+                <div class="bscroll-container">
+                    <ul>
+                        <li>发布时间
+                            <span>:</span>
+                        </li>
+                        <li class="active" name="all">不限</li>
+                        <li name="1">近1个月</li>
+                        <li name="2">近3年</li>
+                        <li name="3">近10年</li>
+                        <li name="4">10年以前</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 其他分类 -->
+            <div class="other">
+                <div class="bscroll-container">
+                    <ul>
+                        <li>其它分类
+                            <span>:</span>
+                        </li>
+                        <li class="active" name="all">不限</li>
+                        <li name="1">入门必修</li>
+                        <li name="2">诊断分类</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="more iconfont icon-zhankai">
+
+            </div>
+        </div>
+        <!-- 排序 -->
+        <div class="sort">
+            <span>排序</span>
+            <ul class="clearfix">
+                <li class="active" name="all">综合</li>
+                <li name="hot">热度</li>
+                <li name="price">价格</li>
+                <li name="time">发布时间</li>
+            </ul>
+        </div>
+        <!-- 视频 -->
+        <div class="content">
+            <ul>
+                <!-- 视频列表 -->
+            </ul>
+            <div class="loadmore">
+                加载更多
+            </div>
+        </div>
+        <!-- 遮罩层 -->
+        <div class="mask none">
+        </div>
+        <!-- 讲师弹出层 -->
+        <div class="popup none pop">
+            <!-- 分类 -->
+            <span class="iconfont icon-guanbi"></span>
+            <div class="choose">
+                <span class="fl">讲师 ：</span>
+                <ul>
+                    <li></li>
+                </ul>
+            </div>
+            <!-- 排序 -->
+            <div class="sort clearfix">
+                <div class="left" data-flag="play">按播放次数排序</div>
+                <span></span>
+                <div class="right" data-flag="letter">按字母排序</div>
+            </div>
+            <div class="content">
+                <!-- 按播放排序 -->
+                <div class="play">
+                    <ul>
+
+                    </ul>
+                </div>
+                <!-- 按字母排序 -->
+                <div class="letter">
+                    <ul class="left">
+                    </ul>
+                    <div class="letterSort">
+                        <a class="active" href="#A">A</a>
+                        <a href="#B">B</a>
+                        <a href="#C">C</a>
+                        <a href="#D">D</a>
+                        <a href="#E">E</a>
+                        <a>F</a>
+                        <a>G</a>
+                        <a>H</a>
+                        <a>I</a>
+                        <a>J</a>
+                        <a>K</a>
+                        <a>l</a>
+                        <a>M</a>
+                        <a>N</a>
+                        <a>O</a>
+                        <a>P</a>
+                        <a>Q</a>
+                        <a>R</a>
+                        <a>S</a>
+                        <a>T</a>
+                        <a>U</a>
+                        <a>V</a>
+                        <a>W</a>
+                        <a>X</a>
+                        <a>Y</a>
+                        <a>Z</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 会议弹出层 -->
+        <div class="meetpop none pop">
+            <span class="iconfont icon-guanbi"></span>
+            <div class="choose">
+                <span class="fl">会议回放 ：</span>
+                <ul>
+                    <li></li>
+                </ul>
+            </div>
+            <div class="content">
+                <ul>
+                    <!-- 会议列表 -->
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script src="../plugin/jquery-1.12.1.min.js"></script>
+    <script src="../plugin/template-web.js"></script>
+    <!-- 课程模板 -->
+    <script type="text/template" id="list">
+        {{each}}
+        <!-- 根据筛选条件显示课程 -->
+        <li>
+                <a href="{{$value.link+"?vid="+$value.vid}}">
+                    <div class="img">
+                        <img src="../{{$value.img}}" alt="">
+                        {{if $value.vip}}
+                        <i class="iconfont icon-VIP"></i>
+                        {{/if}}
+                        <span><i>{{$value.lessonum}}</i>集</span>
+                    </div>
+                    <div class="text">
+                        <h4>{{$value.title}}</h4>
+                        <div class="bot">
+                                <span class="author">{{$value.author}}</span> 博士
+                                <p>
+                                    <i>{{$value.price}}</i>元
+                                    <span class="iconfont  icon-lishijilu"><i>{{$value.number}}</i>人观看过</span>
+                                </p>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            {{/each}}
+    </script>
+    <!-- 讲师播放次数排序模板 -->
+    <script type="text/template" id="play">
+        {{each list}}
+        <li>
+                <input type="radio" data-flag="{{$value.id}}"> 
+                {{$value.author}}
+               
+        </li>
+        {{/each}}
+    </script>
+    <!-- 讲师按字母排序模板 -->
+    <script type="text/template" id="letter">
+           <%for( i = 0; i < list.length; i++) {%>
+        <div>
+                <a name="<%=list[i].id%>"><%=list[i].id%></a>
+                <ul>
+                        <%for( j = 0; j < list[i].authors.length; j++) {%>
+                    <li>
+                        <input type="radio" data-flag="<%=list[i].authors[j].id%>">
+                        <span><%=list[i].authors[j].author%></span>
+                    </li>
+                    <%}%>
+
+                </ul>
+            </div>
+            <%}%>
+    </script>
+    <!-- 会议弹出层模板 -->
+    <script type="text/template" id="meet">
+        {{each}}
+        <li class="{{$value.type}}" data-flag="{{$value.id}}">
+                <a href="#" >{{$value.content}}</a>
+        </li>
+        {{/each}}
+    </script>
+    <script>
+        $(function () {
+
+            let watcherDom = document.querySelector(".watcher")
+            let domainDom = document.querySelector(".domain")
+            let serviceGroupsDom = document.querySelector(".serviceGroups")
+            let technicalDom = document.querySelector(".technical")
+            let teacherDom = document.querySelector(".teacher")
+            let meetingDom = document.querySelector(".meeting")
+            let consultingDom = document.querySelector(".consulting")
+            let attestationDom = document.querySelector(".attestation")
+            let trianDom = document.querySelector(".trian")
+            let releaseTimeDom = document.querySelector(".releaseTime")
+            let otherDom = document.querySelector(".other")
+            var scrollConfig = {
+                scrollX: true, scrollY: false,
+                click: true,
+                bounce: {
+                    top: false,
+                    bottom: false,
+                    left: false,
+                    right: false,
+                    tap: true
+                }
+            }
+            new BScroll(watcherDom, scrollConfig);
+            new BScroll(domainDom, scrollConfig);
+            new BScroll(serviceGroupsDom, scrollConfig);
+            new BScroll(technicalDom, scrollConfig);
+            new BScroll(teacherDom, scrollConfig);
+            new BScroll(meetingDom, scrollConfig);
+            new BScroll(consultingDom, scrollConfig);
+            new BScroll(attestationDom, scrollConfig);
+            new BScroll(trianDom, scrollConfig);
+            new BScroll(releaseTimeDom, scrollConfig);
+            new BScroll(otherDom, scrollConfig);
+            $(".filter>div:gt(2)").not(".more").addClass("none")
+
+            // 展开和收起
+            $(".more").click(function () {
+                if ($(this).hasClass("icon-zhankai")) {
+                    $(".filter>div.none").removeClass("none");
+                    $(this).removeClass("icon-zhankai").addClass("icon-shouqi")
+                } else {
+                    $(".filter>div:gt(2)").not(".more").addClass("none")
+                    $(this).removeClass("icon-shouqi").addClass("icon-zhankai")
+                }
+
+            })
+            // 首次加载,获取全部课程,默认综合排序
+            var page = 1;
+            $.ajax({
+                url: "json/tag.json",
+                type: "get",
+                success: function (res) {
+                    var html = template("list", res[page]);
+                    $(".allVedio>.content ul").append(html);
+                }
+            })
+            //根据筛选条件，重新发送ajax请求，获取课程  
+            var Conditions = [];
+            var i = 0;
+            for (i; i <= Conditions.length; i++) {
+                $(".allVedio .filter li").click(function () {
+                    page = 1;
+                    $(this).addClass("active").siblings().removeClass("active")
+                    var type = $(this).parents().parents().parents().attr("class");
+                    var value = $(this).attr("name");
+                    if (Conditions.length == 0) {
+                        Conditions.push({ type: type, value: value })
+                        console.log(JSON.stringify(Conditions), i)
+                    } else if (Conditions[i].type == type) {
+                        Conditions[i].value = value;
+                        console.log(JSON.stringify(Conditions), i)
+                    } else {
+                        Conditions.push({ type: type, value: value })
+                        console.log(JSON.stringify(Conditions), i)
+                    }
+                    i = 0;
+                    $.ajax({
+                        url: "json/tag.json",
+                        type: "get",
+                        data: { conditions: JSON.stringify(Conditions) },
+                        success: function (res) {
+                            var html = template("list", res[page]);
+                            $(".allVedio>.content ul").html(html);
+                        }
+                    })
+                })
+            }
+
+            //  点击加载更多
+            $(".loadmore").click(function () {
+                page++;
+                $.ajax({
+                    url: "json/tag.json",
+                    type: "get",
+                    data: { conditions: JSON.stringify(Conditions), sort: sort },
+                    success: function (res) {
+                        console.log(res[page])
+                        if (!res[page]) {
+                            $(".loadmore").html("没有更多数据了");
+                            return false;
+                        }
+                        var html = template("list", res[page]);
+                        $(".allVedio>.content ul").append(html);
+                    }
+                })
+
+            })
+            // 根据用户选择排序方式请求数据
+            var sort = "";
+            $(".allVedio .sort li").click(function () {
+                sort = $(this).attr("name");
+                console.log(sort)
+                page = 1;
+                $(this).addClass("active").siblings().removeClass("active");
+                $.ajax({
+                    url: "json/tag.json",
+                    type: "get",
+                    data: { conditions: JSON.stringify(Conditions), sort: sort },
+                    success: function (res) {
+                        console.log(res[page])
+                        if (!res[page]) {
+                            $(".loadmore").html("没有更多数据了");
+                            return false;
+                        }
+                        var html = template("list", res[page]);
+                        $(".allVedio>.content ul").append(html);
+                    }
+                })
+
+            })
+            // 禁止页面滚动
+
+
+            // 点击讲师，弹出遮罩和弹出层
+            var teacherflag
+            $(".teacher li:gt(1)").click(function (e) {
+                $(".popup .sort>div").removeClass("active");
+                $(".popup .sort .left").addClass("active");
+                $(".popup .content>div").addClass("none");
+                $(".popup .content .play").removeClass("none");
+                $(".popup .content .letter").addClass("none");
+                $("html").css({ "overflow": "hidden", "height": "100%" })
+                $("body").css({ "overflow": "hidden", "height": "100%" })
+                $(".mask").removeClass("none"); //显示遮罩层
+                
+                //禁止页面滚动
+                // flag = 1;
+
+                $(".popup").removeClass("none");
+                // 热门、国内、国外
+                teacherflag = $(this).data("flag")
+                if (teacherflag == "remen") {
+                    $(".popup .choose li").html("热门");
+                } else if (teacherflag == "guonei") {
+                    $(".popup .choose li").html("国内");
+                } else {
+                    $(".popup .choose li").html("国外");
+                }
+                // 发送ajax请求获取讲师
+                $.ajax({
+                    url: "json/play.json",
+                    type: "get",
+                    data: { type: teacherflag }, //用户选择热门、国内、国外的讲师
+                    success: function (res) {
+                        console.log(res)
+                        var html = template("play", res);
+                        $(".popup .play ul").html(html);
+                    }
+                })
+
+            })
+            // 点击会议，弹出遮罩和弹出层
+            $(".meeting li:gt(1)").click(function (e) {
+                $("html").css({ "overflow": "hidden", "height": "100%" })
+                $("body").css({ "overflow": "hidden", "height": "100%" })
+                $(".mask").removeClass("none"); //显示遮罩层
+                
+                $(".meetpop").removeClass("none");
+                var meetflag = $(this).data("flag")
+                console.log(meetflag)
+                if (meetflag == "18") {
+                    $(".meetpop .choose li").html("18年");
+                } else if (meetflag == "17") {
+                    $(".meetpop .choose li").html("17年");
+                } else {
+                    $(".meetpop .choose li").html("16年");
+                }
+                $.ajax({
+                    url: "json/meeting.json",
+                    type: "get",
+                    data: { type: meetflag }, //用户选择会议的年份
+                    success: function (res) {
+                        console.log(res)
+                        var html = template("meet", res.list);
+                        $(".meetpop .content ul").html(html);
+                    }
+                })
+
+            })
+            // 关闭弹出层
+            function guanbi(mask, popup) {
+                mask.addClass("none");
+                popup.addClass("none");
+                $("html").css({ "overflow": "auto", "height": "100%" })
+                $("body").css({ "overflow": "auto", "height": "100%" })
+                $.ajax({
+                    url: "json/tag.json",
+                    type: "get",
+                    data: { conditions: JSON.stringify(Conditions) },
+                    success: function (res) {
+                        var html = template("list", res[page]);
+                        $(".allVedio>.content ul").html(html);
+                        console.log("发送ajax请求新数据")
+                    }
+                })
+            }
+            // 选择讲师或点击x关闭弹出层
+            $(".popup ").on("click", "input", function () {
+                var _that = $(this)
+                console.log($(this).data("flag"))
+                $(Conditions).each(function (i, v) {
+                    if (v.type == "teacher") {
+                        v.value = _that.data("flag");
+                    }
+                })
+                console.log(JSON.stringify(Conditions))
+                guanbi($(".mask"), $(".popup"));
+            });
+            $(".popup .icon-guanbi").click(function () {
+                guanbi($(".mask"), $(".popup"));
+            });
+            // 选择会议或点击X关闭弹出层
+            $(".meetpop .content").on("click", "li", function () {
+                var that = $(this)
+                $(Conditions).each(function (i, v) {
+                    if (v.type == "meeting") {
+                        v.value = that.data("flag");
+                    }
+                })
+                console.log(JSON.stringify(Conditions))
+                guanbi($(".mask"), $(".meetpop"));
+
+
+            })
+            $(".meetpop .icon-guanbi").click(function () {
+                guanbi($(".mask"), $(".meetpop"));
+            })
+            // 切换讲师排序方式样式和显示
+            $(".popup .sort div").click(function () {
+                $(this).addClass("active").siblings().removeClass("active");
+                var tabFlag = $(this).data("flag");
+                console.log("tabflag" + tabFlag);
+                $(".popup .content ." + tabFlag).removeClass("none").siblings().addClass("none")
+                // 根据国内外分类和排序方式，发送ajax请求
+                $.ajax({
+                    url: "json/" + tabFlag + ".json",
+                    type: "get",
+                    data: { type: teacherflag, value: tabFlag }, //type：讲师属于的国家或热门，value：播放次数或字母排序
+                    success: function (res) {
+                        console.log(res)
+                        var html = template(tabFlag, res);
+                        $(".popup ." + tabFlag + ">ul").html(html);
+                    }
+                })
+
+            })
+            // 讲师选择字母样式
+            $(".popup .letterSort a").click(function () {
+                $(this).addClass("active").siblings().removeClass("active");
+
+            })
+        })
+    </script>
+</body>
+
+</html>

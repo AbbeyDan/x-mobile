@@ -1,0 +1,9 @@
+{
+    "list":[
+        {"id":"A","authors":[{"id":1,"author":"阿尔伯特.班杜拉"},{"id":2,"author":"阿尔伯特.艾利斯"},{"id":3,"author":"阿宁.尤蒂格尔特"},{"id":"15","author":"安吉利亚.帕诺斯"}]},
+        {"id":"B","authors":[{"id":4,"author":"白学军"},{"id":5,"author":"包天奎"},{"id":6,"author":"鲍勃.斯特尔"}]},
+        {"id":"C","authors":[{"id":7,"author":"曹银雪"},{"id":8,"author":"夏雨"},{"id":9,"author":"夏锶琪.尤蒂格尔特"}]},
+        {"id":"D","authors":[{"id":10,"author":"邓毅"},{"id":11,"author":"邓二"}]},
+        {"id":"E","authors":[{"id":12,"author":"阿尔伯特.艾利斯"},{"id":13,"author":"阿宁.尤蒂格尔特"},{"id":14,"author":"安吉利亚.帕诺斯"}]}
+    ]
+}

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>邀请好友</title>
+    <script src="../plugin/rem.js"></script>
+    <link rel="stylesheet" href="../css/icon/iconfont.css">
+    <link rel="stylesheet" href="../plugin/reset.css">
+    <script src="../plugin/jquery-1.12.1.min.js"></script>
+    <script src="../plugin/bscroll.min.js"></script>
+    <style>
+        .invite {
+            height: 100%;
+            background-color: #666;
+            padding-top: .4rem;
+        }
+
+        .invite nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: .4rem;
+            line-height: .4rem;
+            text-align: center;
+            font-size: .2rem;
+            color: #65c5aa;
+            font-weight: bold;
+            background-color: #333;
+        }
+
+        .invite nav i {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: .2rem;
+        }
+
+        .invite .content {
+            width: 60%;
+            height: 3rem;
+            background-color: rgb(32, 32, 32);
+            margin: 0 auto;
+            border-radius: .2rem;
+            margin-top: .2rem;
+
+        }
+
+        .invite img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .invite p {
+            text-align: center;
+            margin-top: .2rem;
+            color: #ccc;
+            font-size: .18rem;
+        }
+
+        .invite .tabScroll {
+            width: 100%;
+            overflow-x: hidden;
+            margin-top: .2rem;
+            margin-bottom: .6rem;
+        }
+
+        .invite li {
+            width: .8rem;
+            height: .8rem;
+            background-color: #ccc;
+            display: inline-block;
+            margin-left: .1rem;
+        }
+
+        .bscroll-container {
+            white-space: nowrap;
+            display: inline-block;
+
+        }
+
+        .invite .btn {
+            height: .6rem;
+            line-height: .6rem;
+            /* border-radius:.2rem; */
+            text-align: center;
+            background-color: #65c5aa;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+        }
+
+        .invite li.active {
+            border: 2px solid #65c5aa;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="invite">
+        <nav>
+            <i class="iconfont icon-fanhui" onclick="javascript:history.go(-1);"></i>
+
+            邀请好友
+        </nav>
+        <p>长按图片保存到相册</p>
+        <div class="content">
+            <img src="" alt="">
+        </div>
+        <div class="tabScroll">
+            <div class="bscroll-container">
+                <ul class="clearfix">
+                    <li class="active">
+                        <img src="../img/avator.jpeg" alt="">
+                    </li>
+                    <li>
+                        <img src="../img/4.jpg" alt="">
+                    </li>
+                    <li>
+                        <img src="../img/1531113208(1).jpg" alt="">
+                    </li>
+                    <li>
+                        <img src="../img/4.jpg" alt="">
+                    </li>
+                    <li>
+                        <img src="../img/1.jpg" alt="">
+                    </li>
+                    <li>
+                        <img src="../img/avator.jpeg" alt="">
+                    </li>
+                    <li>
+                        <img src="../img/timg (1).jpg" alt="">
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="btn">邀请好友入学</div>
+    </div>
+    <script>
+        $(function () {
+            var scrollConfig = {
+                scrollX: true, scrollY: false,
+                click: true,
+                bounce: {
+                    top: false,
+                    bottom: false,
+                    left: false,
+                    right: false,
+                    tap: true
+                }
+            }
+            let tabScroll = document.querySelector(".tabScroll");
+            new BScroll(tabScroll, scrollConfig);
+            $(".content img").attr("src", $("li.active").find("img").attr("src"))
+            $(".invite li").click(function () {
+                $(this).addClass("active").siblings().removeClass("active");
+                $(".content img")[0].src = $(this).find("img").attr("src");
+            })
+
+        })
+    </script>
+</body>
+
+</html>

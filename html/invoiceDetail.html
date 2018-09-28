@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>纸质开票详情</title>
+    <script src="../plugin/rem.js"></script>
+    <link rel="stylesheet" href="../css/icon/iconfont.css">
+    <link rel="stylesheet" href="../plugin/reset.css">
+    <script src="../plugin/jquery-1.12.1.min.js"></script>
+    <style>
+        .invoiceDetail {
+            background-color: #eee;
+            padding-top: .4rem;
+        }
+
+        .invoiceDetail nav {
+            color: #65c5aa;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: .4rem;
+            line-height: .4rem;
+            text-align: center;
+            font-size: .2rem;
+            font-weight: bold;
+            background-color: #fff;
+            z-index: 1;
+        }
+
+        .invoiceDetail nav i {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: .2rem;
+        }
+
+        .invoiceDetail div.first,
+        .invoiceDetail div.last{
+            margin-top: .1rem;
+        }
+
+        .invoiceDetail ul {
+            padding: 0 .2rem;
+            background-color: #fff;
+            overflow: hidden;
+        }
+        .invoiceDetail li{
+            margin: .2rem 0;
+            position: relative;
+        }
+        .invoiceDetail div>p {
+            height: .4rem;
+            line-height: .4rem;
+            ;
+            padding-left: .2rem;
+        }
+        .invoiceDetail li label{
+            display: inline-block;
+            width:.6rem;
+            float:left;
+            color:#999;
+        }
+        .invoiceDetail li>span{
+            display: inline-block;
+            width:70%;
+            margin-left:.2rem;
+            color:#333;
+        }
+        .invoiceDetail .last div{
+            position: absolute;
+            top:50%;
+            right:.2rem;
+            transform: translateY(-50%)
+        }
+    </style>
+</head>
+
+<body>
+    <div class="invoiceDetail">
+        <nav>
+            <i class="iconfont icon-fanhui" onclick="history.go(-1)"></i>
+            纸质发票详情
+        </nav>
+        <!--发票详情模板 -->
+    </div>
+    <script src="../plugin/template-web.js"></script>
+    <script src="../plugin/ajax.js"></script>
+    <script type="text/template" id="detail">
+        <div class="first">
+                <ul>
+                    <li>
+                        
+                        <h3>{{data.status?"纸质发票已寄出":"工作人员正在开票中..."}}</h3>
+                        {{if data.status}}
+                        <p>{{data.sendTime}}</p>
+                        {{/if}}
+                        
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <p>接收信息</p>
+                <ul>
+                    <li>
+                        <label for="">详细地址</label>
+                        <span>{{data.adr}}</span>
+                    </li>
+                    <li>
+                        <label for="">收件人</label>
+                        <span>{{data.reveive}}</span>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                    <p>发票信息</p>
+                    <ul>
+                        <li>
+                            <label for="">发票抬头</label>
+                            <span class="company">{{data.invoiceTit}}</span>
+                        </li>
+                        <li>
+                            <label for="">税号</label>
+                            <span> {{data.duty}}</span>
+                        </li>
+                        <li>
+                                <label for="">发票内容</label>
+                                <span> 视频费用</span>
+                            </li>
+                            <li>
+                                    <label for="">发票金额</label>
+                                    <span> {{data.sum}}</span>
+                                </li>
+                                <li>
+                                        <label for="">申请时间</label>
+                                        <span> {{data.applyTime}}</span>
+                                    </li>
+                    </ul>
+                </div>
+                <div class="last">
+                        <ul>
+                            <li>
+                                <h3>1张发票，含<span class="num">{{data.lessonNum}}</span>个课程</h3>
+                                <!-- <p>2017.11.06 :17:54</p> -->
+                                <div>
+                                    查看<span class="iconfont icon-gengduo"></span>
+                                </div>
+                            </li>
+                        </ul>
+                </div>
+    </script>
+    <script src="../plugin/getQuery.js"></script>
+    <script>
+        $(function(){
+            // 获取开票单号
+            var orderNum = getQueryString("orderNum");
+            var userId = localStorage.getItem("userId");
+            $.ajax({
+                url:"json/invoiceDetail.json",
+                type:"get",
+                data:{orderNum:orderNum,userId:userId},
+                success:function(res){
+                    $(res.list).each(function(i,v){
+                        if(v.orderNum==orderNum){
+                            var html = template("detail",{data:v});
+                            console.log(v)
+                            $(".invoiceDetail").append(html)
+                        }
+                    })
+                               
+            $(".last div").click(function(){
+                location.href="invoiceLesson.html?orderNum="+orderNum;
+            })
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>
