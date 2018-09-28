@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>注册页面</title>
+    <!-- <link rel="apple-touch-icon-precomposed" href="http://m.iepsy.com/images/apple-touch-icon.png"> -->
+    <link rel="stylesheet" href="plugin/seedsui.min.css">
+    <script src="plugin/rem.js"></script>
+    <link rel="stylesheet" href="plugin/reset.css">
+    <script src="plugin/jquery-1.12.1.min.js"></script>
+    <!-- <link rel="stylesheet" href="css/base.css"> -->
+    <!-- <link rel="stylesheet" href="./css/login.css"> -->
+    <style>
+        .phone_plac::-webkit-input-placeholder {
+            /* WebKit, Blink, Edge */
+            color: #909;
+        }
+        
+        .phone_plac::-moz-placeholder {
+            /* Mozilla Firefox 4 to 18 */
+            color: #909;
+        }
+        
+        .phone_plac::-moz-placeholder {
+            /* Mozilla Firefox 19+ */
+            color: #909;
+        }
+        
+        .phone_plac::-ms-input-placeholder {
+            /* Internet Explorer 10-11 */
+            color: #909;
+        }
+        
+        .mod {
+            position: fixed;
+            top: 25%;
+            left: 50%;
+            width: 50%;
+            height: 1rem;
+            margin-left: -25%;
+            background-color: black;
+            color: #fff;
+            text-align: center;
+            line-height: 1rem;
+            z-index: 10;
+        }
+        
+        .mod_go {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            z-index: 20;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div class="titlebar">
+            <a class="titlebar-button" href="javascript:back()">
+                <i class="iconfont icon-fanhui"></i>
+            </a>
+            <h1 class="titlebar-caption text-center">注册</h1>
+            <a class="titlebar-button" href="./login.html">
+                <span>登录</span>
+            </a>
+        </div>
+        <!-- 弹出框 -->
+        <div class="mod" style="color:#fff; display:none;">
+            <span class="icon icon-rdoinfo" style="color:orange"></span>
+            <span class="mod_txt"></span>
+        </div>
+        <!-- 注册成功后的延时跳转框 -->
+        <div class="mod_go hide" style="font-size :25px;">
+            <span class="count">5</span> 秒后跳转登录页。。。。。
+        </div>
+
+        <div class="group">
+
+            <div style="padding: 0 12px; ">
+
+                <div class="phone_input inputbox border-b">
+                    <label class="inputbox-left">手机号码</label>
+                    <div class="inputbox-right inputbox">
+                        <input id="phone" type="text" class="input-text" placeholder="请输入你的手机号">
+                    </div>
+                </div>
+                <div class="password_input inputbox border-b">
+                    <label class="inputbox-left">密码</label>
+                    <div class="inputbox-right inputbox">
+                        <input id="password" type="password" class="input-text" placeholder="请输入密码" name="password" />
+                        <i class="color-placeholder icon icon-eye"></i>
+                    </div>
+                </div>
+                <div class="inputbox border-b">
+                    <label class="inputbox-left">验证码</label>
+                    <div class="inputbox-right inputbox">
+                        <input id="code_txt" type="text" class="input-text" placeholder="请输入你的验证码">
+                    </div>
+                    <input id="phone_code" type="button" class="button" value="发送验证码" style="padding: 0 10px;height: 32px;border-radius: 4px;" />
+                </div>
+            </div>
+            <div style="margin:0 12px;padding: 10px 0">
+                <button id="btn" class="button" style="width: 100%;border-radius: 4px;">发送</button>
+            </div>
+            <div class="clearfix" style="padding-bottom:30px;">
+                <a class="fr" style="margin-right:20px; color:tomato;" href="">找回密码</a>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script>
+        function back() {
+            window.history.go(-1)
+        }
+        let phone_flag = false;
+        let password_flag = false;
+        let countdown = 120; // 发送验证码倒计时
+        let res_code; // 存储手机验证码
+        let phone_reg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/; // 手机号正则验证码
+        //手机号失去焦点
+        $('#phone').blur(function(e) {
+
+            let phone = $.trim($('#phone').val());
+            // 判断手机号格式是否正确
+            if (!phone_reg.test(phone)) {
+
+                $('.mod').show();
+
+                $('.mod_txt').html('手机号格式不正确');
+
+            } else {
+                // 检查手机号是否已注册
+                $.ajax({
+                    type: "post",
+                    url: "http://39.104.90.182:80/px/service/px/login_check.json",
+                    data: {
+                        phone: phone
+                    },
+                    dataType: "json",
+                    success: function(res) {
+                        console.log(res);
+                        if (res.code == '200') {
+                            $('.mod').show();
+
+                            $('.mod_txt').html('手机已注册,请重新输入');
+
+                        } else {
+                            phone_flag = true;
+                        }
+                    }
+                });
+
+            }
+        });
+        // 密码失去焦点
+        $('#password').blur(function(e) {
+            let password = $('#password').val();
+            console.log(password);
+            // 密码不能为空
+            if (password != '') {
+                password_flag = true;
+                $('.password_input').css('border', 'none');
+            } else {
+                $('.mod').show();
+                $('.mod_txt').html('密码格式不正确');
+
+            }
+        });
+        //倒计时120秒
+        function settime() {
+            if (countdown == 0) {
+                $('#phone_code').attr('disabled', false);
+                $('#phone_code').val("获取验证码");
+                return;
+            } else {
+                $('#phone_code').attr('disabled', true);
+                $('#phone_code').val("重新发送(" + countdown + ")");
+                countdown--;
+            }
+            setTimeout(function() {
+                settime()
+            }, 1000)
+        }
+
+        // 点击获取验证码
+        $('#phone_code').on('click', function() {
+            console.log(1111);
+            if (phone_flag) {
+                // 开始倒计时
+                settime();
+                $.ajax({
+                    type: "post",
+                    url: 'http://39.104.90.182:80/px/service/px/sms_reg.json',
+                    data: {
+                        phone: $.trim($('#phone').val())
+                    },
+                    dataType: "json",
+                    success: function(res) {
+                        console.log(res);
+                        res_code = res.msg;
+                    }
+                });
+            } else {
+                console.log('手机号格式不正确');
+            }
+
+        });
+
+        // 点击发送注册用户
+        $('#btn').on('click', function() {
+            let phone_code = $('#code_txt').val();
+
+            if (phone_code == res_code && phone_flag && password_flag) {
+                console.log('验证码正确');
+                $.ajax({
+                    type: "post",
+                    url: 'http://39.104.90.182:80/px/service/px/reg.json',
+                    data: {
+                        phone: $('#phone').val(),
+                        password: $('#password').val()
+                    },
+                    dataType: "json",
+                    success: function(response) {
+                        console.log(response);
+                        $('.mod_go').show();
+                        // 5秒后跳转登录
+                        let count = 5;
+
+                        function settime_() {
+                            if (count == 0) {
+                                window.location.href = './login.html';
+                                return;
+                            } else {
+                                $('.count').html(count);
+                                count--;
+                            }
+                            setTimeout(function() {
+                                settime_()
+                            }, 1000)
+                        }
+                        settime_();
+                    }
+                });
+            } else {
+
+                console.log('请填写有用信息');
+            }
+        });
+        $('.mod').on('click', function() {
+            $(this).hide();
+        });
+    </script>
+</body>
+
+</html>

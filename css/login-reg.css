@@ -1,0 +1,14 @@
+
+@charset "utf-8";
+/* 登录 和注册 页面 样式 */
+.titlebar{
+    height: 1rem;
+    font-size:.3rem;
+}
+.titlebar-caption{
+    font-size:.5rem;
+}
+.group a{
+    height: 0.5rem;
+    font-size: .3rem;
+}

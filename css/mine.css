@@ -1,0 +1,124 @@
+#mine{
+    height: 100%;
+    background-color: #eee;
+   
+    /* background: linear-gradient(rgb(250, 119, 232),rgb(100, 206, 248),rgb(137, 240, 192)); */
+}
+/* 顶部个人信息 */
+#mine  .baseInfo{
+    height: .8rem;
+    padding: .2rem;
+    position: relative;
+    color: #666;
+    background-color: #fff;
+    box-sizing: border-box;
+}
+#mine .avator{
+    width:.6rem;
+    height: .6rem;
+    border-radius: 50%;
+    border:1px solid #eee;
+    overflow: hidden;
+    float:left;
+}
+#mine .avator img{
+    width: 100%;
+}
+/* 顶部右侧vip等级和班级 */
+#mine .baseInfo .text{
+    margin-left:.8rem;
+    height:.6rem;
+    padding-top: .1rem;
+    box-sizing: border-box;
+}
+
+#mine .baseInfo .text>div{
+    display:inline-block;
+    margin-left:.1rem;
+    vertical-align: top;
+}
+#mine .baseInfo .text>span{
+    color:#333;
+}
+#mine .baseInfo .level{
+    color:orangered;
+}
+#mine .baseInfo i{
+    display: inline-block;
+    height: .1rem;
+    border-left:1px solid #ccc;
+}
+#mine .baseInfo p{
+    margin-top:.1rem;
+}
+#mine .baseInfo>span{
+    position: absolute;
+    right: .2rem;
+    top: 50%;
+    transform: translateY(-50%);
+}
+/* 学分、研值 */
+#mine .score {
+    height: .8rem;
+    padding-top:.1rem;
+    display:flex;
+    justify-content: space-between;
+    background-color: #fff;
+    box-sizing: border-box;
+}
+#mine .score>div{
+    width:30%;
+    text-align:center;
+}
+#mine .score>i{
+    display:inline-block;
+    height: .4rem;
+    border-left:1px solid #eee;
+}
+#mine .score h4{
+    margin-bottom:.1rem;
+    color:#333;
+}
+#mine .score span{
+    font-size:.12rem;
+    color:orangered;
+}
+/* 详细分类 */
+#mine .detail{
+    margin-top:.1rem;
+    padding: 0 .2rem;
+    background-color: #fff;
+    color:#666;
+}
+#mine .detail li{
+    padding-left:.3rem;
+    height: .4rem;
+    line-height: .4rem;
+    border-bottom:1px solid #eee;
+    position: relative;
+}
+#mine .detail span{
+    position: absolute;
+    right:0;
+    top:50%;
+    transform:translateY(-50%);
+
+}
+#mine .detail i.iconfont{
+    position: absolute;
+    left:0;
+    top:50%;
+    transform:translateY(-50%);
+    font-size:.18rem;
+}
+#mine .detail i.class{
+    position: absolute;
+    right:.2rem;
+}
+/* 邀请好友 */
+#mine .invite{
+    position: absolute;
+    top:.1rem;
+    right:.2rem;
+    color:orangered;
+}

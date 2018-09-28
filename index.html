@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>视频首页</title>
+    <script src="plugin/rem.js"></script>
+    <link rel="stylesheet" href="css/icon/iconfont.css">
+    <script src="css/icon/iconfont.js"></script>
+    <link rel="stylesheet" href="plugin/mui.css">
+    <script src="plugin/mui.min.js"></script>
+    <link rel="stylesheet" href="plugin/reset.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/history.css">
+    <link rel="stylesheet" href="css/mine.css">
+    <script src="plugin/jquery-1.12.1.min.js"></script>
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+
+        .icon {
+            width: .3rem;
+            height: .3rem;
+        }
+
+        .fenleiTag {
+            width: .4rem;
+        }
+
+        #hobbyRukou .tag .content li {
+            width: 25%;
+        }
+
+        #hobbyRukou .tag .fenleiTag.active {
+            border-bottom: 2px solid #65c5aa;
+        }
+
+        .fenlei div.active {
+            color: #65c5aa;
+            border-bottom: 2px solid #65c5aa;
+        }
+
+        .vedioTag .icon {
+            height: 100%;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+
+<body ontouchstart>
+
+    <div class="weui_tab">
+        <div class="weui_tab_panel">
+            <!-- 学院首页 -->
+            <div id="xueyuan" class="none">
+                学院跳到有赞
+            </div>
+            <!-- 视频首页 -->
+            <div id="vedioIndex">
+                <!-- 顶部搜索 -->
+                <div class="search">
+                    <input class="iconfont icon-sousuo5" type="text" placeholder="线下培训课程">
+                    <span class="searchBtn">搜索</span>
+                </div>
+                <!-- 分类入口 -->
+                <div class="fenlei clearfix">
+                    <div class="worker fl active" href="#workerRukou">心理工作者</div>
+                    <i></i>
+                    <div class="hobby " href="#hobbyRukou">心理爱好者</div>
+                </div>
+                <div class="fenleiContent">
+                    <!-- 爱好者 -->
+                    <div id="hobbyRukou" class="none">
+                        <!-- 图片轮播 -->
+                        <div class="lunbo top">
+                            <div class="mui-slider ">
+                                <div class="mui-slider-group mui-slider-loop">
+                                    <!-- 轮播图模板 -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 详细分类 -->
+                        <div class="tag">
+                            <ul class="clearfix">
+                                <li class="fenleiTag active"> 按领域</li>
+                                <li class="fenleiTag right">按人群</li>
+                                <li class="btn">
+                                    <div>
+                                        <span>进入直播间</span>
+                                        <span onclick="javascript:location.href='html/allVedio.html'">全部视频</span>
+                                    </div>
+                                </li>
+                            </ul>
+                            <!-- 按领域 -->
+                            <ul class="content clearfix">
+                                <li>
+                                    <a href="html/tag.html?tag=domain&childTag=1">
+                                        <svg class="icon" aria-hidden="true">
+                                            <use xlink:href="#icon-chengchang"></use>
+                                        </svg>
+                                        <p>个人成长</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="html/tag.html?tag=domain&childTag=2">
+                                        <svg class="icon" aria-hidden="true">
+                                            <use xlink:href="#icon-liangxing"></use>
+                                        </svg>
+                                        <p>两性情感</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="html/tag.html?tag=domain&childTag=3">
+                                        <svg class="icon" aria-hidden="true">
+                                            <use xlink:href="#icon-guanxi"></use>
+                                        </svg>
+                                        <p>人际关系</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="html/tag.html?tag=domain&childTag=4">
+                                        <svg class="icon" aria-hidden="true">
+                                            <use xlink:href="#icon-qinzi1"></use>
+                                        </svg>
+                                        <p>家庭亲子</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="html/tag.html?tag=domain&childTag=5">
+                                        <svg class="icon" aria-hidden="true">
+                                            <use xlink:href="#icon-qingxu"></use>
+                                        </svg>
+                                        <p>情绪压力</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="html/tag.html?tag=domain&childTag=6">
+                                        <svg class="icon" aria-hidden="true">
+                                            <use xlink:href="#icon-zhichang"></use>
+                                        </svg>
+                                        <p>职场技能</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="html/tag.html?tag=domain&childTag=7">
+                                        <svg class="icon" aria-hidden="true">
+                                            <use xlink:href="#icon-xinli"></use>
+                                        </svg>
+                                        <p>心理健康</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="html/tag.html?tag=domain&childTag=8">
+                                        <svg class="icon" aria-hidden="true">
+                                            <use xlink:href="#icon-jibinghuli"></use>
+                                        </svg>
+                                        <p>心理疾病</p>
+                                    </a>
+                                </li>
+                            </ul>
+                            <!-- 按人群 -->
+                            <ul class="content none clearfix">
+                                <li>
+                                    <a href="html/tag.html?tag=serviceGroups&childTag=1">
+                                        <svg class="icon" aria-hidden="true">
+                                            <use xlink:href="#icon-qinzi"></use>
+                                        </svg>
+                                        <p>亲子</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="html/tag.html?tag=serviceGroups&childTag=2">
+                                        <svg class="icon" aria-hidden="true">
+                                            <use xlink:href="#icon-heart"></use>
+                                        </svg>
+                                        <p>伴侣</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="html/tag.html?tag=serviceGroups&childTag=3">
+                                        <svg class="icon" aria-hidden="true">
+                                            <use xlink:href="#icon-jiating"></use>
+                                        </svg>
+                                        <p>家庭</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="html/tag.html?tag=serviceGroups&childTag=4">
+                                        <svg class="icon" aria-hidden="true">
+                                            <use xlink:href="#icon-ziyuan"></use>
+                                        </svg>
+                                        <p>学生党</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="html/tag.html?tag=serviceGroups&childTag=5">
+                                        <svg class="icon" aria-hidden="true">
+                                            <use xlink:href="#icon-youer"></use>
+                                        </svg>
+                                        <p>幼儿</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="html/tag.html?tag=serviceGroups&childTag=6">
+                                        <svg class="icon" aria-hidden="true">
+                                            <use xlink:href="#icon-ertong"></use>
+                                        </svg>
+                                        <p>儿童</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="html/tag.html?tag=serviceGroups&childTag=7">
+                                        <svg class="icon" aria-hidden="true">
+                                            <use xlink:href="#icon-caiji_zhongdianqingshaonian"></use>
+                                        </svg>
+                                        <p>青少年</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="html/tag.html?tag=serviceGroups&childTag=8">
+                                        <svg class="icon" aria-hidden="true">
+                                            <use xlink:href="#icon-chengrenpiao"></use>
+                                        </svg>
+                                        <p>成年</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="html/tag.html?tag=serviceGroups&childTag=9">
+                                        <svg class="icon" aria-hidden="true">
+                                            <use xlink:href="#icon-icon-lnr"></use>
+                                        </svg>
+                                        <p>中老年</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="html/tag.html?tag=serviceGroups&childTag=10">
+                                        <svg class="icon" aria-hidden="true">
+                                            <use xlink:href="#icon-yunfu"></use>
+                                        </svg>
+                                        <p>孕产妇</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="html/tag.html?tag=serviceGroups&childTag=11">
+                                        <svg class="icon" aria-hidden="true">
+                                            <use xlink:href="#icon-canjiren"></use>
+                                        </svg>
+                                        <p>残疾人</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="html/tag.html?tag=serviceGroups&childTag=12">
+                                        <svg class="icon" aria-hidden="true">
+                                            <use xlink:href="#icon-xingbie2"></use>
+                                        </svg>
+                                        <p>性少数</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="html/tag.html?tag=serviceGroups&childTag=13">
+                                        <svg class="icon" aria-hidden="true">
+                                            <use xlink:href="#icon-qita"></use>
+                                        </svg>
+                                        <p>其他人群</p>
+                                    </a>
+                                </li>
+                            </ul>
+
+                        </div>
+                        <!-- 广告 -->
+                        <div class="guanggao">
+                            <!-- 广告模板 -->
+                        </div>
+                        <!-- 视频标签 -->
+                        <div class="vedio">
+                            <ul class="clearfix">
+                                <!-- 视频标签模板 -->
+                            </ul>
+                        </div>
+                        <!-- 会员广告 -->
+                        <div class="vipGg">
+                            <!-- 广告模板 -->
+                        </div>
+                        <!-- 底部banner -->
+                        <div class="lunbo bot">
+                            <div class="mui-slider ">
+                                <div class="mui-slider-group mui-slider-loop">
+                                    <!-- 轮播图模板 -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 最新课程的视频 -->
+                        <div class="vedioTag">
+                            <div class="new">
+                                <div class="title">
+                                    <i class="iconfont icon-tangxueyuan"></i>
+                                    <p>最新课程</p>
+                                    <i class="more iconfont icon-gengduo"></i>
+                                </div>
+                                <div class="content">
+                                    <ul>
+                                        <!-- 最新课程 -->
+                                    </ul>
+
+                                    <p class="more">更多</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 工作者 -->
+                    <div id="workerRukou">
+                        <!-- 图片轮播 -->
+                        <div class="lunbo top">
+                            <div class="mui-slider ">
+                                <div class="mui-slider-group mui-slider-loop">
+                                    <!-- 轮播图模板 -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 详细分类 -->
+                        <div class="tag">
+                            <ul class="clearfix">
+
+                                <li class="fenleiTag"> 分类</li>
+                                <li class="btn">
+                                    <div>
+                                        <span>进入直播间</span>
+                                        <span onclick="javascript:location.href='html/allVedio.html'">全部视频</span>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <a href="html/tag.html?tag=rumen">
+                                        <svg class="icon" aria-hidden="true">
+                                            <use xlink:href="#icon-rumen"></use>
+                                        </svg>
+                                        <p>入门必修</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="html/tag.html?tag=attestation">
+                                        <svg class="icon" aria-hidden="true">
+                                            <use xlink:href="#icon-renzheng"></use>
+                                        </svg>
+                                        <p>认证课程</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="html/tag.html?tag=zhenduan">
+                                        <svg class="icon" aria-hidden="true">
+                                            <use xlink:href="#icon-zhenduan"></use>
+                                        </svg>
+                                        <p>诊断评估</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="html/tag.html?tag=teacher">
+                                        <svg class="icon" aria-hidden="true">
+                                            <use xlink:href="#icon-mingshi"></use>
+                                        </svg>
+                                        <p>名师讲堂</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="html/tag.html?tag=consulting">
+                                        <svg class="icon" aria-hidden="true">
+                                            <use xlink:href="#icon-anli"></use>
+                                        </svg>
+                                        <p>咨询案例</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="html/tag.html?tag=meeting">
+                                        <svg class="icon" aria-hidden="true">
+                                            <use xlink:href="#icon-meeting"></use>
+                                        </svg>
+                                        <p>会议回放</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="html/tag.html?tag=technical">
+                                        <svg class="icon" aria-hidden="true">
+                                            <use xlink:href="#icon-jishu"></use>
+                                        </svg>
+                                        <p>技术/流派</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="html/tag.html?tag=domain">
+                                        <svg class="icon" aria-hidden="true">
+                                            <use xlink:href="#icon-lingyu"></use>
+                                        </svg>
+                                        <p>咨询领域</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="html/tag.html?tag=serviceGroups">
+                                        <svg class="icon" aria-hidden="true">
+                                            <use xlink:href="#icon-renqun"></use>
+                                        </svg>
+                                        <p>服务人群</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="html/vedioTag.html">
+                                        <svg class="icon" aria-hidden="true">
+                                            <use xlink:href="#icon-more"></use>
+                                        </svg>
+                                        <p>更多</p>
+                                    </a>
+                                </li>
+
+                            </ul>
+
+                        </div>
+                        <!-- 广告 -->
+                        <div class="guanggao">
+                            <!-- 广告模板 -->
+                        </div>
+                        <!-- 视频标签 -->
+                        <div class="vedio">
+                            <ul class="clearfix">
+                                <!-- 视频标签模板 -->
+                            </ul>
+                        </div>
+                        <!-- 会员广告 -->
+                        <div class="vipGg">
+                            <!-- 广告模板 -->
+                        </div>
+                        <!-- 底部banner -->
+                        <div class="lunbo bot">
+                            <div class="mui-slider">
+                                <div class="mui-slider-group mui-slider-loop">
+                                    <!-- 轮播图模板 -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 分类标签的视频 -->
+                        <div class="vedioTag">
+                            <div class="rumen">
+                                <div class="title">
+                                    <svg class="icon" aria-hidden="true">
+                                        <use xlink:href="#icon-rumen"></use>
+                                    </svg>
+                                    <p>入门必修</p>
+                                    <!-- <i class="more iconfont icon-gengduo"></i> -->
+                                </div>
+                                <div class="content">
+                                    <ul>
+                                        <!-- 模板 -->
+                                    </ul>
+                                    <p class="more" onclick="location.href='html/tag.html?tag=rumen'">更多
+                                        <span class="iconfont icon-arrow-right"></span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="renzheng">
+                                <div class="title">
+                                    <svg class="icon" aria-hidden="true">
+                                        <use xlink:href="#icon-renzheng"></use>
+                                    </svg>
+                                    <p>认证课程</p>
+                                    <!-- <i class="more iconfont icon-gengduo"></i> -->
+                                </div>
+                                <div class="content">
+                                    <ul>
+                                        <!-- 模板 -->
+                                    </ul>
+                                    <p class="more" onclick="location.href='html/tag.html?tag=attestation'">更多
+                                        <span class="iconfont icon-arrow-right"></span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="zhenduan">
+                                <div class="title">
+                                    <svg class="icon" aria-hidden="true">
+                                        <use xlink:href="#icon-zhenduan"></use>
+                                    </svg>
+                                    <p>诊断评估</p>
+                                    <!-- <i class="more iconfont icon-gengduo"></i> -->
+                                </div>
+                                <div class="content">
+                                    <ul>
+                                        <!-- 模板 -->
+                                    </ul>
+                                    <p class="more" onclick="location.href='html/tag.html?tag=zhenduan'">更多
+                                        <span class="iconfont icon-arrow-right"></span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="mingshi">
+                                <div class="title">
+                                    <svg class="icon" aria-hidden="true">
+                                        <use xlink:href="#icon-mingshi"></use>
+                                    </svg>
+                                    <p>名师讲堂</p>
+                                    <!-- <i class="more iconfont icon-gengduo"></i> -->
+                                </div>
+                                <div class="content">
+                                    <ul>
+                                        <!-- 模板 -->
+                                    </ul>
+                                    <p class="more" onclick="location.href='html/tag.html?tag=teacher'">更多
+                                        <span class="iconfont icon-arrow-right"></span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="anli">
+                                <div class="title">
+                                    <svg class="icon" aria-hidden="true">
+                                        <use xlink:href="#icon-anli"></use>
+                                    </svg>
+                                    <p>咨询案例</p>
+                                    <!-- <i class="more iconfont icon-gengduo"></i> -->
+                                </div>
+                                <div class="content">
+                                    <ul>
+                                        <!-- 模板 -->
+                                    </ul>
+                                    <p class="more" onclick="location.href='html/tag.html?tag=consulting'">更多
+                                        <span class="iconfont icon-arrow-right"></span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="meeting">
+                                <div class="title">
+                                    <svg class="icon" aria-hidden="true">
+                                        <use xlink:href="#icon-meeting"></use>
+                                    </svg>
+                                    <p>会议回放</p>
+                                    <!-- <i class="more iconfont icon-gengduo"></i> -->
+                                </div>
+                                <div class="content">
+                                    <ul>
+                                        <!-- 模板 -->
+                                    </ul>
+                                    <p class="more" onclick="location.href='html/tag.html?tag=meeting'">更多
+                                        <span class="iconfont icon-arrow-right"></span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="jishu">
+                                <div class="title">
+                                    <svg class="icon" aria-hidden="true">
+                                        <use xlink:href="#icon-jishu"></use>
+                                    </svg>
+                                    <p>技术/流派</p>
+                                    <!-- <i class="more iconfont icon-gengduo"></i> -->
+                                </div>
+                                <div class="content">
+                                    <ul>
+                                        <!-- 模板 -->
+                                    </ul>
+                                    <p class="more" onclick="location.href='html/tag.html?tag=technical'">更多
+                                        <span class="iconfont icon-arrow-right"></span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="lingyu">
+                                <div class="title">
+                                    <svg class="icon" aria-hidden="true">
+                                        <use xlink:href="#icon-lingyu"></use>
+                                    </svg>
+                                    <p>咨询领域</p>
+                                    <!-- <i class="more iconfont icon-gengduo"></i> -->
+                                </div>
+                                <div class="content">
+                                    <ul>
+                                        <!-- 模板 -->
+                                    </ul>
+                                    <p class="more" onclick="location.href='html/tag.html?tag=domain'">更多
+                                        <span class="iconfont icon-arrow-right"></span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="renqun">
+                                <div class="title">
+                                    <svg class="icon" aria-hidden="true">
+                                        <use xlink:href="#icon-renqun"></use>
+                                    </svg>
+                                    <p>服务人群</p>
+                                    <!-- <i class="more iconfont icon-gengduo"></i> -->
+                                </div>
+                                <div class="content">
+                                    <ul>
+                                        <!-- 模板 -->
+                                    </ul>
+                                    <p class="more" onclick="location.href='html/tag.html?tag=serviceGroups'">更多
+                                        <span class="iconfont icon-arrow-right"></span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="shipin">
+                                <div class="title">
+                                    <svg class="icon" aria-hidden="true">
+                                        <use xlink:href="#icon-taolun"></use>
+                                    </svg>
+                                    <p>线下培训课程</p>
+                                    <!-- <i class="more iconfont icon-gengduo"></i> -->
+                                </div>
+                                <div class="content">
+                                    <ul>
+                                        <!-- 模板 -->
+                                    </ul>
+                                    <p class="more" onclick="location.href='html/tag.html?tag=trian'">更多
+                                        <span class="iconfont icon-arrow-right"></span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <!-- 会员 -->
+            <div id="vip" class="none">
+                跳转到有赞
+            </div>
+            <!-- 历史记录 -->
+            <div id="history" class="none">
+                <!-- <nav>观看历史</nav> -->
+                <div class="content">
+                    <div class="title">
+                        <span>(最近观看的100个)</span>
+                        <span class="right fr">清空</span>
+                    </div>
+                    <ul>
+
+                    </ul>
+                    <div class="loading">加载更多</div>
+                    <div class="nomore none">
+                        <!-- <img src="img/timg (1).jpg" alt=""> -->
+                        <p>您还没有观看任何视频哦~</p>
+                    </div>
+                </div>
+            </div>
+            <!-- 个人中心 -->
+            <div id="mine" class="none">
+
+
+            </div>
+        </div>
+        <!-- 底部tab切换 -->
+        <div class="weui_tabbar">
+            <a href="#xueyuan" class="weui_tabbar_item ">
+                <div class="iconfont icon-tangxueyuan">
+                </div>
+                <p class="weui_tabbar_label">学院首页</p>
+            </a>
+            <a href="#vedioIndex" class="weui_tabbar_item weui_bar_item_on">
+                <div class="iconfont icon-huo">
+                </div>
+                <p class="weui_tabbar_label">视频首页</p>
+            </a>
+            <a href="#vip" class="weui_tabbar_item">
+                <div class="iconfont icon-huiyuan">
+                </div>
+                <p class="weui_tabbar_label">会员</p>
+            </a>
+            <a href="#history" class="weui_tabbar_item">
+                <div class="iconfont icon-lishijilu">
+                </div>
+                <p class="weui_tabbar_label">观看历史</p>
+            </a>
+            <a href="#mine" class="weui_tabbar_item">
+                <div class="iconfont icon-user">
+                </div>
+                <p class="weui_tabbar_label">个人中心</p>
+            </a>
+        </div>
+    </div>
+    <!-- 头像预览 -->
+    <div class="imgBox none">
+        <img src="" alt="">
+    </div>
+    <script src="plugin/template-web.js"></script>
+    <!-- 录播图模板 -->
+    <script type="text/template" id="lunbo">
+                                           <!--支持循环，需要重复图片节点-->
+                                        <div class="mui-slider-item mui-slider-item-duplicate">
+                                            <a href="#">
+                                                <img src="{{list[3].img}}" />
+                                            </a>
+                                        </div>
+                                        {{each list}}
+                                        <div class="mui-slider-item">
+                                            <a href="{{$value.link}}">
+                                                <img src="{{$value.img}}" />
+                                            </a>
+                                        </div>
+                                        {{/each}}
+                                        <!--支持循环，需要重复图片节点-->
+                                        <div class="mui-slider-item mui-slider-item-duplicate">
+                                            <a href="#">
+                                                <img src="{{list[0].img}}" />
+                                            </a>
+                                        </div>
+    </script>
+    <!-- 广告模板 -->
+    <script type="text/template" id="ad">
+        <a href="{{list.link}}">
+        <div class="img fl">
+            <img src="{{list.img}}" alt="">
+        </div>
+        <span></span>
+        <div class="text ">
+            <div class="title">{{list.title}}</div>
+            <div class="desc">{{list.desc}}</div>
+            <i class="more iconfont icon-gengduo"></i>
+</div>
+</a>
+    </script>
+
+    <!-- 视频标签模板 -->
+    <script type="text/template" id="vedio">
+        {{ each list}}
+        <li>
+                <a href="{{$value.link+"?vid="+$value.vid}}">
+                    <div class="img">
+                        <img src="{{$value.img}}" alt="">
+                        {{if $value.vip}}
+                        <i class="iconfont icon-VIP"></i>
+                        {{/if}}
+                        <span><i>2</i>集</span>
+                    </div>
+                    <div class="text">
+                        {{if $value.title.length>12}}
+                        <h5>{{$value.title.slice(0,12)+'...'}}</h5>
+                        {{else}}
+                        <h5>{{$value.title}}</h5>
+                        {{/if}}
+                        {{if $value.desc.length>12}}
+                        <p>{{$value.desc.slice(0,12)+'...'}}</p>
+                        {{else}}
+                        <p>{{$value.desc}}</p>
+                        {{/if}}
+                    </div>
+
+                </a>
+            </li>
+        {{/each}}
+    </script>
+    <!-- 历史记录模板 -->
+    <script type="text/template" id="his">
+        {{each}}
+                        <li>
+                            <a href="html/{{$value.link+"?vid="+$value.vid}}">
+                                <div class="img">
+                                    <img src="{{$value.img}}" alt="">
+                                    {{if $value.vip}}
+                                    <i class="iconfont icon-VIP"></i>
+                                    {{/if}}
+                                    <span><i>{{$value.num}}</i>集</span>
+                                </div>
+                                <div class="text">
+                                        {{if $value.title.length>5}}
+                                        <h4>{{$value.title.slice(0,5)+'...'}}</h4>
+                                        {{else}}
+                                        <h4>{{$value.title}}</h4>
+                                        {{/if}}
+                                    <div class="bot">
+                                        <p class="author">{{$value.author}}</p>
+                                        <span class="perc">{{$value.perc}}</span>
+                                    </div>
+                                    <span class="del iconfont icon-del"></span>
+                                </div>
+                            </a>
+                        </li>
+        {{/each}}
+    </script>
+    <!-- 心理爱好者最新课程 -->
+    <script type="text/template" id="newlesson">
+        {{each}}
+        <li>
+                <a href="html/{{$value.link+"?vid="+$value.vid}}">
+                    <div class="img">
+                        <img src="{{$value.img}}" alt="">
+                        {{if $value.vip}}
+                        <i class="iconfont icon-VIP"></i>
+                        {{/if}}
+                        <span><i>{{$value.lessonum}}</i>集</span>
+                    </div>
+                    <div class="text">
+                        {{if $value.title.length>5}}
+                        <h4>{{$value.title.slice(0,5)+'...'}}</h4>
+                        {{else}}
+                        <h4>{{$value.title}}</h4>
+                        {{/if}}
+                        <div class="bot">
+                            <span class="author">{{$value.author}}</span> 博士
+                            <p>
+                                <i>{{$value.price}}</i>元
+                                <span class="iconfont  icon-lishijilu"><i>{{$value.number}}</i>人观看过</span>
+                            </p>
+                        </div>
+
+                    </div>
+
+                </a>
+            </li>
+            {{/each}}
+    </script>
+    <!-- 工作者分类课程 -->
+    <script type="text/template" id="vedioTag">
+        {{each list}}
+        <li>
+                <a href="html/{{$value.link+"?vid="+$value.vid}}">
+                    <div class="img">
+                        <img src="{{$value.img}}" alt="">
+                        {{if $value.vip}}
+                        <i class="iconfont icon-VIP"></i>
+                        {{/if}}
+                        <span><i>{{$value.lessonum}}</i>集</span>
+                    </div>
+                    <div class="text">
+                        {{if $value.title.length>5}}
+                        <h4>{{$value.title.slice(0,5)+'...'}}</h4>
+                        {{else}}
+                        <h4>{{$value.title}}</h4>
+                        {{/if}}
+                        <div class="bot">
+                            <span class="author">{{$value.author}}</span> 博士
+                            <p>
+                                <i>{{$value.price}}</i>元
+                                <span class="iconfont  icon-lishijilu"><i>{{$value.number}}</i>人观看过</span>
+                            </p>
+                        </div>
+
+                    </div>
+
+                </a>
+            </li>
+            {{/each}}
+    </script>
+    <!-- 用户信息 -->
+    <script type="text/template" id="userInfo">
+        <div class="baseInfo clearfix">
+            <!-- 用户信息模板 -->
+            <a href="html/invite.html" class="invite">邀请好友</a>
+            
+            <div class="avator">
+                {{if list}}
+                <img src="{{list.avator}}" alt="">
+                {{else}}
+                <img src="img/indexImg.png" alt="">
+                {{/if}}
+            </div>
+            <div class="text" >
+                {{if list}} 
+                <span>{{list.user}}</span>
+                <div>
+                    <span class="level">{{list.level}}</span>
+                    <span>{{list.num}}</span>
+                    <p>
+                        <span>{{list.renzhengban}}</span>
+                        <i></i>
+                        <span>{{list.yanxiuban}}</span>
+                    </p>
+                </div>
+              
+                {{else}}
+                <a class="block" >
+                <span>未登录</span>
+                </a>
+                {{/if}}
+            </div>
+            {{if list}}
+            <span class="iconfont icon-gengduo" ></span>
+            {{else}}
+            {{/if}}
+        </div>
+        <!-- 学分、练习、研值 -->
+        <div class="score">
+            <div>
+                <h4>学分</h4>
+                <span>4</span>
+            </div>
+            <i></i>
+            <div>
+                <h4>练习</h4>
+                <span>1</span>
+            </div>
+            <i></i>
+            <div>
+                <h4>研值</h4>
+                <span>20</span>
+            </div>
+        </div>
+        <ul class="detail">
+
+            <li>
+                <i class="iconfont icon-shezhizaixianzixun"></i>在线咨询
+                <span class="iconfont icon-gengduo"></span>
+            </li>
+            <li>
+                <i class="iconfont icon-iconfontzhizuobiaozhun023134"></i>电话咨询
+                <span class="iconfont icon-gengduo"></span>
+            </li>
+
+            <li onclick="location.href='html/help.html'">
+
+                <i class="iconfont icon-bangzhu"></i>帮助与反馈
+
+                <span class="iconfont icon-gengduo"></span>
+                
+            </li>
+            <li onclick="location.href='html/invoice.html'">
+                <i class="iconfont icon-tubiaozhizuomoban"></i>开具发票
+                <span class="iconfont icon-gengduo"></span>
+            </li>
+            <li onclick="location.href='html/watchHistory.html'">
+                <i class="iconfont icon-lishijilu"></i>观看历史
+                <span class="iconfont icon-gengduo"></span>
+            </li>
+            <li onclick="location.href='html/collection.html'">
+                <i class="iconfont icon-xingxing"></i>我的收藏
+                <span class="iconfont icon-gengduo"></span>
+            </li>
+            {{if list}}
+            <li onclick="location.href='html/approve.html?renzhengban={{list.renzhengban | change}}'">
+            {{else}}
+            <li onclick="location.href='html/approve.html'">
+                {{/if}}
+                <i class="iconfont icon-icon"></i>认证培训班级
+                {{if list}}
+                <i class="class">{{list.renzhengban}}</i>
+                {{/if}}
+                <span class="iconfont icon-gengduo"></span>
+            </li>
+            {{if list}}
+                <li onclick="location.href='html/yanxiusheng.html?yanxiuban={{list.yanxiuban | change}}'">
+                    {{else}}
+                    <li onclick="location.href='html/yanxiusheng.html'">
+                {{/if}} 
+                <i class="iconfont icon-chuangjianren"></i>研修生班级
+                {{if list}}
+                <i class="class">{{list.yanxiuban}}</i>
+                {{/if}}
+                <span class="iconfont icon-gengduo"></span>
+            </li>
+            <li onclick="location.href='html/buyLesson.html'">
+                <i class="iconfont icon-chakankecheng"></i>课程购买记录
+                <span class="iconfont icon-gengduo"></span>
+            </li>
+            <li onclick="location.href='html/aboutUs.html'">
+                <i class="iconfont icon-about"></i>关于我们
+                <span class="iconfont icon-gengduo"></span>
+            </li>
+            <li onclick="location.href='html/setting.html'">
+                <i class="iconfont icon-about"></i>设置
+                <span class="iconfont icon-gengduo"></span>
+            </li>
+        </ul>       
+    </script>
+    <script src="plugin/loadmore.js"></script>
+    <script src="plugin/ajax.js"></script>
+    <script>
+        $(function () {
+            // 获取登录用户id
+            var userId = localStorage.getItem("userId")
+            var userVip = localStorage.getItem("vip")
+            // 加载轮播图数据
+            // 轮播图初始化
+            function lunboFn1Top() {
+                var galleryA = mui('#workerRukou .top .mui-slider');
+                galleryA.slider({
+                    interval: 5000//自动轮播周期，若为0则不自动播放，默认为0；
+                })
+            }
+            function lunboFn1Bot() {
+                var galleryA = mui('#workerRukou .bot .mui-slider');
+                galleryA.slider({
+                    interval: 5000//自动轮播周期，若为0则不自动播放，默认为0；
+                })
+            }
+            function lunboFn2Top() {
+                var galleryB = mui('#hobbyRukou .top .mui-slider');
+                galleryB.slider({
+                    interval: 5000//自动轮播周期，若为0则不自动播放，默认为0；
+                })
+            }
+            function lunboFn2Bot() {
+                var galleryB = mui('#hobbyRukou .bot .mui-slider');
+                galleryB.slider({
+                    interval: 5000//自动轮播周期，若为0则不自动播放，默认为0；
+                })
+            }
+            // 请求轮播图数据
+            ajax("html/json/lunbo.json", "lunbo", "#workerRukou .top .mui-slider-group", lunboFn1Top);
+            ajax("html/json/lunbo.json", "lunbo", "#workerRukou .bot .mui-slider-group",lunboFn1Bot);
+
+            // 加载广告
+            // 工作者
+            ajax("html/json/guanggao.json", "ad", "#workerRukou .guanggao");
+            ajax("html/json/vipGg.json", "ad", "#workerRukou .vipGg");
+            // 爱好者
+            ajax("html/json/guanggao.json", "ad", "#hobbyRukou .guanggao");
+            ajax("html/json/vipGg.json", "ad", "#hobbyRukou .vipGg");
+
+            // 加载视频标签
+            // 工作者
+            ajax("html/json/index.json", "vedio", "#workerRukou .vedio ul");
+            // 爱好者
+            ajax("html/json/index.json", "vedio", "#hobbyRukou .vedio ul");
+            //底部tab切换
+            $('.weui_tabbar_item').on('click', function () {
+                $(this).addClass('weui_bar_item_on').siblings().removeClass('weui_bar_item_on');
+                var tabId = $(this).attr('href');
+                $('.weui_tab_panel').find(tabId).show().siblings().hide();
+            });
+
+            // 返回时显示对应页面
+            if (location.hash) {
+                defaultTabId = location.hash;
+                console.log(defaultTabId)
+                $(".weui_tabbar_item").removeClass("weui_bar_item_on");
+                $('.weui_tabbar_item[href="' + defaultTabId + '"]').addClass("weui_bar_item_on");
+                $('.weui_tab_panel>div').hide();
+                $(defaultTabId).show();
+            }
+            // 心理爱好者页面，领域和人群切换
+            $("#hobbyRukou .tag .fenleiTag").click(function () {
+                $(this).addClass("active").siblings().removeClass("active")
+                $("#hobbyRukou .tag .content").eq($(this).index()).removeClass("none").siblings(".content").addClass("none");
+            })
+            // 爱好和工作者切换
+            $('.fenlei div').on('click', function () {
+                var child = $(this).attr('href');
+                $('.fenleiContent').find(child).removeClass("none").siblings().addClass("none");
+                $(this).addClass("active").siblings().removeClass("active");
+                if (child == "#hobbyRukou") {
+                    ajax("html/json/lunbo.json", "lunbo", "#hobbyRukou .top .mui-slider-group", lunboFn2Top)
+                    ajax("html/json/lunbo.json", "lunbo", "#hobbyRukou .bot .mui-slider-group",lunboFn2Bot)
+                }
+            });
+            // 工作者分类视频加载
+            ajax("html/json/vedioTag.json", "vedioTag", "#workerRukou .rumen ul");
+            ajax("html/json/vedioTag.json", "vedioTag", "#workerRukou .renzheng ul");
+            ajax("html/json/vedioTag.json", "vedioTag", "#workerRukou .zhenduan ul");
+            ajax("html/json/vedioTag.json", "vedioTag", "#workerRukou .mingshi ul");
+            ajax("html/json/vedioTag.json", "vedioTag", "#workerRukou .meeting ul");
+            ajax("html/json/vedioTag.json", "vedioTag", "#workerRukou .anli ul");
+            ajax("html/json/vedioTag.json", "vedioTag", "#workerRukou .jishu ul");
+            ajax("html/json/vedioTag.json", "vedioTag", "#workerRukou .lingyu ul");
+            ajax("html/json/vedioTag.json", "vedioTag", "#workerRukou .renqun ul");
+            ajax("html/json/vedioTag.json", "vedioTag", "#workerRukou .shipin ul");
+            // 爱好者最新课程加载
+            var lessonPage = 1;
+            loadmore("html/json/newlesson.json", "newlesson", lessonPage, $("#hobbyRukou .content ul"), $("#hobbyRukou .vedioTag p.more"))
+            //  历史记录--- 首次加载历史记录
+            var page = 1;
+            if (userId) {
+                $.ajax({
+                    url: "html/json/history.json",
+                    type: "get",
+                    data: { userId: userId },  //传给后端用户id获取该用户历史观看记录
+                    success: function (res) {
+                        var html = template("his", res[page]);
+                        $("#history .content ul").append(html);
+                        if ($("#history ul li").length == 0) {
+                            $(".nomore").removeClass("none")
+                        }
+                    }
+                })
+                //历史记录---点击加载更多
+                $("#history .loading").click(function () {
+                    alert(1)
+                    page++;
+                    $.ajax({
+                        url: "html/json/history.json",
+                        type: "get",
+                        data: { userId: userId },//传给后端用户id获取该用户历史观看记录
+                        success: function (res) {
+
+
+                            if (!res[page]) {
+                                $("#history .loading").html("没有更多数据了");
+                                return false;
+                            }
+                            var html = template("his", res[page]);
+                            $("#history .content ul").append(html);
+
+
+
+                        }
+
+                    })
+
+                })
+            } else {
+                $(".nomore").html("您还未登录").removeClass(" none")
+                $("#history .loading").addClass("none")
+            }
+
+            // 清空历史记录
+            $("#history .title .right").click(function () {
+                $("#history ul li").remove();
+                $(".nomore").removeClass(" none")
+                $("#history .loading").addClass("none")
+
+            })
+
+            // 清空单条记录
+            $("#history ").on("click", ".del", function () {
+
+                $(this).parent().parent().parent().remove();
+                if ($("#history .del").length == 0) {
+                    $("#history .loading").addClass("none")
+                    $(".nomore").removeClass("none")
+                    $("#history .loading").addClass("none")
+                }
+                return false;
+            })
+
+            // 个人中心用户信息是否显示根据userid
+            if (userId) {
+                template.defaults.imports.change = function (data) {
+                    return encodeURI(encodeURI(data));
+                }
+                ajax("html/json/userInfo.json", "userInfo", "#mine", "", { userId: userId });
+            } else {
+                var html = template("userInfo", {});
+                $("#mine").html(html)
+            }
+
+            // 点击用户信息跳转到个人资料页面
+            $("#mine").on("click", ".text", function () {
+                if (userId) {
+                    location.href = "html/userDetail.html";
+                } else {
+                    var btnArray = ['否', '是'];
+                    mui.confirm('是否现在登录？', '未登录', btnArray, function (e) {
+                        if (e.index == 1) {
+                            location.href = "login.html"
+                        }
+                    })
+                }
+            })
+
+            // 点击头像预览
+            $("#mine").on("click",".avator",function(){
+                $(".imgBox").removeClass("none");
+                $(".imgBox img").attr("src",$(".avator img").attr("src"));
+            })
+            $(".imgBox").click(function(){
+                $(this).addClass("none")
+            })
+
+            // 搜索栏跳转到搜索页面
+            $(".searchBtn").click(function () {
+                //    console.log($(".search input").val())
+                location.href = "html/search.html?val=" + encodeURI(encodeURI($(".search input").val()));
+            })
+
+        })
+    </script>
+</body>
+
+</html>

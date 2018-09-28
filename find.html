@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>找回密码</title>
+    <script src="plugin/rem.js"></script>
+    <link rel="stylesheet" href="css/icon/iconfont.css">
+    <link rel="stylesheet" href="plugin/reset.css">
+    <script src="plugin/jquery-1.12.1.min.js"></script>
+    <link rel="stylesheet" href="plugin/mui.css">
+    <script src="plugin/mui.min.js"></script>
+    <style>
+        .reg {
+            background-color: #eee;
+            padding-top: .4rem;
+        }
+
+        .reg nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: .4rem;
+            line-height: .4rem;
+            text-align: center;
+            font-size: .18rem;
+            color: #65c5aa;
+            background: white;
+        }
+
+        .reg nav span,
+        .reg nav i {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .reg nav span {
+            right: .2rem;
+            font-size: .15rem;
+        }
+
+        .reg nav i {
+            left: .2rem;
+        }
+        .mui-input-group{
+            font-size:.16rem;
+        }
+        .mui-input-group .mui-input-row{
+            height: .4rem;
+            position: relative;
+        }
+        .mui-input-row label{
+            line-height: .4rem;
+            height: 100%;
+            padding:0 .15rem;
+            width: 1.2rem;
+        }
+        .send{
+            position: absolute;
+            top:50%;
+            transform: translateY(-50%);
+            right:0;
+            width:1rem;
+        }
+        input::-webkit-input-placeholder{
+            font-size:.16rem;
+        }
+        input[type='button']{
+            height: .4rem;
+            line-height: .4rem;
+            font-size:.16rem;
+            background-color: #65c5aa;
+            color:white;
+            padding:0;
+            margin-top:.2rem;
+            width:100%;
+        }
+
+        form span.tip {
+            position: absolute;
+            top: 50%;
+            right: .4rem;
+            transform: translateY(-50%);
+            font-size: .12rem;
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="reg">
+        <nav>
+            <i class="iconfont icon-fanhui" onclick="javascript:history.go(-1);"></i>
+            找回密码
+            <span onclick="location.href='login.html'">登录</span>
+        </nav>
+        <form action="" method="POST">
+            <div class="mui-input-group">
+                <div class="mui-input-row">
+                    <label>手机号：</label>
+                    <input type="text" class="mui-input-clear" placeholder="请输入用户名" id="phone">
+                    <span class="tip phoneTip"></span>
+                </div>
+                <div class="mui-input-row">
+                        <label>新密码</label>
+                        <input type="password"id="newPw" class="mui-input-clear mui-input-password" placeholder="请输入新密码" name="newPw">
+                        <span class="tip pwTip"></span>
+                    </div>
+                    <div class="mui-input-row">
+                            <label>验证码：</label>
+                            <input type="text" class="mui-input-clear" placeholder="请输入手机验证码" id="code">
+                            <button class="send">发送验证码</button>
+                    </div>
+                    <input type="button" class="set" value="设置">
+            </div>
+
+        </form>
+    </div>
+    <script>
+        $(function(){
+            let phone_flag = false;
+            let password_flag = false;
+            let countdown = 100; // 发送验证码倒计时
+            let res_code; // 存储手机验证码
+            let phone_reg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/; // 手机号正则验证码
+            //手机号失去焦点
+            $('#phone').blur(function(e) {
+                let phone = $.trim($('#phone').val());
+                // 判断手机号格式是否正确
+                if (!phone_reg.test(phone)) {
+                    $(".phoneTip").html("手机号格式不正确");
+    
+                } else {
+                    // 检查手机号是否已注册
+                    $.ajax({
+                        type: "post",
+                        url: "http://39.104.90.182:80/px/service/px/login_check.json",
+                        data: {
+                            phone: phone
+                        },
+                        dataType: "json",
+                        success: function(res) {
+                            console.log(res);
+                            if (res.code != '200') {
+                                $(".phoneTip").html("手机号未注册");
+    
+                            } else {
+                                phone_flag = true;
+                            }
+                        }
+                    });
+    
+                }
+            });
+            // 密码失去焦点
+            $('#newPw').blur(function(e) {
+                let pw = $('#newPw').val();
+                // 密码不能为空
+                if (pw != '') {
+                    password_flag = true;
+                } else {
+                    $(".pwTip").html("密码不正确");
+    
+                }
+            });
+            $("#phone").focus(function () {
+            $(".phoneTip").html("");
+            })
+            $("#newPw").focus(function () {
+            $(".pwTip").html("");
+            })
+            //倒计时120秒
+            function settime() {
+                if (countdown == 0) {
+                    $('.send').attr('disabled', false);
+                    $('.send').html("获取验证码");
+                    return;
+                } else {
+                    $('.send').attr('disabled', true);
+                    $('.send').html("重新发送(" + countdown + ")");
+                    countdown--;
+                }
+                setTimeout(function() {
+                    settime()
+                }, 1000)
+            }
+    
+            // 点击获取验证码
+            $('.send').on('click', function() {
+                if (phone_flag) {
+                    // 开始倒计时
+                    settime();
+                    $.ajax({
+                        type: "post",
+                        url: 'http://39.104.90.182:80/px/service/px/sms_reg.json',
+                        data: {
+                            phone: $.trim($('#phone').val())
+                        },
+                        dataType: "json",
+                        success: function(res) {
+                            console.log(res);
+                            res_code = res.msg;
+                        }
+                    });
+                } else {
+                    console.log('手机号格式不正确');
+                }
+    
+            });
+    
+            // 点击设置修改密码
+            $('.set').on('click', function() {
+                let phone_code = $('#code').val();
+                console.log(phone_code == res_code )
+                console.log(phone_flag)
+                console.log(password_flag)
+                if (phone_code == res_code && phone_flag && password_flag) {
+                    $.ajax({
+                        type: "post",
+                        url: 'http://39.104.90.182:80/px/service/px/reg.json',
+                        data: {
+                            phone: $('#phone').val(),
+                            password: $('#pw').val()
+                        },
+                        dataType: "json",
+                        success: function(response) {
+                            // 5秒后跳转登录
+                            let count = 3;
+                            mui.toast('修改成功', { duration: 'long', type: 'div' })
+                            function settime_() {
+                                if (count == 0) {
+                                    window.location.href = './login.html';
+                                    return;
+                                } 
+                                setTimeout(function() {
+                                    count--;
+                                    settime_()
+                                }, 1000)
+                            }
+                            settime_();
+                        }
+                    });
+                } else {
+                    mui.toast('填写有误，请重新输入',{ duration:'long', type:'div' }) 
+                }
+            });
+        })
+    </script>
+</body>
+
+</html>

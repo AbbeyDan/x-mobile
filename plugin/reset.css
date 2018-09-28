@@ -1,0 +1,67 @@
+body,ul,h1,h2,h3,h4,h5,h6,li,p,input{
+	margin: 0;
+	padding: 0;
+}
+html,body{
+	height: 100%;
+}
+/* @font-face
+{
+font-family:"huawen";
+src: url('../fonts/huawen.ttf');
+} */
+body{
+	font-size:0.14rem;
+	/* background-color: #eee; */
+	font-family:"Arial","Microsoft YaHei","黑体","宋体",sans-serif;
+}
+body,h1,h2,h3,h4,a,span,div,p,img,input,select,button,textarea,ul,li,ol,dl,dt,dd{
+	box-sizing:border-box;
+}
+h3{
+	font-weight: normal;
+}
+a{
+	text-decoration: none;
+	color:#666;
+}
+li{
+	list-style:none;
+}
+.fl{
+	float:left;
+}
+.fr{
+	float:right
+}
+input{
+	border:none;
+	outline:none;
+	background-color: transparent;
+}
+img{
+	border:0;
+}
+.clearfix:after {
+    display: block;
+    clear: both;
+    content: "";
+    visibility: hidden;
+    height: 0;
+}
+button{
+	outline: none;
+}
+.clearfix {
+    zoom: 1;
+}
+.weui_tab_panel{
+	padding-bottom:.7rem;
+}
+.none{
+	display:none;
+}
+.block{
+	display:inline-block;
+}
+

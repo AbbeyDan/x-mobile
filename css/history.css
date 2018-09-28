@@ -1,0 +1,102 @@
+#history nav,#mine nav{
+    height: .5rem;
+    line-height:.5rem;
+    background-color: #000;
+    color:white;
+    text-align:center;
+    font-size:.2rem;
+}
+#history .content{
+    padding: 0 .1rem;
+    background-color: #fff;
+}
+#history .title .right{
+    /* font-weight: bold; */
+    font-size:.16rem;
+}
+#history li{
+    margin-top:.2rem;
+}
+#history .content a{
+    display:inline-block;
+    height: 100%;
+    width:100%;
+}
+#history .content .img{
+    width:45%;
+    height: 1.2rem;
+    float:left;
+    position: relative;
+}
+#history .content img{
+    width:100%;
+    height: 100%;
+}
+#history .img>i{
+    display: inline-block;
+    width: .3rem;
+    text-align: center;
+    height: .2rem;
+    line-height: .2rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: rgb(165, 112, 14);
+    color: white;
+}
+#history .img span{
+    position: absolute;
+    bottom: .1rem;
+    right: .1rem;
+    color: white;
+}
+#history .content .text{
+    margin-left:45%;
+    height: 1.2rem;
+    position: relative;
+    width: 55%;
+    padding:0 .1rem;
+}
+#history .text p{
+    font-size:.12rem;
+    margin-bottom:.1rem;
+}
+#history .bot{
+    position: absolute;
+    bottom:.1rem;
+}
+#history .bot .perc{
+    color:goldenrod;
+}
+#history .text .del{
+    display:inline-block;
+    height: 100%;
+    position: absolute;
+    right:0;
+    font-size:.2rem;
+    color:#666;
+    width: .4rem;
+    height: .4rem;
+    text-align: center;
+    top: 0;
+}
+#history .content>div.title{
+    color:#666;
+    height: .4rem;
+    line-height: .4rem;
+   
+}
+#history .nomore{
+    text-align: center;
+    margin-top: 2rem;
+}
+#history .nomore p{
+    font-size:.14rem;
+}
+#history .loading{
+    background-color: #65c5aa;
+    height: .3rem;
+    line-height: .3rem;
+    text-align:center;
+    color:white;
+}

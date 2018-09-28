@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>登录</title>
+    <script src="plugin/rem.js"></script>
+    <link rel="stylesheet" href="css/icon/iconfont.css">
+    <link rel="stylesheet" href="plugin/reset.css">
+    <link rel="stylesheet" href="plugin/mui.css">
+    <script src="plugin/mui.min.js"></script>
+    <script src="plugin/jquery-1.12.1.min.js"></script>
+    <style>
+        /* 头部 */
+
+        .login {
+            /* background-color: white; */
+            padding-top: .5rem;
+        }
+
+        .login nav {
+            border-bottom: 1px solid #ccc;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: .4rem;
+            line-height: .4rem;
+            text-align: center;
+            font-size: .18rem;
+            color: #65c5aa;
+            background-color: #fff;
+        }
+
+        .login nav span,
+        .login nav i {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .login nav span {
+            right: .2rem;
+            font-size: .15rem;
+        }
+
+        .login nav i {
+            left: .2rem;
+        }
+
+        /* logo部分 */
+
+        .login .logo {
+            text-align: center;
+            padding-bottom: .2rem;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .login .logo h2 {
+            color: #666;
+        }
+
+        .login .logo .img {
+            width: 1.5rem;
+            height: 1.5rem;
+            margin: 0 auto;
+        }
+
+        .logo .img img {
+            width: 100%;
+        }
+
+        /* 输入登陆信息 */
+
+        .mui-input-row label {
+            line-height: 1.1;
+        }
+
+        .log {
+            height: .4rem;
+            margin-top: .5rem;
+            font-size: .16rem;
+            color: white;
+            width: 100%;
+            background-color: rgb(34, 179, 247);
+        }
+
+        .login .or {
+            text-align: center;
+            margin: .5rem 0;
+        }
+
+        .weixin {
+            height: .4rem;
+
+            font-size: .16rem;
+            color: white;
+            width: 100%;
+            background-color: #68c75f;
+        }
+         .find {
+            margin-top: .1rem;
+            padding: 0 .2rem;
+        }
+
+    </style>
+</head>
+
+<body >
+
+    <div class="login">
+        <nav>
+            <i class="iconfont icon-fanhui" onclick="javascript:history.go(-1);"></i>
+            用户登陆
+            <span onclick="location.href='reg.html'">注册</span>
+        </nav>
+        <div class="logo">
+            <div class="img">
+                <img src="img/logo.png" alt="">
+            </div>
+            <h2>新课堂(IEPSY.COM)</h2>
+        </div>
+        <!-- 账号密码登陆 -->
+        <div class="mui-input-group">
+            <div class="mui-input-row">
+                <label>用户名：</label>
+                <input type="text" class="mui-input-clear" placeholder="请输入用户名" id="username">
+            </div>
+            <div class="mui-input-row">
+                <label>密码：</label>
+                <input type="password" class="mui-input-clear mui-input-password" placeholder="请输入密码" id="pw">
+            </div>
+            <button class="log">登录</button>
+            <span class="fr find" onclick="location.href='find.html'">找回密码</span>
+        </div>
+        <div class="or">或</div>
+        <button class="weixin">微信一键登录</button>
+    </div>
+    <script src="plugin/getQuery.js"></script>
+    <script>
+            $(function() {
+    
+                $(".weixin").click(function() {
+                    var ua = window.navigator.userAgent.toLowerCase();
+                    if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+                        location.href = "http://m.iepsy.com:80/wx_login"
+                    } else {
+                        alert("只支持在微信中一键登录!")
+                    }
+                })
+                $(".log").click(function() {
+                    if ($("#username").val().length < 1) {
+                        mui.toast('手机号不能为空', { duration: 'long', type: 'div' })
+                    } else if ($("#pw").val().length < 1) {
+                        mui.toast('密码不能为空', { duration: 'long', type: 'div' })
+                    } else {
+                        $.ajax({
+                            type: 'POST',
+    
+                            url: 'http://39.104.90.182:80/px/service/px/login_login.json',
+    
+                            dataType: 'json',
+    
+                            data: {
+                                username: $("#username").val(),
+                                password: $("#pw").val()
+                            },
+    
+                            success: function(data) {
+                                var url =getQueryString("url");
+                                var vid =getQueryString("vid");
+                                console.log(url)
+                                if (data.code == 200) {
+                                    console.log(data)
+                                    console.log("登陆成功")
+                                    localStorage.setItem("userId", data.data.id);
+                                    localStorage.setItem("vip",data.data.vip);
+                                    
+                                    if(url=="play"){
+                                        location.href="html/vedioPlay.html?vid="+vid;
+                                    }else{
+                                        location.href="index.html#mine";
+                                    }
+    
+    
+                                } else {
+                                    alert("用户不存在或输入错误!")
+                                }
+                            },
+                        });
+                    }
+                })
+            })
+        </script>
+
+</body>
+
+</html>

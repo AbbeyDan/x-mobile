@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>注册页面</title>
+    <script src="plugin/rem.js"></script>
+    <link rel="stylesheet" href="css/icon/iconfont.css">  
+    <script src="plugin/jquery-1.12.1.min.js"></script>
+    <link rel="stylesheet" href="plugin/mui.css">
+    <script src="plugin/mui.min.js"></script>
+    <link rel="stylesheet" href="plugin/reset.css">
+    <style>
+        .reg {
+            /* background-color: #eee; */
+            padding-top: .4rem;
+        }
+
+        .reg nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: .4rem;
+            line-height: .4rem;
+            text-align: center;
+            font-size: .18rem;
+            color: #65c5aa;
+            background: white;
+        }
+
+        .reg nav span,
+        .reg nav i {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .reg nav span {
+            right: .2rem;
+            font-size: .15rem;
+        }
+
+        .reg nav i {
+            left: .2rem;
+        }
+
+        .mui-input-group {
+            font-size: .16rem;
+        }
+
+        .mui-input-group .mui-input-row {
+            height: .4rem;
+            position: relative;
+        }
+
+        .mui-input-row label {
+            line-height: .4rem;
+            height: 100%;
+            padding: 0 .15rem;
+            width: 1.2rem;
+        }
+
+        span.send {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 0;
+            width: 1rem;
+            font-size:.12rem;
+            text-align:center;
+        }
+
+        input::-webkit-input-placeholder {
+            font-size: .16rem;
+        }
+
+        .register {
+            height: .4rem;
+            line-height: .4rem;
+            font-size: .16rem;
+            background-color: #65c5aa;
+            color: white;
+            padding: 0;
+            margin-top: .2rem;
+            width: 100%;
+        }
+
+
+        form span.tip {
+            position: absolute;
+            top: 50%;
+            right: .4rem;
+            transform: translateY(-50%);
+            font-size: .12rem;
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="reg">
+        <nav>
+            <i class="iconfont icon-fanhui" onclick="javascript:history.go(-1);"></i>
+            用户注册
+            <span onclick="location.href='login.html'">登录</span>
+        </nav>
+        <form action="" method="POST">
+            <div class="mui-input-group">
+                <div class="mui-input-row">
+                    <label>手机号：</label>
+                    <input type="text" class="mui-input-clear" placeholder="请输入用户名" name="phone" id="phone">
+                    <span class="tip phoneTip"></span>
+                </div>
+                <div class="mui-input-row">
+                    <label>密码：</label>
+                    <input type="password" class="mui-input-clear mui-input-password" placeholder="请输入密码" name="pw" id="pw">
+                    <span class="tip pwTip"></span>
+                </div>
+                <div class="mui-input-row">
+                    <label>验证码：</label>
+                    <input type="text" class="mui-input-clear" placeholder="请输入手机验证码" name="yanzheng" id="code">
+                    <!-- <span class="send">发送验证码</span> -->
+                   <span class="send">发送验证码</span>
+                </div>
+               <buttom type="submit" class="register" >注册</buttom>
+
+            </div>
+
+        </form>
+        
+    </div>
+     <script>
+        // $(function () {
+        //     let phone_reg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/; // 手机号正则验证码
+        //     // 手机号失焦
+        //     let flag = false;
+        //     $("input[name='phone']").blur(function () {
+        //         let phone = $.trim($(this).val());
+        //         if (phone == "") {
+        //             $(".phoneTip").html("手机号不能为空");
+        //         } else if (!phone_reg.test(phone)) {
+        //             $(".phoneTip").html("手机号格式不正确");
+        //         }
+        //     })
+        //     //   手机号聚焦
+        //     $("input[name='phone']").focus(function () {
+        //         $(".phoneTip").html("");
+        //     })
+        //     // 密码失焦
+        //     $("input[name='pw']").blur(function () {
+        //         let pw = $.trim($(this).val());
+        //         if (pw == "") {
+        //             $(".pwTip").html("密码不能为空");
+        //         } else if (pw.length < 6) {
+        //             $(".pwTip").html("密码长度不得低于六位");
+        //         }
+        //     })
+        //     $("input[name='pw']").focus(function () {
+        //         $(".pwTip").html("");
+        //     })
+        //     // 确认密码
+        //     $("input[name='repeat']").blur(function () {
+
+        //         let repeat = $.trim($(this).val());
+
+        //         let psw = $("input[name='pw']").val();
+        //         if (repeat == "") {
+        //             $(".repeatTip").html("密码不能为空");
+        //         } else if (repeat != psw) {
+        //             $(".repeatTip").html("两次密码不一致");
+        //         }
+        //     })
+        //     $("input[name='repeat']").focus(function () {
+        //         $(".repeatTip").html("");
+        //     })
+        //     $(".register").click(function () {
+        //         if (!flag) {
+                    
+        //             mui.toast('请重新确认信息', { duration: 'long', type: 'div' })
+        //         } else {
+        //             alert("注册成功")
+        //         }
+        //     })
+        // })
+    </script> 
+    <script>
+            let phone_flag = false;
+            let password_flag = false;
+            let countdown = 100; // 发送验证码倒计时
+            let res_code; // 存储手机验证码
+            let phone_reg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/; // 手机号正则验证码
+            //手机号失去焦点
+            $('#phone').blur(function(e) {
+                let phone = $.trim($('#phone').val());
+                // 判断手机号格式是否正确
+                if (!phone_reg.test(phone)) {
+                    $(".phoneTip").html("手机号格式不正确");
+    
+                } else {
+                    // 检查手机号是否已注册
+                    $.ajax({
+                        type: "post",
+                        url: "http://39.104.90.182:80/px/service/px/login_check.json",
+                        data: {
+                            phone: phone
+                        },
+                        dataType: "json",
+                        success: function(res) {
+                            console.log(res);
+                            if (res.code == '200') {
+                                $(".phoneTip").html("手机号已注册");
+    
+                            } else {
+                                phone_flag = true;
+                            }
+                        }
+                    });
+    
+                }
+            });
+            $("#phone").focus(function () {
+            $(".phoneTip").html("");
+            })
+            // 密码失去焦点
+            $('#pw').blur(function(e) {
+                let pw = $('#pw').val();
+                // 密码不能为空
+                if (pw != '') {
+                    password_flag = true;
+                } else {
+                    $(".pwTip").html("密码不正确");
+    
+                }
+            });
+            $("#pw").focus(function () {
+            $(".pwTip").html("");
+            })
+            //倒计时120秒
+            function settime() {
+                if (countdown == 0) {
+                    $('.send').attr('disabled', false);
+                    $('.send').html("获取验证码");
+                    return;
+                } else {
+                    $('.send').attr('disabled', true);
+                    $('.send').html("重新发送(" + countdown + ")");
+                    countdown--;
+                }
+                setTimeout(function() {
+                    settime()
+                }, 1000)
+            }
+    
+            // 点击获取验证码
+            $('.send').on('click', function() {
+                if (phone_flag) {
+                    // 开始倒计时
+                    settime();
+                    $.ajax({
+                        type: "post",
+                        url: 'http://39.104.90.182:80/px/service/px/sms_reg.json',
+                        data: {
+                            phone: $.trim($('#phone').val())
+                        },
+                        dataType: "json",
+                        success: function(res) {
+                            console.log(res);
+                            res_code = res.msg;
+                        }
+                    });
+                } else {
+                    console.log('手机号格式不正确');
+                }
+    
+            });
+    
+            // 点击发送注册用户
+            $('.register').on('click', function() {
+                let phone_code = $('.code').val();
+                console.log(phone_code == res_code )
+                console.log(phone_flag)
+                console.log(password_flag)
+                if (phone_code == res_code && phone_flag && password_flag) {
+                    console.log('验证码正确');
+                    $.ajax({
+                        type: "post",
+                        url: 'http://39.104.90.182:80/px/service/px/reg.json',
+                        data: {
+                            phone: $('#phone').val(),
+                            password: $('#pw').val()
+                        },
+                        dataType: "json",
+                        success: function(response) {
+                            console.log(response);
+                            $('.mod_go').show();
+                            // 5秒后跳转登录
+                            let count = 5;
+    
+                            function settime_() {
+                                if (count == 0) {
+                                    window.location.href = './login.html';
+                                    return;
+                                } 
+                                setTimeout(function() {
+                                    settime_()
+                                }, 1000)
+                            }
+                            settime_();
+                        }
+                    });
+                } else {
+    
+                    mui.toast('请填写正确信息', { duration: 'long', type: 'div' })
+                }
+            });
+        </script>
+</body>
+
+</html> 
