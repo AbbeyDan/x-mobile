@@ -25,6 +25,7 @@
             width: 100%;
             background-color: #fff;
             z-index: 1;
+            height: .4rem;
         }
 
         option::-ms-expand {
@@ -43,15 +44,37 @@
 
         .tagPage nav div {
             width: 2rem;
-            height: .4rem;
+            height:100%;
             position: relative;
             margin: 0 auto;
+            line-height: .4rem;
+            text-align: center;
         }
-
-        .tagPage nav div:after {
+        .tagPage .show{
+            font-size:.18rem;
+        }
+        .tagPage .select{
+            display:none;
+            height: auto;
+            position: absolute;
+            left:50%;
+            top:.4rem;
+            transform: translateX(-50%);
+            background-color: rgb(191, 243, 240);
+        }
+        .tagPage .select.change{
+            display: block;
+        }
+        .tagPage .select span{
+            width: 100%;
+            text-align:center;
+            display:block;
+            height: .4rem;
+        }
+        .tagPage nav .show:after {
             content: "";
-            width: .15rem;
-            height: .15rem;
+            width: .2rem;
+            height: .2rem;
             background: url(../img/down.png) no-repeat center;
             position: absolute;
             right: .3rem;
@@ -60,7 +83,7 @@
             pointer-events: none;
         }
 
-        select {
+        /* select {
             border: none;
             appearance: none;
             -moz-appearance: none;
@@ -69,36 +92,36 @@
             margin: 0 auto;
             background-color: transparent;
             outline: none;
-            height: 100%;
+            height: 100%; */
             /* text-align:center; */
-            font-size: .18rem;
+            /*font-size: .18rem;
             color: black;
             width: 100%;
-            text-align: center; /*IE*/
-            -moz-text-align: center; /*Firefox*/
-            -webkit-text-align:center; /*Chrome*/
-            text-align-last: center;
+            text-align: center; IE
+            -moz-text-align: center; Firefox
+            -webkit-text-align:center; Chrome*/
+            /* text-align-last: center;
             margin: 0;
             padding: 0;
-        }
+        } */
         select:after{
             content: '';
             width: 100%;
             display: inline-block;
         }
-        option {
+        /* option {
             border: 0;
             font-size: .18rem;
-        }
+        } */
 
-        .tagPage nav span,
+        .tagPage nav>span,
         .tagPage nav i {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
         }
 
-        .tagPage nav span {
+        .tagPage nav>span {
             right: .2rem;
             color: #65c5aa;
         }
@@ -235,8 +258,8 @@
     <div class="tagPage">
         <nav>
             <i class="iconfont icon-fanhui" onclick="javascript:history.back(-1);"></i>
-            <div>
-                <select id="tags">
+            <div class="show">
+                <!-- <select id="tags">
                     <option value="rumen">入门必修</option>
                     <option value="attestation">认证课程</option>
                     <option value="zhenduan">诊断评估</option>
@@ -247,9 +270,20 @@
                     <option value="domain">咨询领域</option>
                     <option value="serviceGroups">服务人群</option>
                     <option value="trian">线下培训视频</option>
-                </select>
+                </select> -->
             </div>
-
+            <div class="select">
+                <span value="rumen">入门必修</span>
+                    <span value="attestation">认证课程</span>
+                    <span value="zhenduan">诊断评估</span>
+                    <span value="teacher">名师讲堂</span>
+                    <span value="consulting">咨询案例</span>
+                    <span value="meeting">会议回放</span>
+                    <span value="technical">技术/流派</span>
+                    <span value="domain">咨询领域</span>
+                    <span value="serviceGroups">服务人群</span>
+                    <span value="trian">线下培训视频</span>
+            </div>
             <span onclick="location.href='allVedio.html'">筛选</span>
         </nav>
         <div class="choose">
@@ -442,7 +476,10 @@
             })
             // 判断哪几个分类有子标签以及展开收起
                 $(".more").addClass("icon-shouqi").removeClass("icon-zhankai").html("收起")
-                    $("select").val(mbid).attr("selected", true); //页面首次加载设置选中项
+                    //$("select").val(mbid).attr("selected", true); //页面首次加载设置选中项
+                    var text = $(".select span[value="+mbid+"]").text();
+                    $("span[value="+mbid+"]").css("backgroundColor","#ccc");
+                    $(".show").html(text)
                     if (mbid == "rumen" || mbid == "zhenduan") {
                         $(".choose").hide();
                     } else if (mbid == "rechinical" || mbid == "domain" || mbid == "serviceGroups") {
@@ -453,14 +490,23 @@
                     }
                     $(".choose .more").before(template(mbid, {}))
                     $(".choose li." + tag).addClass("active").siblings().removeClass("active")
+                    //点击show时展开下拉菜单
+                    $(".show").click(function(){
+                        $(".select").toggleClass("change")
+                    })
+
             // 切换下拉菜单选项时
-            $("select").bind("change", function () {
+            $(".select").on("click", "span",function () {
                 page = 1;
                 $(".more").addClass("icon-shouqi").removeClass("icon-zhankai").html("收起");
-                history.replaceState({}, "", 'tag.html?tag=' + $("select").val());
-                if ($("select").val() == "rumen" || $("select").val() == "zhenduan") {
+                $(".select").toggleClass("change")//选中选项后下拉菜单收起
+                $(this).attr("select",true).siblings().attr("select",false)
+                $(".show").html($(this).text())
+                $(this).css("backgroundColor","#ccc").siblings().css("backgroundColor","")
+                history.replaceState({}, "", 'tag.html?tag=' + $(this).attr("value"));
+                if ($(this).attr("value") == "rumen" || $(this).attr("value") == "zhenduan") {
                     $(".choose").hide();
-                } else if ($("select").val() == "technical" || $("select").val() == "domain" || $("select").val() == "serviceGroups") {
+                } else if ($(this).attr("value") == "technical" || $(this).attr("value") == "domain" || $(this).attr("value") == "serviceGroups") {
                     $(".choose").show();
                     $(".more").show()
                 } else {
@@ -468,9 +514,9 @@
                     $(".more").hide()
                 }
                 $(".choose").children("ul").remove();
-                $(".choose .more").before(template($("select").val(), {}));
+                $(".choose .more").before(template($(this).attr("value"), {}));
                 // 切换下拉菜单时，发送ajax获取新课程
-                Conditions.type = $("select").val();
+                Conditions.type = $(this).attr("value");
                 Conditions.value = "all";
                 console.log(JSON.stringify(Conditions))
                 $.ajax({
@@ -489,7 +535,7 @@
                 page = 1;
                 $(this).addClass("active").siblings().removeClass("active");
                 // 根据选择的子标签，更新课程列表
-                Conditions.type = $("select").val();
+                Conditions.type = $(".select span[select='true']").text();
                 Conditions.value = $(this).data("id");
                 console.log(Conditions)
                 $.ajax({
